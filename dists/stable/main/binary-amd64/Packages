@@ -133,6 +133,51 @@ Size: 4062808
 MD5sum: cb3204a0a6c7071a381ae34ba72b02fb
 SHA256: 1b8c33bd6ddc09c9116a1b841d38d37ae5a005a7eb6c506e2f74d24c42cd2b7a
 
+Package: quipu
+Version: 0.12.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.12.0 release archive.
+ Upstream archive sha256: e3feec42e151047247bb0477769d5f33a59c080a0a53e5a8e7bceb90001de7fd
+Filename: pool/stable/quipu/quipu_0.12.0_amd64.deb
+Size: 17079196
+MD5sum: e4eaa578653fd55baf662b2c3fa0c482
+SHA256: 80db6a9b792ca8e4e3e261ffbbd24cd4b59a455cb06cc6c3d67dabd1109d55c6
+
+Package: quipu
+Version: 0.12.1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.12.1 release archive.
+ Upstream archive sha256: db82c6beaf43526c713f1679934d6968a5576c46a4a8c4b09114273abe7c3ec2
+Filename: pool/stable/quipu/quipu_0.12.1_amd64.deb
+Size: 17170880
+MD5sum: 95b5be233db0a21f241a1809070e4b41
+SHA256: 84f1df16e8be19315cfbca462c67050f878879b022c8ef5e33b6d0fde7d45182
+
+Package: quipu
+Version: 0.13.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.13.0 release archive.
+ Upstream archive sha256: 1158b69c30c7eb83a4ad1c0c4d35c04f1dfea71dca889f3a8f0896dcc81a17f6
+Filename: pool/stable/quipu/quipu_0.13.0_amd64.deb
+Size: 15672648
+MD5sum: 00c874ea1bd518149138feebb425fae3
+SHA256: 0552fcee3e332744720145d4a8ae4753af964cee58b90a91fcdbc167631cf384
+
 Package: seeds
 Version: 0.2.5
 Architecture: amd64
@@ -177,3 +222,48 @@ Filename: pool/stable/seeds/seeds_0.3.0_amd64.deb
 Size: 6704660
 MD5sum: 9e5cb0e7686b2a526d66028c117e9950
 SHA256: 9543666bf8b1d60e5bdea7926a5aa54ee92911bf118f29f9d7e18ca98d01f9bc
+
+Package: yupana
+Version: 0.12.5
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.12.5 release archive.
+ Upstream archive sha256: cc58dfbdc36ee1bdb75b363487d43ce3e520de7cba0993563008976c2f1cbd62
+Filename: pool/stable/yupana/yupana_0.12.5_amd64.deb
+Size: 5789028
+MD5sum: a378518af43bc6415827b46aedb1806a
+SHA256: fa5d3ca83e9744babefe90a65dd6e8fbe883753ac92903b92e6f7cef326dc639
+
+Package: yupana
+Version: 0.12.6
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.12.6 release archive.
+ Upstream archive sha256: 72570cefa4b075869558b864d606ad73ca5c1842d52fedded22540fc101d5ceb
+Filename: pool/stable/yupana/yupana_0.12.6_amd64.deb
+Size: 5787172
+MD5sum: aafc45b1b07a754c5d13807790e6575e
+SHA256: d6c95364b037aed809396e52378314db426aea85c7ee7fd67fe7a10a467a5503
+
+Package: yupana
+Version: 0.12.7
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.12.7 release archive.
+ Upstream archive sha256: 44bfefb529a5977cd6ced67e662ca1cab87ec53e62a4cdf173ebbb367b5f8667
+Filename: pool/stable/yupana/yupana_0.12.7_amd64.deb
+Size: 5791584
+MD5sum: fae3872e5594bdb0b8636ccf507113b4
+SHA256: 2c21e81f948ebdbc35c92922af63360c9fc8bb4fb85e8851f0c967f5d46fa868
