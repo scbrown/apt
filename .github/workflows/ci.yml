@@ -1,0 +1,59 @@
+name: ci
+
+# End-to-end check of the pipeline with a throwaway key: build a real package
+# from a published release, index and sign it, then make a sandboxed apt verify
+# the signature, refuse a wrong key and refuse a tampered index.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Compile
+        run: python3 -m py_compile scripts/build_debs.py scripts/index_repo.py
+      - name: Published key matches FINGERPRINT
+        run: |
+          export GNUPGHOME="$(mktemp -d)"
+          gpg --batch --quiet --import key.asc
+          gpg --batch --with-colons --list-keys | grep -qx "fpr:::::::::$(cat FINGERPRINT):"
+          if grep -q 'PRIVATE KEY' key.asc revoked-*.asc; then echo "private key material in repo"; exit 1; fi
+      - name: Build, index, sign and verify with apt
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          site="$RUNNER_TEMP/site"
+          python3 scripts/build_debs.py --manifest tools.json --pool "$site/pool" --only desire-path --latest 2
+          python3 scripts/index_repo.py --root "$site" --channel stable
+          export GNUPGHOME="$(mktemp -d)"
+          gpg --batch --quiet --passphrase '' --quick-gen-key 'ci throwaway' ed25519 sign 1d
+          gpg --batch --export > "$RUNNER_TEMP/test.gpg"
+          gpg --batch --yes --clearsign -o "$site/dists/stable/InRelease" "$site/dists/stable/Release"
+          (cd "$site" && python3 -m http.server 8765 --bind 127.0.0.1 >/dev/null 2>&1 &)
+          sleep 1
+          apt_root="$RUNNER_TEMP/apt"
+          mkdir -p "$apt_root"/{etc/apt,state/lists/partial,cache/archives/partial}
+          touch "$apt_root/state/status"
+          printf 'Dir::Etc "%s/etc/apt";\nDir::State "%s/state";\nDir::State::status "%s/state/status";\nDir::Cache "%s/cache";\nAPT::Sandbox::User "%s";\nDebug::NoLocking "true";\n' \
+            "$apt_root" "$apt_root" "$apt_root" "$apt_root" "$(id -un)" > "$apt_root/apt.conf"
+          export APT_CONFIG="$apt_root/apt.conf"
+          src() { echo "deb [signed-by=$1 arch=amd64] http://127.0.0.1:8765 stable main" > "$apt_root/etc/apt/sources.list"; rm -rf "$apt_root"/state/lists/*; mkdir -p "$apt_root/state/lists/partial"; }
+          src "$RUNNER_TEMP/test.gpg"
+          apt-get update
+          test "$(apt-cache madison desire-path | wc -l)" -ge 2
+          (cd "$RUNNER_TEMP" && apt-get download desire-path && dpkg-deb -c desire-path_*_amd64.deb | grep -q './usr/bin/dp$')
+          # Wrong key: apt must refuse the repository.
+          src "$PWD/key.gpg"
+          if apt-get update 2>&1 | grep -q 'is not signed'; then echo "wrong key refused"; else echo "wrong key ACCEPTED"; exit 1; fi
+          # Tampered index after signing: apt must refuse it.
+          src "$RUNNER_TEMP/test.gpg"
+          python3 -c 'import gzip,sys;p=sys.argv[1];d=gzip.open(p).read().replace(b"Package: desire-path",b"Package: desire-pathX",1);gzip.open(p,"wb").write(d)' \
+            "$site/dists/stable/main/binary-amd64/Packages.gz"
+          if apt-get update 2>&1 | grep -qiE 'hash sum mismatch|unexpected size'; then echo "tampered index refused"; else echo "tampered index ACCEPTED"; exit 1; fi
