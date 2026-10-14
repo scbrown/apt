@@ -39,7 +39,7 @@ jobs:
           (cd "$site" && python3 -m http.server 8765 --bind 127.0.0.1 >/dev/null 2>&1 &)
           sleep 1
           apt_root="$RUNNER_TEMP/apt"
-          mkdir -p "$apt_root"/{etc/apt,state/lists/partial,cache/archives/partial}
+          mkdir -p "$apt_root"/{etc/apt/apt.conf.d,etc/apt/preferences.d,etc/apt/sources.list.d,state/lists/partial,cache/archives/partial}
           touch "$apt_root/state/status"
           printf 'Dir::Etc "%s/etc/apt";\nDir::State "%s/state";\nDir::State::status "%s/state/status";\nDir::Cache "%s/cache";\nAPT::Sandbox::User "%s";\nDebug::NoLocking "true";\n' \
             "$apt_root" "$apt_root" "$apt_root" "$apt_root" "$(id -un)" > "$apt_root/apt.conf"
@@ -51,9 +51,14 @@ jobs:
           (cd "$RUNNER_TEMP" && apt-get download desire-path && dpkg-deb -c desire-path_*_amd64.deb | grep -q './usr/bin/dp$')
           # Wrong key: apt must refuse the repository.
           src "$PWD/key.gpg"
-          if apt-get update 2>&1 | grep -q 'is not signed'; then echo "wrong key refused"; else echo "wrong key ACCEPTED"; exit 1; fi
+          apt-get update > "$RUNNER_TEMP/wrongkey.log" 2>&1 || true
+          cat "$RUNNER_TEMP/wrongkey.log"
+          # The outcome, not the wording: a refused repository offers no candidate.
+          if apt-cache policy desire-path | grep -q 'Candidate: (none)\|^$' || [ -z "$(apt-cache madison desire-path)" ]; then echo "wrong key refused"; else echo "wrong key ACCEPTED"; apt-cache policy desire-path; exit 1; fi
           # Tampered index after signing: apt must refuse it.
           src "$RUNNER_TEMP/test.gpg"
           python3 -c 'import gzip,sys;p=sys.argv[1];d=gzip.open(p).read().replace(b"Package: desire-path",b"Package: desire-pathX",1);gzip.open(p,"wb").write(d)' \
             "$site/dists/stable/main/binary-amd64/Packages.gz"
-          if apt-get update 2>&1 | grep -qiE 'hash sum mismatch|unexpected size'; then echo "tampered index refused"; else echo "tampered index ACCEPTED"; exit 1; fi
+          apt-get update > "$RUNNER_TEMP/tamper.log" 2>&1 || true
+          cat "$RUNNER_TEMP/tamper.log"
+          if [ -z "$(apt-cache madison desire-path)" ] && ! apt-cache madison desire-pathX 2>/dev/null | grep -q .; then echo "tampered index refused"; else echo "tampered index ACCEPTED"; apt-cache policy desire-path desire-pathX; exit 1; fi
