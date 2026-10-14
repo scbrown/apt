@@ -9,6 +9,7 @@ Output is deterministic for a given pool, so an unchanged pool republishes
 byte-identical indexes.
 """
 import argparse
+import datetime
 import email.utils
 import gzip
 import hashlib
@@ -18,6 +19,10 @@ import subprocess
 import sys
 
 ARCHES = ["amd64", "arm64"]
+# A signed Release expires so a stale copy cannot be replayed to clients; it is
+# re-signed well before expiry even when no package changed.
+VALID_DAYS = 10
+REFRESH_DAYS = 3
 
 
 def control(deb: pathlib.Path) -> str:
@@ -63,14 +68,16 @@ def main() -> int:
         for name in ("Packages", "Packages.gz"):
             blob = (d / name).read_bytes()
             files.append((f"main/binary-{arch}/{name}", blob))
-    when = args.date or email.utils.formatdate(
-        max((p.stat().st_mtime for p in debs), default=0), usegmt=True)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    when = args.date or email.utils.format_datetime(now, usegmt=True)
+    until = email.utils.format_datetime(now + datetime.timedelta(days=VALID_DAYS), usegmt=True)
     lines = [
         "Origin: scbrown",
         "Label: scbrown stack",
         f"Suite: {args.channel}",
         f"Codename: {args.channel}",
         f"Date: {when}",
+        f"Valid-Until: {until}",
         "Architectures: " + " ".join(ARCHES),
         "Components: main",
         "Description: Quipu tool stack, repackaged from checksum-verified releases",
@@ -80,12 +87,16 @@ def main() -> int:
         lines.append(f" {hashlib.sha256(blob).hexdigest()} {len(blob):>16} {name}")
     text = "\n".join(lines) + "\n"
     release = dist / "Release"
-    strip = lambda t: "\n".join(l for l in t.splitlines() if not l.startswith("Date:"))
-    # A fresh checkout gives every .deb a new mtime. Keep the old Release (and so
-    # the old signature) when nothing but the Date would change.
+    dated = ("Date:", "Valid-Until:")
+    strip = lambda t: "\n".join(l for l in t.splitlines() if not l.startswith(dated))
+    # Keep the old Release (and its signature) when only the dates would change
+    # and it stays valid for more than REFRESH_DAYS; otherwise refresh it.
     if release.exists() and strip(release.read_text()) == strip(text):
-        print(f"{args.channel}: {len(debs)} packages, Release unchanged")
-        return 0
+        old_until = next((l.split(":", 1)[1].strip() for l in release.read_text().splitlines()
+                          if l.startswith("Valid-Until:")), None)
+        if old_until and email.utils.parsedate_to_datetime(old_until) - now > datetime.timedelta(days=REFRESH_DAYS):
+            print(f"{args.channel}: {len(debs)} packages, Release unchanged")
+            return 0
     release.write_text(text)
     print(f"{args.channel}: {len(debs)} packages, Release written")
     return 0

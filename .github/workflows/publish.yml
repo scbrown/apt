@@ -52,8 +52,9 @@ jobs:
             rel="site/dists/$channel/Release"
             before="$(sha256sum "$rel" 2>/dev/null || true)"
             python3 scripts/index_repo.py --root site --channel "$channel"
-            if [ "$before" = "$(sha256sum "$rel")" ] && [ -s "site/dists/$channel/InRelease" ]; then
-              continue  # unchanged index keeps its existing signature
+            signer="$(gpg --batch --status-fd 1 --verify "site/dists/$channel/InRelease" 2>/dev/null | awk '/VALIDSIG/{print $3; exit}' || true)"
+            if [ "$before" = "$(sha256sum "$rel")" ] && [ "$signer" = "$fpr" ]; then
+              continue  # unchanged index already signed by the current key
             fi
             gpg --batch --yes --local-user "$fpr" --clearsign -o "site/dists/$channel/InRelease" "$rel"
             gpg --batch --yes --local-user "$fpr" -abs -o "site/dists/$channel/Release.gpg" "$rel"
