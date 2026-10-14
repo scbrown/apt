@@ -1,0 +1,23 @@
+name: sanity
+
+# The first workflow in this repository: keeps main from being CI-dark. It
+# checks that committed Python compiles and that no private key is committed.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  sanity:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Python compiles
+        run: |
+          if compgen -G "scripts/*.py" >/dev/null; then python3 -m py_compile scripts/*.py; fi
+      - name: No private key material
+        run: |
+          if git grep -l 'PRIVATE KEY' -- . ; then echo "private key material committed"; exit 1; fi
