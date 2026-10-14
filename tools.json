@@ -61,8 +61,7 @@
   "yupana": {
     "package": "yupana",
     "bins": [
-      "yupana",
-      "hank"
+      "yupana"
     ],
     "tag_prefix": "v",
     "asset": "yupana-{tag}-{triple}.tar.gz",
@@ -79,8 +78,7 @@
     "package": "quipu",
     "bins": [
       "quipu",
-      "quipu-server",
-      "qp"
+      "quipu-server"
     ],
     "tag_prefix": "quipu-ai-v",
     "asset": "quipu-{tag}-{triple}.tar.gz",
