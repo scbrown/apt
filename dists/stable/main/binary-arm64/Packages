@@ -1,0 +1,134 @@
+Package: bobbin
+Version: 0.27.2
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.27.2 release archive.
+ Upstream archive sha256: f4ee2b9ac9bf297248cd788efcbd39ff84fab0a5e90516da3888b4beeadc2f16
+Filename: pool/stable/bobbin/bobbin_0.27.2_arm64.deb
+Size: 34844504
+MD5sum: 7cb3524983bf7c3cf901829a86267850
+SHA256: f97f4bb5078c1d657b202e5838f4825800fdfa99f17320296e36ccc41ffae28e
+
+Package: bobbin
+Version: 0.27.3
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.27.3 release archive.
+ Upstream archive sha256: 58aadba32318a702442b0e67d738a0e0719fd3ff39b5e988fc8a5322c9f47632
+Filename: pool/stable/bobbin/bobbin_0.27.3_arm64.deb
+Size: 34869696
+MD5sum: 3f03cf2e894c80ccaa49adf8fee571c4
+SHA256: 3c24794f40fbe6c5e59145216ccbdcede4a0e0dccb84c31f42ec94c02ecfc555
+
+Package: bobbin
+Version: 0.28.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.28.0 release archive.
+ Upstream archive sha256: c4665b264f5106ae63ed14b7e9f8d53dec113ee1092c3b4d32ee376b3f5bcd13
+Filename: pool/stable/bobbin/bobbin_0.28.0_arm64.deb
+Size: 34863816
+MD5sum: f385a649f33a2c3510cda2583e1661e4
+SHA256: c21b5056c668bdc1f94ec96497bb39b6eff898d28a377fbbe67072f76963eefc
+
+Package: desire-path
+Version: 0.6.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.6.0 release archive.
+ Upstream archive sha256: a49fff91280b8af3818e0b1363924e239b3ebf3e09668ca22d5b7ec6df905f7d
+Filename: pool/stable/desire-path/desire-path_0.6.0_arm64.deb
+Size: 3427948
+MD5sum: 856b36b30b0ef8020864115569d65902
+SHA256: d0b1910f9be4300c7aa7a65e1b79ecf8f10f8ae8f59d39095dab6d2c6307e977
+
+Package: desire-path
+Version: 0.7.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.7.0 release archive.
+ Upstream archive sha256: 57afd1869c2a98bb53df9e73951fa6f01cb6f01cefd3fa76ba65cb3e19635f36
+Filename: pool/stable/desire-path/desire-path_0.7.0_arm64.deb
+Size: 3511296
+MD5sum: eab278d74838e3c6a0a7fae6042c2362
+SHA256: 11f7a8b8e767696a316ca173b24d6223e6c188a64daeef004f8c1677d8e8406c
+
+Package: desire-path
+Version: 0.7.1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.7.1 release archive.
+ Upstream archive sha256: 968e6817d09baf695b92910f7e4978f59f64ed26170c02c41abcccbb0d454407
+Filename: pool/stable/desire-path/desire-path_0.7.1_arm64.deb
+Size: 3513104
+MD5sum: 8699e803bb0fb5b5c46a2607cc72b815
+SHA256: 795d40fcb5649ca9c5b2a4e641cc231154da821fefe899f2f95ccc80d5594ddb
+
+Package: seeds
+Version: 0.2.5
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.2.5 release archive.
+ Upstream archive sha256: bc3bca6161e31f131c58e5fbcaa2f4bca9996ff01cc3151d3a17a5fc7dca589c
+Filename: pool/stable/seeds/seeds_0.2.5_arm64.deb
+Size: 5939896
+MD5sum: bb6891cef003eef273fe82f8327e5c54
+SHA256: 2dcf1fabdbb0ffe1fc1f5b148742722fc1599a9257d088624651887e67c8ffed
+
+Package: seeds
+Version: 0.2.6
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.2.6 release archive.
+ Upstream archive sha256: eeee7cd87812b5a3e118edf19535a63c3d7709d93fbac3d194243408d455fc97
+Filename: pool/stable/seeds/seeds_0.2.6_arm64.deb
+Size: 5944836
+MD5sum: 3bbf71c05b5958c92f164fcdc9a832f4
+SHA256: 8833cb8cf60dcd150c1e4c41d79102ace03dcf0c5ba255fdee4e1a8882283fb9
+
+Package: seeds
+Version: 0.3.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.3.0 release archive.
+ Upstream archive sha256: 80376b0e3b0ed36645b48d55b5b79765fe9689bcff52c43d2bbce5cf58b443f0
+Filename: pool/stable/seeds/seeds_0.3.0_arm64.deb
+Size: 5938868
+MD5sum: 1f40c33b4597dd1778e0feab7b193a8f
+SHA256: 91a42bf7ea57d454de0bd3c21db44a43bbd739373782d3e2adfc1893a63ccaf4
