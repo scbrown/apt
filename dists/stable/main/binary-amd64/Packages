@@ -88,6 +88,36 @@ Size: 1136320
 MD5sum: 559399c10b9165b52277d0d4ee6d6acd
 SHA256: ce30bb44b7d04cf2971eac7b03d482d27e2497c1139020b28e24cbc6dc97456e
 
+Package: caboodle
+Version: 0.2.21
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/caboodle
+Section: utils
+Priority: optional
+Description: CABOODLE: install and prove the Quipu tool stack
+ Repackaged from the checksum-verified v0.2.21 release archive.
+ Upstream archive sha256: 8739ebd939938fd807296dbf23ace62314c3735cc29389dfa8cb595633c29639
+Filename: pool/stable/caboodle/caboodle_0.2.21_amd64.deb
+Size: 1138368
+MD5sum: 616d9d3954be38d4556dcdabbfe00598
+SHA256: acdb3f2601fb5e21de7ae16ad0a1fd934837bb8fb85037a534dce1d2a40209f6
+
+Package: caboodle
+Version: 0.2.22
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/caboodle
+Section: utils
+Priority: optional
+Description: CABOODLE: install and prove the Quipu tool stack
+ Repackaged from the checksum-verified v0.2.22 release archive.
+ Upstream archive sha256: cdfa55fb2b75b7dec879e960b579763de8c5aac7af827a69af574094181c03af
+Filename: pool/stable/caboodle/caboodle_0.2.22_amd64.deb
+Size: 1139000
+MD5sum: e0dbeaa28cb7c50fda9eacf8f2c6a536
+SHA256: 22ec2e816e5736c2d6df681edf25b8a62c37a2ff527b370766e8b0c9217c18cf
+
 Package: desire-path
 Version: 0.6.0
 Architecture: amd64
