@@ -54,7 +54,7 @@ jobs:
           apt-get update > "$RUNNER_TEMP/wrongkey.log" 2>&1 || true
           cat "$RUNNER_TEMP/wrongkey.log"
           # The outcome, not the wording: a refused repository offers no candidate.
-          if apt-cache policy desire-path | grep -q 'Candidate: (none)\|^$' || [ -z "$(apt-cache madison desire-path)" ]; then echo "wrong key refused"; else echo "wrong key ACCEPTED"; apt-cache policy desire-path; exit 1; fi
+          if [ -z "$(apt-cache madison desire-path)" ]; then echo "wrong key refused"; else echo "wrong key ACCEPTED"; apt-cache policy desire-path; exit 1; fi
           # Tampered index after signing: apt must refuse it.
           src "$RUNNER_TEMP/test.gpg"
           python3 -c 'import gzip,sys;p=sys.argv[1];d=gzip.open(p).read().replace(b"Package: desire-path",b"Package: desire-pathX",1);gzip.open(p,"wb").write(d)' \
