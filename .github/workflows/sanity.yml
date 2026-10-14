@@ -20,4 +20,5 @@ jobs:
           if compgen -G "scripts/*.py" >/dev/null; then python3 -m py_compile scripts/*.py; fi
       - name: No private key material
         run: |
-          if git grep -l 'PRIVATE KEY' -- . ; then echo "private key material committed"; exit 1; fi
+          # Excludes .github so this check cannot match its own pattern.
+          if git grep -l 'BEGIN PGP PRIVATE KEY BLOCK' -- . ':!.github' ; then echo "private key material committed"; exit 1; fi
