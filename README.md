@@ -18,7 +18,7 @@ sudo apt install caboodle
 
 Check the key fingerprint before trusting it:
 `gpg --show-keys /etc/apt/keyrings/scbrown-stack.gpg` must print
-`3448AB3DEF5CFC45422509108BD4E3377AFCE0A1`.
+`AB5625C5612F643BF76464DF0DC99924994EC959`.
 
 ## Channels and pinning
 

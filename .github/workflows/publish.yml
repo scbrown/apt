@@ -1,0 +1,78 @@
+name: publish
+
+# Repackage newly published stack releases and republish the signed apt repo.
+# The poll is the release trigger: no tool repository needs a change or a hand PR.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [release-published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Check out the published tree
+        run: |
+          git fetch origin gh-pages
+          git worktree add site origin/gh-pages
+      - name: Build packages for new releases
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          # One tool's refused or unreadable release must not block the others:
+          # record it, publish what verified, and fail the run at the end.
+          status=0
+          for channel in stable nightly; do
+            python3 scripts/build_debs.py --manifest tools.json --pool site/pool --channel "$channel" --latest 3 || status=1
+          done
+          echo "BUILD_STATUS=$status" >> "$GITHUB_ENV"
+      - name: Index and sign
+        env:
+          APT_SIGNING_KEY: ${{ secrets.APT_SIGNING_KEY }}
+          FINGERPRINT_FILE: FINGERPRINT
+        run: |
+          set -euo pipefail
+          export GNUPGHOME="$(mktemp -d)"
+          trap 'rm -rf "$GNUPGHOME"' EXIT
+          printf '%s\n' "$APT_SIGNING_KEY" | gpg --batch --quiet --import
+          fpr="$(cat "$FINGERPRINT_FILE")"
+          # Refuse to sign with anything but the published repository key.
+          gpg --batch --with-colons --list-secret-keys | grep -qx "fpr:::::::::$fpr:"
+          for channel in stable nightly; do
+            rel="site/dists/$channel/Release"
+            before="$(sha256sum "$rel" 2>/dev/null || true)"
+            python3 scripts/index_repo.py --root site --channel "$channel"
+            if [ "$before" = "$(sha256sum "$rel")" ] && [ -s "site/dists/$channel/InRelease" ]; then
+              continue  # unchanged index keeps its existing signature
+            fi
+            gpg --batch --yes --local-user "$fpr" --clearsign -o "site/dists/$channel/InRelease" "$rel"
+            gpg --batch --yes --local-user "$fpr" -abs -o "site/dists/$channel/Release.gpg" "$rel"
+          done
+          cp key.gpg key.asc site/
+          touch site/.nojekyll
+      - name: Publish
+        run: |
+          cd site
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no new packages"
+            exit 0
+          fi
+          git -c user.name=github-actions -c user.email=github-actions@users.noreply.github.com \
+            commit -q -m "publish $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin HEAD:gh-pages
+      - name: Fail on any refused or unknown release
+        if: env.BUILD_STATUS != '0'
+        run: |
+          echo "at least one release was refused or unreadable; see the build step"
+          exit 1
