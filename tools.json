@@ -1,0 +1,94 @@
+{
+  "_source": {
+    "note": "Vendored from the stack installer table until a shared data-only manifest repository exists; re-check on any upstream asset change.",
+    "table_sha256": "d517c947fb2d3312d4540d24c12f0c82e2c150e33d952b8e1ca39ee0082f6d04"
+  },
+  "seeds": {
+    "package": "seeds",
+    "bins": [
+      "sd"
+    ],
+    "tag_prefix": "seeds-ai-v",
+    "asset": "sd-{tag}-{triple}.tar.gz",
+    "sums": "SHA256SUMS.txt",
+    "arches": [
+      "amd64",
+      "arm64"
+    ],
+    "description": "Seeds: a work-item board on a Quipu knowledge graph"
+  },
+  "desire-path": {
+    "package": "desire-path",
+    "bins": [
+      "dp"
+    ],
+    "tag_prefix": "v",
+    "asset": "desire-path_{ver}_{os}_{arch}.tar.gz",
+    "sums": "checksums.txt",
+    "arches": [
+      "amd64",
+      "arm64"
+    ],
+    "description": "Desire Path: learn the paths agents actually take"
+  },
+  "caboodle": {
+    "package": "caboodle",
+    "bins": [
+      "caboodle"
+    ],
+    "tag_prefix": "v",
+    "asset": "caboodle-{tag}-{triple}.tar.gz",
+    "sums": "sidecar",
+    "arches": [
+      "amd64"
+    ],
+    "description": "CABOODLE: install and prove the Quipu tool stack"
+  },
+  "bobbin": {
+    "package": "bobbin",
+    "bins": [
+      "bobbin"
+    ],
+    "tag_prefix": "v",
+    "asset": "bobbin-{tag}-{triple}.tar.gz",
+    "sums": "SHA256SUMS.txt",
+    "arches": [
+      "amd64",
+      "arm64"
+    ],
+    "description": "Bobbin: semantic code and knowledge search"
+  },
+  "yupana": {
+    "package": "yupana",
+    "bins": [
+      "yupana",
+      "hank"
+    ],
+    "tag_prefix": "v",
+    "asset": "yupana-{tag}-{triple}.tar.gz",
+    "sums": "sidecar",
+    "arches": [
+      "amd64"
+    ],
+    "description": "Yupana: live structural code intelligence",
+    "triples": {
+      "amd64": "x86_64-linux-gnu"
+    }
+  },
+  "quipu": {
+    "package": "quipu",
+    "bins": [
+      "quipu",
+      "quipu-server",
+      "qp"
+    ],
+    "tag_prefix": "quipu-ai-v",
+    "asset": "quipu-{tag}-{triple}.tar.gz",
+    "sums": "sidecar",
+    "arches": [
+      "amd64",
+      "arm64"
+    ],
+    "description": "Quipu: a governed temporal knowledge graph"
+  }
+}

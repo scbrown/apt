@@ -1,0 +1,174 @@
+#!/usr/bin/env python3
+"""Repackage published, checksum-verified release archives as .deb files.
+
+The repository builds nothing from source. Each .deb carries the exact bytes a
+tool's GitHub release published, after verifying them against that release's
+own checksums. A mismatch or a missing checksum refuses the whole tool.
+Packages have no maintainer scripts, so installing one never restarts anything.
+"""
+import argparse
+import hashlib
+import io
+import json
+import os
+import pathlib
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+
+API = "https://api.github.com/repos/scbrown/{repo}/releases?per_page=50"
+TRIPLES = {"amd64": "x86_64-unknown-linux-gnu", "arm64": "aarch64-unknown-linux-gnu"}
+
+
+class Refused(Exception):
+    pass
+
+
+def fetch(url: str) -> bytes:
+    """Download with curl. Python's TLS reads stall on GitHub's release-asset
+    host from some networks while curl does not (measured: headers in 0.17s,
+    then a 30s body read timeout; curl fetched the same 5 MB in 0.3s). The token,
+    when present, goes in through curl's stdin config, never argv."""
+    config = 'user-agent = "scbrown-apt"\n'
+    token = os.environ.get("GITHUB_TOKEN")
+    if token and url.startswith("https://api.github.com/"):
+        config += f'header = "Authorization: Bearer {token}"\n'
+    done = subprocess.run(
+        ["curl", "--fail", "--silent", "--show-error", "--location", "--proto", "=https",
+         "--retry", "4", "--retry-all-errors", "--connect-timeout", "10", "--max-time", "300",
+         "--config", "-", url],
+        input=config.encode(), capture_output=True, check=False)
+    if done.returncode:
+        raise OSError(f"curl exit {done.returncode}: {done.stderr.decode().strip()[:200]}")
+    return done.stdout
+
+
+def releases(repo: str, prefix: str, channel: str) -> list[dict]:
+    """Published releases for one tag family, newest first."""
+    wanted = []
+    for rel in json.loads(fetch(API.format(repo=repo))):
+        if rel.get("draft") or not rel["tag_name"].startswith(prefix):
+            continue
+        if rel.get("prerelease") != (channel == "nightly"):
+            continue
+        wanted.append(rel)
+    return wanted
+
+
+def asset_name(tool: dict, tag: str, version: str, arch: str) -> str:
+    triple = tool.get("triples", {}).get(arch, TRIPLES[arch])
+    return tool["asset"].format(tag=tag, ver=version, triple=triple, os="linux", arch=arch)
+
+
+def expected_sha(tool: dict, rel: dict, name: str) -> str:
+    assets = {a["name"]: a["browser_download_url"] for a in rel["assets"]}
+    if tool["sums"] == "sidecar":
+        if name + ".sha256" not in assets:
+            raise Refused(f"{name}: no published .sha256 sidecar")
+        text = fetch(assets[name + ".sha256"]).decode()
+        return text.split()[0].lower()
+    if tool["sums"] not in assets:
+        raise Refused(f"{rel['tag_name']}: no published {tool['sums']}")
+    for line in fetch(assets[tool["sums"]]).decode().splitlines():
+        parts = line.split()
+        if len(parts) == 2 and parts[1].lstrip("*").split("/")[-1] == name:
+            return parts[0].lower()
+    raise Refused(f"{name}: not listed in {tool['sums']}")
+
+
+def extract_bins(archive: bytes, bins: list[str], dest: pathlib.Path) -> None:
+    found = {}
+    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as tar:
+        for member in tar.getmembers():
+            base = member.name.split("/")[-1]
+            if member.isfile() and base in bins and base not in found:
+                found[base] = tar.extractfile(member).read()
+    missing = [b for b in bins if b not in found]
+    if missing:
+        raise Refused(f"archive lacks {missing}")
+    dest.mkdir(parents=True, exist_ok=True)
+    for name, data in found.items():
+        path = dest / name
+        path.write_bytes(data)
+        path.chmod(0o755)
+
+
+def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> pathlib.Path | None:
+    tag = rel["tag_name"]
+    version = tag[len(tool["tag_prefix"]):]
+    deb = out / f"{tool['package']}_{version}_{arch}.deb"
+    if deb.exists():
+        return None  # published versions are immutable; never rebuild
+    name = asset_name(tool, tag, version, arch)
+    assets = {a["name"]: a["browser_download_url"] for a in rel["assets"]}
+    if name not in assets:
+        raise Refused(f"{tag}: no published {name}")
+    data = fetch(assets[name])
+    got = hashlib.sha256(data).hexdigest()
+    want = expected_sha(tool, rel, name)
+    if got != want:
+        raise Refused(f"{name}: sha256 {got} != published {want}")
+    with tempfile.TemporaryDirectory() as tmp:
+        root = pathlib.Path(tmp) / "pkg"
+        extract_bins(data, tool["bins"], root / "usr/bin")
+        (root / "DEBIAN").mkdir(parents=True)
+        control = (
+            f"Package: {tool['package']}\n"
+            f"Version: {version}\n"
+            f"Architecture: {arch}\n"
+            "Maintainer: Steve Brown <scbrown@users.noreply.github.com>\n"
+            f"Homepage: https://github.com/scbrown/{tool_id}\n"
+            "Section: utils\n"
+            "Priority: optional\n"
+            f"Description: {tool['description']}\n"
+            f" Repackaged from the checksum-verified {tag} release archive.\n"
+            f" Upstream archive sha256: {got}\n"
+        )
+        (root / "DEBIAN/control").write_text(control)
+        out.mkdir(parents=True, exist_ok=True)
+        subprocess.run(["dpkg-deb", "--root-owner-group", "-Zxz", "--build", str(root), str(deb)],
+                       check=True, stdout=subprocess.DEVNULL)
+    return deb
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--manifest", type=pathlib.Path, default=pathlib.Path("tools.json"))
+    parser.add_argument("--pool", type=pathlib.Path, required=True)
+    parser.add_argument("--channel", choices=["stable", "nightly"], default="stable")
+    parser.add_argument("--only", nargs="*", help="limit to these manifest keys")
+    parser.add_argument("--latest", type=int, default=1, help="releases per tool to keep building")
+    args = parser.parse_args()
+    manifest = json.loads(args.manifest.read_text())
+    failures = 0
+    for tool_id, tool in manifest.items():
+        if tool_id.startswith("_"):
+            continue
+        if args.only and tool_id not in args.only:
+            continue
+        try:
+            rels = releases(tool_id, tool["tag_prefix"], args.channel)[: args.latest]
+        except Exception as error:  # an unreadable API is UNKNOWN, not "no release"
+            print(f"UNKNOWN {tool_id}: {error}", file=sys.stderr)
+            failures += 1
+            continue
+        if not rels:
+            print(f"none {tool_id} ({args.channel})")
+        for rel in rels:
+            for arch in tool["arches"]:
+                try:
+                    deb = build(tool_id, tool, rel, arch, args.pool / args.channel / tool["package"])
+                    print(f"{'built' if deb else 'exists'} {tool_id} {rel['tag_name']} {arch}")
+                except Refused as error:
+                    print(f"REFUSED {tool_id} {rel['tag_name']} {arch}: {error}", file=sys.stderr)
+                    failures += 1
+                except Exception as error:  # network or API failure: UNKNOWN, never "built"
+                    print(f"UNKNOWN {tool_id} {rel['tag_name']} {arch}: {error}", file=sys.stderr)
+                    failures += 1
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
