@@ -133,6 +133,21 @@ Size: 1155800
 MD5sum: 56f92b0c9e0ea325b9b4aef62ff53e4e
 SHA256: bbc9be86b41317068b2110aa3d6c1ed46ba7c41a6a09eb107e67dc4b7514076a
 
+Package: caboodle
+Version: 0.3.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/caboodle
+Section: utils
+Priority: optional
+Description: CABOODLE: install and prove the Quipu tool stack
+ Repackaged from the checksum-verified v0.3.0 release archive.
+ Upstream archive sha256: 655a3d7c594d97f5310529d115923ed957c7eb082e10502d499157ebc8f5d8ca
+Filename: pool/stable/caboodle/caboodle_0.3.0_amd64.deb
+Size: 1289680
+MD5sum: d58cb63a0b8c5249e80d2e10a1e11a28
+SHA256: 6fa9b190ad6775f38c07a9ed9083e1742c04644a96b49f6b5d79f4b4900c6ec5
+
 Package: desire-path
 Version: 0.6.0
 Architecture: amd64
@@ -312,6 +327,21 @@ Filename: pool/stable/seeds/seeds_0.4.0_amd64.deb
 Size: 6834824
 MD5sum: 9d2534b51ddbddd97c064981c45f5952
 SHA256: b7962823ac194834a45529e1018d906eb39dc9f5dd535eca6e7f6021ffd60619
+
+Package: seeds
+Version: 0.4.1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.4.1 release archive.
+ Upstream archive sha256: b417191644b508c3b0f92dd4a8b14a8a6148d40ff5ae4edc82376ce36017d2ea
+Filename: pool/stable/seeds/seeds_0.4.1_amd64.deb
+Size: 6838996
+MD5sum: 75277a16f6bbc23785e000a0079db5d9
+SHA256: 5c7c49dc45b751b5723253585c16fcf6bac9c3a46c1282e817bcca53df651e73
 
 Package: yupana
 Version: 0.12.5
