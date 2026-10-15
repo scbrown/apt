@@ -238,6 +238,21 @@ Size: 15835000
 MD5sum: 7eca8ce3d74a5b7966405e18d14e1af7
 SHA256: ad356d2dc03f32c09e26862f3cf1a35338f8a785681df448d8f5db9e6aad4975
 
+Package: quipu
+Version: 0.14.1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.14.1 release archive.
+ Upstream archive sha256: 2796536df83381e6f17aa96446c750460002155ab6213e3e97360b1f893ff4b6
+Filename: pool/stable/quipu/quipu_0.14.1_amd64.deb
+Size: 15822972
+MD5sum: 2a079ee08b3863e07de45b98124928d0
+SHA256: dc2ee3a61a124a6bb29565504ef3be27b07ecefabd1cee11f3c8fda82256131e
+
 Package: seeds
 Version: 0.2.5
 Architecture: amd64
@@ -282,6 +297,21 @@ Filename: pool/stable/seeds/seeds_0.3.0_amd64.deb
 Size: 6704660
 MD5sum: 9e5cb0e7686b2a526d66028c117e9950
 SHA256: 9543666bf8b1d60e5bdea7926a5aa54ee92911bf118f29f9d7e18ca98d01f9bc
+
+Package: seeds
+Version: 0.4.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.4.0 release archive.
+ Upstream archive sha256: 30ff75b00ebca64bb0ec691d80271f43863a430dc796be9265598a3cbadd8dc9
+Filename: pool/stable/seeds/seeds_0.4.0_amd64.deb
+Size: 6834824
+MD5sum: 9d2534b51ddbddd97c064981c45f5952
+SHA256: b7962823ac194834a45529e1018d906eb39dc9f5dd535eca6e7f6021ffd60619
 
 Package: yupana
 Version: 0.12.5
