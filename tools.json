@@ -34,7 +34,8 @@
   "caboodle": {
     "package": "caboodle",
     "bins": [
-      "caboodle"
+      "caboodle",
+      "tambo"
     ],
     "tag_prefix": "v",
     "asset": "caboodle-{tag}-{triple}.tar.gz",
