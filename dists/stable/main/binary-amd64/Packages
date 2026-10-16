@@ -43,6 +43,21 @@ Size: 29897464
 MD5sum: 9921dbc2f71d52e904797d87a62cdcce
 SHA256: 6256c49f6013907b7af9d86eb3029563ae31f7fad11991629c89a4b5f2adb3b4
 
+Package: bobbin
+Version: 0.29.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.29.0 release archive.
+ Upstream archive sha256: 3637828e19b5c1c5e645bbc094e7ae8f48adf88d9eba26d2e063c985b39a91d6
+Filename: pool/stable/bobbin/bobbin_0.29.0_amd64.deb
+Size: 29902776
+MD5sum: 10a56770fcbcbfcc8157d4fdcf43bfd8
+SHA256: ba59bc09b9b9df1ed8ca558227dd1b5709d9c315988ad45cbb128d915ef24e68
+
 Package: caboodle
 Version: 0.2.18
 Architecture: amd64
@@ -252,6 +267,21 @@ Filename: pool/stable/desire-path/desire-path_0.7.1_amd64.deb
 Size: 4062808
 MD5sum: cb3204a0a6c7071a381ae34ba72b02fb
 SHA256: 1b8c33bd6ddc09c9116a1b841d38d37ae5a005a7eb6c506e2f74d24c42cd2b7a
+
+Package: desire-path
+Version: 0.8.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.8.0 release archive.
+ Upstream archive sha256: c473f8047fbe4139910744b51d0ff97b9a1154725a1328a5f631a6fc847433e0
+Filename: pool/stable/desire-path/desire-path_0.8.0_amd64.deb
+Size: 4064076
+MD5sum: 2c624a4e28790f7248f9fb56c824f318
+SHA256: f3b308a917f39fe166c5510e85f2bfdb42a850ce60b5fafd4844e15683828479
 
 Package: quipu
 Version: 0.12.0
@@ -477,3 +507,18 @@ Filename: pool/stable/yupana/yupana_0.13.0_amd64.deb
 Size: 5805544
 MD5sum: 99ed69e2cf0f219fa606e3770aeed118
 SHA256: 8f88b35e0190168486a65b3a6a98b11cb421887e049819f6e749b8684f5cdb16
+
+Package: yupana
+Version: 0.14.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.14.0 release archive.
+ Upstream archive sha256: e0264b4e5313309690feebb3eff5edb283024a6eda9f40a35e74f0b4538e6bdd
+Filename: pool/stable/yupana/yupana_0.14.0_amd64.deb
+Size: 5867344
+MD5sum: 4a171df58fa48a1d7606f835d1d7ec40
+SHA256: 056bcd22a6a8c08d87eff3006e8ed1344264821bb9dc4308f861ccbd789c0127

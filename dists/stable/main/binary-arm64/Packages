@@ -43,6 +43,21 @@ Size: 34863816
 MD5sum: f385a649f33a2c3510cda2583e1661e4
 SHA256: c21b5056c668bdc1f94ec96497bb39b6eff898d28a377fbbe67072f76963eefc
 
+Package: bobbin
+Version: 0.29.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.29.0 release archive.
+ Upstream archive sha256: ecef3d12381759b8e69b3cc350e905aec75a523394b2c7e2d0d862b33a829f71
+Filename: pool/stable/bobbin/bobbin_0.29.0_arm64.deb
+Size: 34983452
+MD5sum: c7bc0ae6a5c3ed2aa476d2fcbf0ceb08
+SHA256: 05237bc7e8f8e083244a23295bf41ebdba0148650854992af710a7954d4cdb98
+
 Package: desire-path
 Version: 0.6.0
 Architecture: arm64
@@ -87,6 +102,21 @@ Filename: pool/stable/desire-path/desire-path_0.7.1_arm64.deb
 Size: 3513104
 MD5sum: 8699e803bb0fb5b5c46a2607cc72b815
 SHA256: 795d40fcb5649ca9c5b2a4e641cc231154da821fefe899f2f95ccc80d5594ddb
+
+Package: desire-path
+Version: 0.8.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.8.0 release archive.
+ Upstream archive sha256: b2935759979bc86d1bf731c84837f9d8b6224f4b857e72d03790fe4973fd7931
+Filename: pool/stable/desire-path/desire-path_0.8.0_arm64.deb
+Size: 3514240
+MD5sum: 368d371682b3acf850747c9e7b1a26b2
+SHA256: f681010a20c4cf992fcb8a28006da03c6d69f2fb59729492f218402fafddcddd
 
 Package: quipu
 Version: 0.12.0
