@@ -31,19 +31,28 @@
     ],
     "description": "Desire Path: learn the paths agents actually take"
   },
-  "caboodle": {
-    "package": "caboodle",
+  "tambo": {
+    "package": "tambo",
     "bins": [
-      "caboodle",
-      "tambo"
+      "tambo",
+      "caboodle"
     ],
     "tag_prefix": "v",
-    "asset": "caboodle-{tag}-{triple}.tar.gz",
+    "asset": "tambo-{tag}-{triple}.tar.gz",
     "sums": "sidecar",
     "arches": [
       "amd64"
     ],
-    "description": "CABOODLE: install and prove the Quipu tool stack"
+    "description": "Tambo: install and prove the Quipu tool stack (formerly CABOODLE)",
+    "relations": {
+      "Breaks": "caboodle (<< 0.3.4-1~)",
+      "Replaces": "caboodle (<< 0.3.4-1~)"
+    },
+    "transitional": {
+      "package": "caboodle",
+      "version": "0.3.4-1",
+      "depends": "tambo (>= 0.3.4)"
+    }
   },
   "bobbin": {
     "package": "bobbin",
@@ -73,7 +82,11 @@
     "description": "Yupana: live structural code intelligence",
     "triples": {
       "amd64": "x86_64-linux-gnu"
-    }
+    },
+    "aliases": {
+      "hank": "yupana"
+    },
+    "debian_revision": "1"
   },
   "quipu": {
     "package": "quipu",
@@ -88,6 +101,10 @@
       "amd64",
       "arm64"
     ],
-    "description": "Quipu: a governed temporal knowledge graph"
+    "description": "Quipu: a governed temporal knowledge graph",
+    "aliases": {
+      "qp": "quipu"
+    },
+    "debian_revision": "1"
   }
 }

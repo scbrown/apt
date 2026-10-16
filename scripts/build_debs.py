@@ -95,10 +95,46 @@ def extract_bins(archive: bytes, bins: list[str], dest: pathlib.Path) -> None:
         path.chmod(0o755)
 
 
+def add_aliases(aliases: dict, bins: list[str], dest: pathlib.Path) -> None:
+    """Relative symlinks for a tool's other command names (qp -> quipu)."""
+    for alias, target in aliases.items():
+        if target not in bins or alias in bins or "/" in alias:
+            raise Refused(f"alias {alias} -> {target}: target must be a packaged binary")
+        (dest / alias).symlink_to(target)
+
+
+def control_text(package: str, version: str, arch: str, homepage: str, relations: dict,
+                 description: str, detail: list[str]) -> str:
+    lines = [f"Package: {package}", f"Version: {version}", f"Architecture: {arch}",
+             "Maintainer: Steve Brown <scbrown@users.noreply.github.com>",
+             f"Homepage: {homepage}", "Section: utils", "Priority: optional"]
+    lines += [f"{field}: {value}" for field, value in relations.items()]
+    lines.append(f"Description: {description}")
+    lines += [f" {line}" for line in detail]
+    return "\n".join(lines) + "\n"
+
+
+def pack(root: pathlib.Path, control: str, deb: pathlib.Path) -> None:
+    (root / "DEBIAN").mkdir(parents=True, exist_ok=True)
+    (root / "DEBIAN/control").write_text(control)
+    deb.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["dpkg-deb", "--root-owner-group", "-Zxz", "--build", str(root), str(deb)],
+                   check=True, stdout=subprocess.DEVNULL)
+
+
+def deb_version(tool: dict, version: str) -> str:
+    """The upstream version, plus the manifest's Debian revision when it has one.
+    A revision lets a packaging change (new aliases) reach an already-published
+    upstream version without rebuilding an immutable .deb under its old name."""
+    rev = tool.get("debian_revision")
+    return f"{version}-{rev}" if rev else version
+
+
 def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> pathlib.Path | None:
     tag = rel["tag_name"]
     version = tag[len(tool["tag_prefix"]):]
-    deb = out / f"{tool['package']}_{version}_{arch}.deb"
+    debver = deb_version(tool, version)
+    deb = out / f"{tool['package']}_{debver}_{arch}.deb"
     if deb.exists():
         return None  # published versions are immutable; never rebuild
     name = asset_name(tool, tag, version, arch)
@@ -113,23 +149,29 @@ def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> 
     with tempfile.TemporaryDirectory() as tmp:
         root = pathlib.Path(tmp) / "pkg"
         extract_bins(data, tool["bins"], root / "usr/bin")
-        (root / "DEBIAN").mkdir(parents=True)
-        control = (
-            f"Package: {tool['package']}\n"
-            f"Version: {version}\n"
-            f"Architecture: {arch}\n"
-            "Maintainer: Steve Brown <scbrown@users.noreply.github.com>\n"
-            f"Homepage: https://github.com/scbrown/{tool_id}\n"
-            "Section: utils\n"
-            "Priority: optional\n"
-            f"Description: {tool['description']}\n"
-            f" Repackaged from the checksum-verified {tag} release archive.\n"
-            f" Upstream archive sha256: {got}\n"
-        )
-        (root / "DEBIAN/control").write_text(control)
-        out.mkdir(parents=True, exist_ok=True)
-        subprocess.run(["dpkg-deb", "--root-owner-group", "-Zxz", "--build", str(root), str(deb)],
-                       check=True, stdout=subprocess.DEVNULL)
+        add_aliases(tool.get("aliases", {}), tool["bins"], root / "usr/bin")
+        pack(root, control_text(
+            tool["package"], debver, arch, f"https://github.com/scbrown/{tool_id}",
+            tool.get("relations", {}), tool["description"],
+            [f"Repackaged from the checksum-verified {tag} release archive.",
+             f"Upstream archive sha256: {got}"]), deb)
+    return deb
+
+
+def build_transitional(tool_id: str, tool: dict, arch: str, pool: pathlib.Path) -> pathlib.Path | None:
+    """A file-less package that keeps an old package name installable and moves
+    its users to this tool (caboodle -> tambo). It has a fixed version, so it is
+    built once and, like every other .deb here, never rebuilt."""
+    spec = tool["transitional"]
+    deb = pool / spec["package"] / f"{spec['package']}_{spec['version']}_{arch}.deb"
+    if deb.exists():
+        return None
+    with tempfile.TemporaryDirectory() as tmp:
+        pack(pathlib.Path(tmp) / "pkg", control_text(
+            spec["package"], spec["version"], arch, f"https://github.com/scbrown/{tool_id}",
+            {"Depends": spec["depends"]}, f"transitional package for {tool['package']}",
+            [f"{spec['package']} is now {tool['package']}; this package only installs it.",
+             "It can be removed once nothing depends on it."]), deb)
     return deb
 
 
@@ -167,6 +209,10 @@ def main() -> int:
                 except Exception as error:  # network or API failure: UNKNOWN, never "built"
                     print(f"UNKNOWN {tool_id} {rel['tag_name']} {arch}: {error}", file=sys.stderr)
                     failures += 1
+        if rels and "transitional" in tool:
+            for arch in tool["arches"]:
+                deb = build_transitional(tool_id, tool, arch, args.pool / args.channel)
+                print(f"{'built' if deb else 'exists'} {tool['transitional']['package']} (transitional) {arch}")
     return 1 if failures else 0
 
 
