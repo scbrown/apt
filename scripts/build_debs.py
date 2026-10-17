@@ -231,7 +231,9 @@ def main() -> int:
                 except Exception as error:  # network or API failure: UNKNOWN, never "built"
                     print(f"UNKNOWN {tool_id} {rel['tag_name']} {arch}: {error}", file=sys.stderr)
                     failures += 1
-        if "transitional" in tool:
+        # Only a channel that has releases of this tool can carry its transition
+        # (tambo publishes no prereleases, so nightly has nothing to depend on).
+        if rels and "transitional" in tool:
             for arch in tool["arches"]:
                 try:
                     deb = build_transitional(tool_id, tool, arch, args.pool / args.channel)

@@ -5,6 +5,7 @@ Review finding (PR 5): when every tambo build refused, the builder still emitted
 caboodle 0.3.4-1 Depends tambo, and the publisher signs a partial pool.
 """
 import importlib.util
+import json
 import pathlib
 import subprocess
 import sys
@@ -62,6 +63,23 @@ class TransitionalGate(unittest.TestCase):
 
     def test_wrong_package_name_refuses(self):
         self.assertEqual(self.run_gate([("tambox", "0.3.4", "amd64")]), "refused")
+
+
+class ChannelWithoutReleases(unittest.TestCase):
+    def test_no_release_in_channel_skips_transition_cleanly(self):
+        # publish.yml runs every channel; tambo has no nightly releases. That must
+        # neither build nor REFUSE the transitional (a refusal fails every run).
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest = pathlib.Path(tmp) / "tools.json"
+            manifest.write_text(json.dumps({"tambo": dict(TOOL, tag_prefix="v", arches=["amd64"])}))
+            saved = build_debs.releases, sys.argv
+            build_debs.releases = lambda repo, prefix, channel: []
+            sys.argv = ["build_debs", "--manifest", str(manifest), "--pool", tmp, "--channel", "nightly"]
+            try:
+                self.assertEqual(build_debs.main(), 0)
+            finally:
+                build_debs.releases, sys.argv = saved
+            self.assertEqual(list(pathlib.Path(tmp).rglob("*.deb")), [])
 
 
 if __name__ == "__main__":
