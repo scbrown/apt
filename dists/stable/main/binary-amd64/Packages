@@ -575,6 +575,23 @@ Size: 1306640
 MD5sum: 1d1a0f145b3053f4b5a381141a32391f
 SHA256: e3a3bdf939c5faa916b5e02bcda2c295c2b4ca8d6063715f8ee62d9c8864aeef
 
+Package: tambo
+Version: 0.3.7
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.3.7 release archive.
+ Upstream archive sha256: 3748754761f8075f3b8a02381029e28303757889925827164aa8f03a3b6b5894
+Filename: pool/stable/tambo/tambo_0.3.7_amd64.deb
+Size: 1271704
+MD5sum: 0938c13909cd8d527644bc6d6afe9795
+SHA256: 495ba5c39daf1b0ee4317401631276d067b0b555cb5570efe907c8d2e381afd5
+
 Package: yupana
 Version: 0.12.5
 Architecture: amd64
