@@ -209,6 +209,22 @@ MD5sum: a6223a265db2ed7b5eb44139e145eb0f
 SHA256: a1aa8328e9ec1e85f9cb7a6c460f6869f4ae49d3fa91df7d11c8a6554ed279c0
 
 Package: caboodle
+Version: 0.3.4-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Depends: tambo (>= 0.3.4)
+Description: transitional package for tambo
+ caboodle is now tambo; this package only installs it.
+ It can be removed once nothing depends on it.
+Filename: pool/stable/caboodle/caboodle_0.3.4-1_amd64.deb
+Size: 812
+MD5sum: 288cbc6f40ac880cb14eb774ad2aa032
+SHA256: 6ccae72a335d7987762ce52e52425216a83438d9a07fd29275253de8cac0c60a
+
+Package: caboodle
 Version: 0.3.4
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -329,6 +345,21 @@ MD5sum: 95b5be233db0a21f241a1809070e4b41
 SHA256: 84f1df16e8be19315cfbca462c67050f878879b022c8ef5e33b6d0fde7d45182
 
 Package: quipu
+Version: 0.13.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.13.0 release archive.
+ Upstream archive sha256: 1158b69c30c7eb83a4ad1c0c4d35c04f1dfea71dca889f3a8f0896dcc81a17f6
+Filename: pool/stable/quipu/quipu_0.13.0-1_amd64.deb
+Size: 15671700
+MD5sum: d31f378b2d4114dd217da834aedffd3f
+SHA256: bd1af495848208124595fca08324e27b94050043cc1e655b8c818f5f5894c7ae
+
+Package: quipu
 Version: 0.13.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -344,6 +375,21 @@ MD5sum: 00c874ea1bd518149138feebb425fae3
 SHA256: 0552fcee3e332744720145d4a8ae4753af964cee58b90a91fcdbc167631cf384
 
 Package: quipu
+Version: 0.14.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.14.0 release archive.
+ Upstream archive sha256: d643e8df4f5e0c28f757ba2b301bfdb048c73602a4493536c8c359a8226798e6
+Filename: pool/stable/quipu/quipu_0.14.0-1_amd64.deb
+Size: 15834688
+MD5sum: 592d803f541fc37600fa6c95f59c0fc6
+SHA256: a57d9fc3d6da5017226fb477668b5901ac14c258ec57641b4cca39ea6e3e265b
+
+Package: quipu
 Version: 0.14.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -357,6 +403,21 @@ Filename: pool/stable/quipu/quipu_0.14.0_amd64.deb
 Size: 15835000
 MD5sum: 7eca8ce3d74a5b7966405e18d14e1af7
 SHA256: ad356d2dc03f32c09e26862f3cf1a35338f8a785681df448d8f5db9e6aad4975
+
+Package: quipu
+Version: 0.14.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.14.1 release archive.
+ Upstream archive sha256: 2796536df83381e6f17aa96446c750460002155ab6213e3e97360b1f893ff4b6
+Filename: pool/stable/quipu/quipu_0.14.1-1_amd64.deb
+Size: 15822656
+MD5sum: fb15a7c1fec9fb8fc81f98f9bfa9d6fb
+SHA256: aa7af1238d2f699586ef73953045200ba7da2b5c36f7b8958e91542416500072
 
 Package: quipu
 Version: 0.14.1
@@ -463,6 +524,57 @@ Size: 6838296
 MD5sum: f35d984092b2f58e9e0b6a7b1815fb4a
 SHA256: 8049a8990ecf828b4f9dcbe915d7a54d177bc86fbf66932470cfbbc5576dadf6
 
+Package: tambo
+Version: 0.3.4
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.3.4 release archive.
+ Upstream archive sha256: 1147f119ef5dec5d9f2e60ce170729052c533e92b9150b65bfc6c5d28e8c082f
+Filename: pool/stable/tambo/tambo_0.3.4_amd64.deb
+Size: 1308476
+MD5sum: c89f84dd407b954c5eadc28eb9ce373c
+SHA256: d6aab7b7d305fa9378c19ae52b0812c2f186d04c85d6b95d792f648a3eb29fa5
+
+Package: tambo
+Version: 0.3.5
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.3.5 release archive.
+ Upstream archive sha256: 525cc427ea39b39faa05fd83f2fb9a9a0666fffa6801ad2dc41f21a9e78af8f3
+Filename: pool/stable/tambo/tambo_0.3.5_amd64.deb
+Size: 1320408
+MD5sum: 5baaf41eaa31b1f9bd6e408e6399286b
+SHA256: adba861af76881a708412f883d63dd98f9369ec3670b9e3529afbb894480110e
+
+Package: tambo
+Version: 0.3.6
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.3.6 release archive.
+ Upstream archive sha256: c8255539422e7c90caf78f0ed67628528f5e0588b36e7393e63f1b84b084a3b8
+Filename: pool/stable/tambo/tambo_0.3.6_amd64.deb
+Size: 1306640
+MD5sum: 1d1a0f145b3053f4b5a381141a32391f
+SHA256: e3a3bdf939c5faa916b5e02bcda2c295c2b4ca8d6063715f8ee62d9c8864aeef
+
 Package: yupana
 Version: 0.12.5
 Architecture: amd64
@@ -494,6 +606,21 @@ MD5sum: aafc45b1b07a754c5d13807790e6575e
 SHA256: d6c95364b037aed809396e52378314db426aea85c7ee7fd67fe7a10a467a5503
 
 Package: yupana
+Version: 0.12.7-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.12.7 release archive.
+ Upstream archive sha256: 44bfefb529a5977cd6ced67e662ca1cab87ec53e62a4cdf173ebbb367b5f8667
+Filename: pool/stable/yupana/yupana_0.12.7-1_amd64.deb
+Size: 5791176
+MD5sum: f610cfea5b57f6859755fdd216ee8d54
+SHA256: 771ab223b9d4a3af309f89aec40bba9cd83eaae2252c3b202914f766b95e8e5a
+
+Package: yupana
 Version: 0.12.7
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -509,6 +636,21 @@ MD5sum: fae3872e5594bdb0b8636ccf507113b4
 SHA256: 2c21e81f948ebdbc35c92922af63360c9fc8bb4fb85e8851f0c967f5d46fa868
 
 Package: yupana
+Version: 0.13.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.13.0 release archive.
+ Upstream archive sha256: dc8acfbb5bab61becf5361767f61bb202116703c4ed13c9cfc5cf555b4654c2e
+Filename: pool/stable/yupana/yupana_0.13.0-1_amd64.deb
+Size: 5802600
+MD5sum: 83a4fe33aadc625c8812320fc19e064d
+SHA256: 2ec7f269456203072cc0d4469fcb5a704e3877305f81681f4281729fde36d110
+
+Package: yupana
 Version: 0.13.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -522,6 +664,21 @@ Filename: pool/stable/yupana/yupana_0.13.0_amd64.deb
 Size: 5805544
 MD5sum: 99ed69e2cf0f219fa606e3770aeed118
 SHA256: 8f88b35e0190168486a65b3a6a98b11cb421887e049819f6e749b8684f5cdb16
+
+Package: yupana
+Version: 0.14.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.14.0 release archive.
+ Upstream archive sha256: e0264b4e5313309690feebb3eff5edb283024a6eda9f40a35e74f0b4538e6bdd
+Filename: pool/stable/yupana/yupana_0.14.0-1_amd64.deb
+Size: 5866148
+MD5sum: 890557e9e9888a1ab29d10528839d8cf
+SHA256: b95cca4758f1b0edb559211bbde5210627131d4e22d19661d1e6fc239481edcf
 
 Package: yupana
 Version: 0.14.0
