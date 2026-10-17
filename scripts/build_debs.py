@@ -12,6 +12,7 @@ import io
 import json
 import os
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
@@ -158,6 +159,22 @@ def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> 
     return deb
 
 
+def satisfying_target(depends: str, arch: str, pool: pathlib.Path) -> pathlib.Path | None:
+    """A .deb already in the pool that satisfies `name (>= version)` for arch."""
+    match = re.fullmatch(r"([a-z0-9.+-]+) \(>= ([^)\s]+)\)", depends)
+    if not match:
+        raise Refused(f"unsupported transitional dependency {depends!r}")
+    name, minimum = match.groups()
+    for candidate in sorted((pool / name).glob(f"{name}_*.deb")):
+        fields = subprocess.run(["dpkg-deb", "--field", str(candidate), "Package", "Version", "Architecture"],
+                                check=True, capture_output=True, text=True).stdout
+        info = dict(line.split(": ", 1) for line in fields.splitlines() if ": " in line)
+        if (info.get("Package") == name and info.get("Architecture") in (arch, "all")
+                and subprocess.run(["dpkg", "--compare-versions", info.get("Version", ""), "ge", minimum]).returncode == 0):
+            return candidate
+    return None
+
+
 def build_transitional(tool_id: str, tool: dict, arch: str, pool: pathlib.Path) -> pathlib.Path | None:
     """A file-less package that keeps an old package name installable and moves
     its users to this tool (caboodle -> tambo). It has a fixed version, so it is
@@ -166,6 +183,11 @@ def build_transitional(tool_id: str, tool: dict, arch: str, pool: pathlib.Path) 
     deb = pool / spec["package"] / f"{spec['package']}_{spec['version']}_{arch}.deb"
     if deb.exists():
         return None
+    # Never publish a package whose dependency the pool cannot satisfy: the
+    # publisher signs a partial pool when another build refused (aegis-0ev review).
+    if not satisfying_target(spec["depends"], arch, pool):
+        raise Refused(f"transitional {spec['package']} {spec['version']}: no verified "
+                      f"{arch} package satisfying '{spec['depends']}' in the pool")
     with tempfile.TemporaryDirectory() as tmp:
         pack(pathlib.Path(tmp) / "pkg", control_text(
             spec["package"], spec["version"], arch, f"https://github.com/scbrown/{tool_id}",
@@ -209,10 +231,14 @@ def main() -> int:
                 except Exception as error:  # network or API failure: UNKNOWN, never "built"
                     print(f"UNKNOWN {tool_id} {rel['tag_name']} {arch}: {error}", file=sys.stderr)
                     failures += 1
-        if rels and "transitional" in tool:
+        if "transitional" in tool:
             for arch in tool["arches"]:
-                deb = build_transitional(tool_id, tool, arch, args.pool / args.channel)
-                print(f"{'built' if deb else 'exists'} {tool['transitional']['package']} (transitional) {arch}")
+                try:
+                    deb = build_transitional(tool_id, tool, arch, args.pool / args.channel)
+                    print(f"{'built' if deb else 'exists'} {tool['transitional']['package']} (transitional) {arch}")
+                except Refused as error:
+                    print(f"REFUSED {tool_id} {error}", file=sys.stderr)
+                    failures += 1
     return 1 if failures else 0
 
 
