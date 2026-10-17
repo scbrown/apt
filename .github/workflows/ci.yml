@@ -17,7 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - name: Compile
-        run: python3 -m py_compile scripts/build_debs.py scripts/index_repo.py
+        run: |
+          python3 -m py_compile scripts/build_debs.py scripts/index_repo.py
+          bash -n tests/e2e-transition.sh
+          python3 tests/test_transitional_gate.py
       - name: Published key matches FINGERPRINT
         run: |
           export GNUPGHOME="$(mktemp -d)"
@@ -62,3 +65,13 @@ jobs:
           apt-get update > "$RUNNER_TEMP/tamper.log" 2>&1 || true
           cat "$RUNNER_TEMP/tamper.log"
           if [ -z "$(apt-cache madison desire-path)" ] && ! apt-cache madison desire-pathX 2>/dev/null | grep -q .; then echo "tampered index refused"; else echo "tampered index ACCEPTED"; apt-cache policy desire-path desire-pathX; exit 1; fi
+      - name: Command aliases and the caboodle -> tambo transition
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          site="$RUNNER_TEMP/transition"
+          python3 scripts/build_debs.py --manifest tools.json --pool "$site/pool" --only tambo quipu yupana --latest 1
+          for deb in "$site"/pool/stable/quipu/*_amd64.deb; do dpkg-deb -c "$deb" | grep -q './usr/bin/qp -> quipu$'; done
+          for deb in "$site"/pool/stable/yupana/*_amd64.deb; do dpkg-deb -c "$deb" | grep -q './usr/bin/hank -> yupana$'; done
+          tests/e2e-transition.sh "$site"
