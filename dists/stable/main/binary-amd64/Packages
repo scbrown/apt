@@ -554,6 +554,21 @@ Size: 6898108
 MD5sum: 9d4f961988517e737f312a4ca06d6341
 SHA256: 6fda6d000fe8c1d6fd4774a5f2425c7c29ea9f6132853eb7d197e561e76b4d4e
 
+Package: seeds
+Version: 0.6.1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.6.1 release archive.
+ Upstream archive sha256: 756c24ca1f2db6b70b1999a2c08702af5c71ce198daacf3ff00bd471b92d71d0
+Filename: pool/stable/seeds/seeds_0.6.1_amd64.deb
+Size: 6901900
+MD5sum: ca3c4fd4116042837f09c4eb3a864715
+SHA256: a34f82b9557b3f3ca58ab073601cce556f31213ccdca98660fb2645e2944ef51
+
 Package: tambo
 Version: 0.3.4
 Architecture: amd64
@@ -621,6 +636,23 @@ Filename: pool/stable/tambo/tambo_0.3.7_amd64.deb
 Size: 1271704
 MD5sum: 0938c13909cd8d527644bc6d6afe9795
 SHA256: 495ba5c39daf1b0ee4317401631276d067b0b555cb5570efe907c8d2e381afd5
+
+Package: tambo
+Version: 0.4.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.4.0 release archive.
+ Upstream archive sha256: 1d216382ec346391b3d7871ac9306905ba5f9a404186218c6b219759b2bc7739
+Filename: pool/stable/tambo/tambo_0.4.0_amd64.deb
+Size: 1430440
+MD5sum: 2e26c3bf06ad790e0110d1c91f5e120c
+SHA256: 6e0cec2211f15bdeee7096d3461b9b7c5e8c029af49f62ac216e000508e15d68
 
 Package: yupana
 Version: 0.12.5
