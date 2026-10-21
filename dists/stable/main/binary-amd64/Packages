@@ -314,6 +314,21 @@ Size: 4064076
 MD5sum: 2c624a4e28790f7248f9fb56c824f318
 SHA256: f3b308a917f39fe166c5510e85f2bfdb42a850ce60b5fafd4844e15683828479
 
+Package: desire-path
+Version: 0.9.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.9.0 release archive.
+ Upstream archive sha256: 2b7da3d95315e4e7bc6335de4c1b353c0711794ece2917786c5548c46d114daf
+Filename: pool/stable/desire-path/desire-path_0.9.0_amd64.deb
+Size: 4065316
+MD5sum: e100a1b574403caca3ad4a23aff816fe
+SHA256: 84c2423a36d5a83e80c6884a2bc10b7dfac40a704029d5f4d8f573ba547a1ee2
+
 Package: quipu
 Version: 0.12.0
 Architecture: amd64
@@ -599,6 +614,21 @@ Size: 6898164
 MD5sum: 02c2b791960a4d6a0eabfe1f36f9148d
 SHA256: 1cef125d630b8edf1da9f86a3f1e685ab9cd0773a1e809e2973bddb2e5900df1
 
+Package: seeds
+Version: 0.6.3
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.6.3 release archive.
+ Upstream archive sha256: 08fcaa8e4a81be946e5d8bd65dbeccd4e5024311cd9ab21a7a4f92980d1ab4e4
+Filename: pool/stable/seeds/seeds_0.6.3_amd64.deb
+Size: 6905348
+MD5sum: bff1f2b353a6f3940102f090e741b20f
+SHA256: cd9a76e53c784652a1ab07af456972d8a716864f34d1c0dc22492e56f575341e
+
 Package: tambo
 Version: 0.3.4
 Architecture: amd64
@@ -835,3 +865,18 @@ Filename: pool/stable/yupana/yupana_0.15.0-1_amd64.deb
 Size: 5947512
 MD5sum: 652ca50a0a8517c63a085471dd927979
 SHA256: 7d9d61d92e91facd4b4abcb40fed3f9d60b32cc5fb5c9fdf8b1a89e7478ece3d
+
+Package: yupana
+Version: 0.15.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.15.1 release archive.
+ Upstream archive sha256: 53adeff15fb6bde2cfaf279823960e656e9c492c8c254c40c594dfa28c94717b
+Filename: pool/stable/yupana/yupana_0.15.1-1_amd64.deb
+Size: 5945476
+MD5sum: 52f34d0a6ace4d2602d00a1b5748d881
+SHA256: c8465fd339377e81b5830e60b499784b902ad7d68ee6e26210c4599ce0fc49d9

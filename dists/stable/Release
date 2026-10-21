@@ -2,13 +2,13 @@ Origin: scbrown
 Label: scbrown stack
 Suite: stable
 Codename: stable
-Date: Wed, 21 Oct 2026 10:42:17 GMT
-Valid-Until: Sat, 31 Oct 2026 10:42:17 GMT
+Date: Wed, 21 Oct 2026 17:42:57 GMT
+Valid-Until: Sat, 31 Oct 2026 17:42:57 GMT
 Architectures: amd64 arm64
 Components: main
 Description: Quipu tool stack, repackaged from checksum-verified releases
 SHA256:
- 5c5658dbd7fab6490a1851691e702049cdc65e2420e42b8cac72b1e240aab20e            32890 main/binary-amd64/Packages
- 00c615b71a24b42603597935b2d1ce258d47c3c2d6856f2cdf9282bf66572b1e             7106 main/binary-amd64/Packages.gz
- f10b33db01a80a1da51412e6b9f914a3beaaad673a64e4ebf8173bd8917f9a75            15993 main/binary-arm64/Packages
- ae6c9fa76253a985cb97e66b63783808b5ab94acb77b68c73970e6e24fe4b7c1             3645 main/binary-arm64/Packages.gz
+ 74b1cacc8ac63f4acc7d2f28a1c0c88719aedc85329ee8d8c4c64a54d7127394            34674 main/binary-amd64/Packages
+ 7d3b6c756bc8661e7c3371459371e6cdde5b9c6c61c1a70c45bf2adf0e0b47d1             7470 main/binary-amd64/Packages.gz
+ f8f4382c3fcea664aad3d25ca92471a230b399b67b1c78d9dbe3f6a46937fc6e            17192 main/binary-arm64/Packages
+ 51d85583a5fb95969b14df18401b54d5c682cb31042b69c37b03a8d9abe5b4eb             3889 main/binary-arm64/Packages.gz
