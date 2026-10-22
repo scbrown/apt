@@ -464,6 +464,21 @@ Size: 16593228
 MD5sum: 63a8c8467517b037da946dcd9a156291
 SHA256: a126e59ec9dc59a2eba88be04674bd5489d1acd7a16c6a0ecb9f0cb9cf3885f9
 
+Package: quipu
+Version: 0.16.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.16.0 release archive.
+ Upstream archive sha256: 77b97a4445cc7c41366f906529ef4ef4dc445bb55ffa45934d7fdc53fea4f6fa
+Filename: pool/stable/quipu/quipu_0.16.0-1_amd64.deb
+Size: 18081492
+MD5sum: fc0019cc69829fa3c86285a95fcdc9d7
+SHA256: a3f6b95a0147a56d895adf19311b6d47352f7bcde490fc13f3ad109207b7d694
+
 Package: seeds
 Version: 0.2.5
 Architecture: amd64
