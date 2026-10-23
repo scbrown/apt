@@ -59,6 +59,21 @@ MD5sum: c7bc0ae6a5c3ed2aa476d2fcbf0ceb08
 SHA256: 05237bc7e8f8e083244a23295bf41ebdba0148650854992af710a7954d4cdb98
 
 Package: desire-path
+Version: 0.10.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.10.0 release archive.
+ Upstream archive sha256: 4b09e6cf14a40b8087e3e1a987e88e3dadce0215cef5260d433fbdad7488b335
+Filename: pool/stable/desire-path/desire-path_0.10.0_arm64.deb
+Size: 3515572
+MD5sum: 9bbedb0d80a8c84d04323e30ab78a5a4
+SHA256: ddbd33701b6a27040c6929ae4e44f1f8458120c2d780bbe399042cecd4566fec
+
+Package: desire-path
 Version: 0.6.0
 Architecture: arm64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -492,3 +507,18 @@ Filename: pool/stable/seeds/seeds_0.6.6_arm64.deb
 Size: 6152496
 MD5sum: 84a3818c53bb0ac44bd3c6672f2a330b
 SHA256: 709bd3b125592a68b1c16455170f4bf1cf3a7b1c7843334738e6d33f545301f8
+
+Package: seeds
+Version: 0.6.7
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.6.7 release archive.
+ Upstream archive sha256: 6aa843d7a08f3853977713f56c31958298f0d870181485ac01c0c53581f7bd3c
+Filename: pool/stable/seeds/seeds_0.6.7_arm64.deb
+Size: 6159644
+MD5sum: 41010e13114eeaefe4f1633135b6c6cf
+SHA256: 7bfeb26ce8b5f5893c948c4cab2d2840e697a17f6677c57880f511057b4ce49f
