@@ -898,6 +898,23 @@ Size: 1436504
 MD5sum: 47210d67d608176d648a7c6f48e1f2ff
 SHA256: f9411ad28d83200e126a116a5bc77a79897ff4977d432a3ee1d1cc0b21e6c5f0
 
+Package: tambo
+Version: 0.6.1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.6.1 release archive.
+ Upstream archive sha256: da9edd244411e9cd34b2e4bc7a4db3219e1b05832289f95f5d1a3a3aa9777134
+Filename: pool/stable/tambo/tambo_0.6.1_amd64.deb
+Size: 1406372
+MD5sum: 90b76ebd6f58bbf2792ea54efb55eae3
+SHA256: 2d7ca36301fd87b1361937259f621de0125c3445b8f41aaab1f6c442f7adbbd3
+
 Package: yupana
 Version: 0.12.5
 Architecture: amd64
@@ -1122,3 +1139,18 @@ Filename: pool/stable/yupana/yupana_0.16.1-1_amd64.deb
 Size: 5945948
 MD5sum: c40dc96476231e5924f0cf9f18eccc65
 SHA256: 0d5e2703bcf960ae8bbc4e741189bef3c4d7877a52b4386067a31db9efd161b4
+
+Package: yupana
+Version: 0.16.2-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.16.2 release archive.
+ Upstream archive sha256: 565507459d3d67b2cc73b6ebd91f784f0522689c5b62257a8fde82793580dc5d
+Filename: pool/stable/yupana/yupana_0.16.2-1_amd64.deb
+Size: 5946484
+MD5sum: 9729f5d4773f282d9bce7777affaacb5
+SHA256: 1460ddc70744eacfe09dee7d0f1cc93a8b3b64ee19ce7be9e1219e63dbd71745
