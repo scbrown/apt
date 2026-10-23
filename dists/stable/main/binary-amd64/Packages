@@ -764,6 +764,21 @@ Size: 6912988
 MD5sum: 94490caf475cb9413499cd8906cbe3a8
 SHA256: e305aff290cd06be7382c569ca2b04a1205fb90da509dcca262be639842be64b
 
+Package: seeds
+Version: 0.7.1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.7.1 release archive.
+ Upstream archive sha256: c3c54f33b2b5c153f8291df8a668514fdbd1e349aa9fc04f8c3cd69375d17ff4
+Filename: pool/stable/seeds/seeds_0.7.1_amd64.deb
+Size: 6919992
+MD5sum: 666dfe6698d13e82ac16ba95a5ef2187
+SHA256: 778b3a997c5007ef8746426d54ddadf9779a2165a2a41888f161d799d7ca4b43
+
 Package: tambo
 Version: 0.3.4
 Architecture: amd64
@@ -865,6 +880,23 @@ Filename: pool/stable/tambo/tambo_0.5.0_amd64.deb
 Size: 1429064
 MD5sum: 9184719aa5a4aed5461b31acc29c8675
 SHA256: 4970c43de09ff9eb4a6a8c9185217e97dc9e5205f071e18e388f96c8ae987abd
+
+Package: tambo
+Version: 0.6.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.6.0 release archive.
+ Upstream archive sha256: 5597ac44d0c79ea66959b0a05c182a9c8da8ba1de7ed924bd4a180dbb077b738
+Filename: pool/stable/tambo/tambo_0.6.0_amd64.deb
+Size: 1436504
+MD5sum: 47210d67d608176d648a7c6f48e1f2ff
+SHA256: f9411ad28d83200e126a116a5bc77a79897ff4977d432a3ee1d1cc0b21e6c5f0
 
 Package: yupana
 Version: 0.12.5
@@ -1075,3 +1107,18 @@ Filename: pool/stable/yupana/yupana_0.16.0-1_amd64.deb
 Size: 5945808
 MD5sum: 6283d30be14f198982bd1a4416bfb368
 SHA256: a063005d60b5947359be104291a387940ca8956a5ac150645f668c92385d787d
+
+Package: yupana
+Version: 0.16.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.16.1 release archive.
+ Upstream archive sha256: 4bcd42d3ea9c50133e212cdca5502e8729a859a3b8c3c59401119a906a5fbd58
+Filename: pool/stable/yupana/yupana_0.16.1-1_amd64.deb
+Size: 5945948
+MD5sum: c40dc96476231e5924f0cf9f18eccc65
+SHA256: 0d5e2703bcf960ae8bbc4e741189bef3c4d7877a52b4386067a31db9efd161b4
