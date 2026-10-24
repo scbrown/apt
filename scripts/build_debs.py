@@ -19,6 +19,8 @@ import sys
 import tarfile
 import tempfile
 
+import canary_gate
+
 API = "https://api.github.com/repos/scbrown/{repo}/releases?per_page=50"
 TRIPLES = {"amd64": "x86_64-unknown-linux-gnu", "arm64": "aarch64-unknown-linux-gnu"}
 
@@ -159,6 +161,27 @@ def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> 
     return deb
 
 
+def promote_seeds(tool, rel, arch, pool, trust):
+    """Stable seeds is promoted from the canary bytes, never independently built."""
+    version = rel["tag_name"][len(tool["tag_prefix"]):]
+    filename = f"seeds_{deb_version(tool, version)}_{arch}.deb"
+    canary = pool / "canary" / "seeds" / filename
+    if not canary.is_file():
+        raise Refused("seeds candidate missing from canary")
+    candidate = canary_gate.package_identity(canary)
+    # Resolve the actual tag, not target_commitish (which may be a moving branch).
+    commit = json.loads(fetch("https://api.github.com/repos/scbrown/seeds/commits/" + rel["tag_name"]))["sha"]
+    candidate.update(repository="scbrown/seeds", tag=rel["tag_name"], commit=commit)
+    if candidate["version"] != deb_version(tool, version) or candidate["architecture"] != arch:
+        raise Refused("seeds canary package differs from release")
+    name = asset_name(tool, rel["tag_name"], version, arch)
+    if candidate["archive_sha256"] != expected_sha(tool, rel, name):
+        raise Refused("seeds canary archive differs from published release")
+    # An Ops runner can consume this public, exact-artifact identity before signing.
+    canary.with_suffix(".candidate.json").write_text(json.dumps(candidate, sort_keys=True, indent=2) + "\n")
+    return canary_gate.promote(canary, pool / "stable" / "seeds" / filename, candidate, trust)
+
+
 def satisfying_target(depends: str, arch: str, pool: pathlib.Path) -> pathlib.Path | None:
     """A .deb already in the pool that satisfies `name (>= version)` for arch."""
     match = re.fullmatch(r"([a-z0-9.+-]+) \(>= ([^)\s]+)\)", depends)
@@ -201,7 +224,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=pathlib.Path, default=pathlib.Path("tools.json"))
     parser.add_argument("--pool", type=pathlib.Path, required=True)
-    parser.add_argument("--channel", choices=["stable", "nightly"], default="stable")
+    parser.add_argument("--channel", choices=["stable", "nightly", "canary"], default="stable")
+    parser.add_argument("--canary-trust", type=pathlib.Path, default=canary_gate.DEFAULT_TRUST)
     parser.add_argument("--only", nargs="*", help="limit to these manifest keys")
     parser.add_argument("--latest", type=int, default=1, help="releases per tool to keep building")
     args = parser.parse_args()
@@ -211,6 +235,8 @@ def main() -> int:
         if tool_id.startswith("_"):
             continue
         if args.only and tool_id not in args.only:
+            continue
+        if args.channel == "canary" and tool_id != "seeds":
             continue
         try:
             rels = releases(tool_id, tool["tag_prefix"], args.channel)[: args.latest]
@@ -223,9 +249,12 @@ def main() -> int:
         for rel in rels:
             for arch in tool["arches"]:
                 try:
-                    deb = build(tool_id, tool, rel, arch, args.pool / args.channel / tool["package"])
+                    if args.channel == "stable" and tool["package"] == "seeds":
+                        deb = promote_seeds(tool, rel, arch, args.pool, args.canary_trust)
+                    else:
+                        deb = build(tool_id, tool, rel, arch, args.pool / args.channel / tool["package"])
                     print(f"{'built' if deb else 'exists'} {tool_id} {rel['tag_name']} {arch}")
-                except Refused as error:
+                except (Refused, canary_gate.Refused) as error:
                     print(f"REFUSED {tool_id} {rel['tag_name']} {arch}: {error}", file=sys.stderr)
                     failures += 1
                 except Exception as error:  # network or API failure: UNKNOWN, never "built"

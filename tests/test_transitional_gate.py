@@ -13,6 +13,7 @@ import tempfile
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 spec = importlib.util.spec_from_file_location("build_debs", ROOT / "scripts/build_debs.py")
 build_debs = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(build_debs)
