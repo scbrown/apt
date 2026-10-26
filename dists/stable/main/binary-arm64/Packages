@@ -687,3 +687,33 @@ Filename: pool/stable/seeds/seeds_0.8.2_arm64.deb
 Size: 6183012
 MD5sum: 613636c4a6cde1f4d31daef0fe158444
 SHA256: 20aef682bb810f5c2bd98adb03d86adf3c27c0c59437aa1d64c320788f4c741c
+
+Package: seeds
+Version: 0.8.3
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.8.3 release archive.
+ Upstream archive sha256: d7c696ae4a9ad8edf222cc77cabe3e44c9bf96cafe076c263ed211a20e6581c9
+Filename: pool/stable/seeds/seeds_0.8.3_arm64.deb
+Size: 6201376
+MD5sum: 47c6114cc6ebd05405f60fb83fd3f6e3
+SHA256: 7e887edb2e91a7835e7a649ce04c7e76408abd156034aa2e1baf88e8efbdbb28
+
+Package: seeds
+Version: 0.9.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.9.0 release archive.
+ Upstream archive sha256: 6751c1815391563026364c4077da0ea79e4d05d974571579a8c60707f290508e
+Filename: pool/stable/seeds/seeds_0.9.0_arm64.deb
+Size: 6204436
+MD5sum: 71cebb4e2f64241a4052ec14116a4fbb
+SHA256: e80c3e56101eb0a4ec2212d33fb450513e8fddefed87adf74d03ef254c9b5dd1
