@@ -73,6 +73,21 @@ Size: 29908992
 MD5sum: 82784c4a3784119bd9f6a0793155cffb
 SHA256: f8e3b3ead7e184acfd187ab88c94a9babd8f861821138083dafdcfc151a69515
 
+Package: bobbin
+Version: 0.31.0
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.31.0 release archive.
+ Upstream archive sha256: 93a18ff467a2f0d8b7cf3acef018ae52f69c69ac6034059978ca525715e8b91c
+Filename: pool/stable/bobbin/bobbin_0.31.0_amd64.deb
+Size: 29891956
+MD5sum: 414e2c04e2ec37e4ebac4b531f52387e
+SHA256: a4ea91537f3eef46e0686247a972c48dfa6455780314fb9e7adf3f7df0beb1fa
+
 Package: caboodle
 Version: 0.2.18
 Architecture: amd64
@@ -568,6 +583,21 @@ Filename: pool/stable/quipu/quipu_0.16.3-1_amd64.deb
 Size: 19020648
 MD5sum: c34b63114d98a50c626871ed508930b0
 SHA256: 277594025dad4b75df6bbfcb0a104ff352741d3d0a359449311274ea871fdcef
+
+Package: quipu
+Version: 0.16.4-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.16.4 release archive.
+ Upstream archive sha256: 579f4927714d091961c3f3f9245c7374ada6265e88067b92d404b5bc1da6e022
+Filename: pool/stable/quipu/quipu_0.16.4-1_amd64.deb
+Size: 19096880
+MD5sum: 211c8e73278dd6f418ff5902e9fa6ba0
+SHA256: 7507d6b3832bae01810621639d195037504fd1380f4b570ba4afad78cb738424
 
 Package: seeds
 Version: 0.2.5
@@ -1083,6 +1113,23 @@ Filename: pool/stable/tambo/tambo_0.6.3_amd64.deb
 Size: 1390872
 MD5sum: cf5f88e1e990e20dba37809a602fb108
 SHA256: 203d5a9293dce762fc913eda99796049d039db7532a6a1ab9b6c29cd02cda00f
+
+Package: tambo
+Version: 0.6.4
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.4-1~)
+Replaces: caboodle (<< 0.3.4-1~)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.6.4 release archive.
+ Upstream archive sha256: 1c433bf409d09b582b2045b2dcf2ad6040e44117f280984ff60a4ffbd27d19e8
+Filename: pool/stable/tambo/tambo_0.6.4_amd64.deb
+Size: 1385072
+MD5sum: c978a080afc13a275924898df683a452
+SHA256: 41cb73835818d91a023b1c91ce7c1fc955f516337948269da792a5f81ab8df46
 
 Package: yupana
 Version: 0.12.5

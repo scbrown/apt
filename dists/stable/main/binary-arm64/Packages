@@ -73,6 +73,21 @@ Size: 34946184
 MD5sum: 239cddd0de0280e345b4676254fd6bd7
 SHA256: dc28db25b035bc11aefdd35865adb2e0e65beb13abdfa9987a5941c8dc412db8
 
+Package: bobbin
+Version: 0.31.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.31.0 release archive.
+ Upstream archive sha256: bbb5172530847337371357d57f02b673a3b398b33049a3cadab4471505a6432d
+Filename: pool/stable/bobbin/bobbin_0.31.0_arm64.deb
+Size: 34974560
+MD5sum: 7ab3c67155658cab02e98583deb828d5
+SHA256: 88c75bfc97d1270ebdf58e91daac5ea849a8773bd727f5b3cb3e0e164815f4e5
+
 Package: desire-path
 Version: 0.10.0
 Architecture: arm64
@@ -372,6 +387,21 @@ Filename: pool/stable/quipu/quipu_0.16.3-1_arm64.deb
 Size: 16931136
 MD5sum: 7fc8443c16c4b87513e29a429f73182d
 SHA256: a61ba32df5c25072430bbab9934f80aa646053666cbdeec03bc9c4b803ecbb1c
+
+Package: quipu
+Version: 0.16.4-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.16.4 release archive.
+ Upstream archive sha256: c9d9df132ca90921121875d3ef6221ae56c4f618a0886004b6d0054b29174afc
+Filename: pool/stable/quipu/quipu_0.16.4-1_arm64.deb
+Size: 17008596
+MD5sum: ef2898507c163978a8112891746a4580
+SHA256: 8b96ce6a5a6432c38f550d0092d59883563cf0f2ae3739b8d11bd4be59b22751
 
 Package: seeds
 Version: 0.2.5
