@@ -479,6 +479,21 @@ MD5sum: efa343aa5692261e94636ea107a43d52
 SHA256: 0485c96042c36c7afa4e924cb07568c8e63bc3a50ee7b0e6aef7e0809f046957
 
 Package: seeds
+Version: 0.10.3
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.10.3 release archive.
+ Upstream archive sha256: 282f517dce00116d608c25524c000bd116a3b86fe76df7ed1a5b834cb8200ede
+Filename: pool/stable/seeds/seeds_0.10.3_arm64.deb
+Size: 6468700
+MD5sum: 549516d1a76eca5bbad6dc9f0b689db4
+SHA256: 0de0c8b311ff48c8b224992d687a614aa4d125bb693d5965da5cd5ba986ddf7f
+
+Package: seeds
 Version: 0.2.5
 Architecture: arm64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
