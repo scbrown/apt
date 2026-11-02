@@ -45,12 +45,12 @@
     ],
     "description": "Tambo: install and prove the Quipu tool stack (formerly CABOODLE)",
     "relations": {
-      "Breaks": "caboodle (<< 0.3.4-1~)",
-      "Replaces": "caboodle (<< 0.3.4-1~)"
+      "Breaks": "caboodle (<< 0.3.5-1~)",
+      "Replaces": "caboodle (<< 0.3.5-1~)"
     },
     "transitional": {
       "package": "caboodle",
-      "version": "0.3.4-1",
+      "version": "0.3.5-1",
       "depends": "tambo (>= 0.3.4)"
     }
   },
