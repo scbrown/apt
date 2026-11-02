@@ -345,6 +345,21 @@ MD5sum: c50a3c9ea6827d6f032dd6cc48593a47
 SHA256: a0bded29ab989afa3adba76d80384cfd0e5fe6ebb6f08d8957fda7aa43ac5d7c
 
 Package: desire-path
+Version: 0.11.1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.11.1 release archive.
+ Upstream archive sha256: 46483a949baf6c20e9c8fc7632bcca8032782a1a79a0c65bdf06112dbb251afc
+Filename: pool/stable/desire-path/desire-path_0.11.1_amd64.deb
+Size: 4078208
+MD5sum: be2281e9b9646a3f6a155cabc91c12ce
+SHA256: fb69617beccf2cdabd90e9a2fb89a6917b9af25b16da83a35a034524d0b1ef45
+
+Package: desire-path
 Version: 0.6.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
