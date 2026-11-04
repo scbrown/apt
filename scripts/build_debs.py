@@ -104,6 +104,116 @@ def add_aliases(aliases: dict, bins: list[str], dest: pathlib.Path) -> None:
         (dest / alias).symlink_to(target)
 
 
+def runtime_depends(bindir: pathlib.Path, bins: list[str], arch: str) -> str:
+    """Inspect ELF requirements without executing release binaries.
+
+    This is deliberately a narrow GNU/Linux ABI policy, not a general shlibs
+    resolver. New sonames or newer GCC/C++ symbol families require review.
+    Libraries loaded with dlopen (notably ONNX) are outside DT_NEEDED coverage.
+    """
+    machines = {"amd64": "Advanced Micro Devices X86-64", "arm64": "AArch64"}
+    loaders = {"amd64": "ld-linux-x86-64.so.2", "arm64": "ld-linux-aarch64.so.1"}
+    libraries = {"libc.so.6": "libc6", "libm.so.6": "libc6",
+                 "libpthread.so.0": "libc6", "libdl.so.2": "libc6",
+                 "librt.so.1": "libc6", "libgcc_s.so.1": "libgcc-s1",
+                 "libstdc++.so.6": "libstdc++6", loaders[arch]: "libc6"}
+    allowed = {"GCC_3.0", "GCC_3.3", "GCC_3.3.1", "GCC_3.4", "GCC_3.4.2",
+               "GCC_3.4.4", "GCC_4.0.0", "GCC_4.2.0", "GLIBCXX_3.4", "CXXABI_1.3"}
+    needed_packages = set()
+    glibc = []
+    for name in bins:
+        binary = bindir / name
+        if binary.read_bytes()[:4] != b"\x7fELF":
+            raise Refused(f"{name}: expected a Linux ELF binary")
+        def readelf(*flags):
+            return subprocess.run(["readelf", "--wide", *flags, str(binary)],
+                                  check=True, capture_output=True, text=True,
+                                  env=dict(os.environ, LC_ALL="C")).stdout
+        header = readelf("--file-header")
+        machine = re.search(r"^\s*Machine:\s*(.+)$", header, re.M)
+        if (not machine or machine[1].strip() != machines[arch] or "ELF64" not in header
+                or "little endian" not in header):
+            raise Refused(f"{name}: ELF architecture does not match {arch}")
+        elf_type = re.search(r"^\s*Type:\s*(\S+)", header, re.M)
+        if not elf_type or elf_type[1] not in {"EXEC", "DYN"}:
+            raise Refused(f"{name}: ELF is not an executable or PIE")
+        program = readelf("--program-headers")
+        if not re.search(r"^\s*LOAD\s", program, re.M):
+            raise Refused(f"{name}: ELF has no loadable segments")
+        interpreter = re.search(r"Requesting program interpreter: ([^]]+)", program)
+        interp_paths = {"amd64": {"/lib64/ld-linux-x86-64.so.2",
+                                  "/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"},
+                        "arm64": {"/lib/ld-linux-aarch64.so.1",
+                                  "/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"}}
+        if interpreter and interpreter[1] not in interp_paths[arch]:
+            raise Refused(f"{name}: unqualified ELF interpreter {interpreter[1]}")
+        dynamic = readelf("--dynamic")
+        sonames = re.findall(r"\(NEEDED\).*?\[([^]]+)\]", dynamic)
+        for soname in sonames:
+            if soname not in libraries:
+                raise Refused(f"{name}: unqualified runtime library {soname}")
+            needed_packages.add(libraries[soname])
+        # Only version NEEDS, never version definitions or strings in payloads.
+        versions = readelf("--version-info")
+        needs = versions.split("Version needs section", 1)
+        symbols = re.findall(r"\bName: (\S+)", needs[1]) if len(needs) == 2 else []
+        binary_glibc = []
+        for symbol in symbols:
+            if re.fullmatch(r"GLIBC_[0-9]+(?:\.[0-9]+)+", symbol):
+                binary_glibc.append(tuple(map(int, symbol[6:].split("."))))
+            elif symbol not in allowed:
+                raise Refused(f"{name}: unqualified runtime ABI {symbol}")
+        if ("libc.so.6" in sonames or interpreter) and not binary_glibc:
+            raise Refused(f"{name}: dynamic glibc binary has no numeric ABI requirements")
+        glibc.extend(binary_glibc)
+    relations = []
+    if "libc6" in needed_packages:
+        relations.append("libc6 (>= " + ".".join(map(str, max(glibc))) + ")")
+    if "libgcc-s1" in needed_packages:
+        relations.append("libgcc-s1 (>= 4.2)")
+    if "libstdc++6" in needed_packages:
+        relations.append("libstdc++6 (>= 4.1.1)")
+    return ", ".join(relations)
+
+
+def release_docs(archive: bytes, bins: list[str], root: pathlib.Path,
+                 package: str, tag: str, digest: str) -> None:
+    """Carry only documents alongside the selected release executables.
+
+    Never substitute today's source-tree license for a historical release's
+    files. Missing upstream documents stay explicit in README.package.
+    """
+    documents = {"LICENSE": "upstream-license", "LICENSE.txt": "upstream-license",
+                 "LICENSE.md": "upstream-license", "COPYING": "upstream-license",
+                 "README.md": "README.upstream", "README": "README.upstream",
+                 "CHANGELOG.md": "changelog.upstream"}
+    found = {}
+    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as tar:
+        members = tar.getmembers()
+        parents = {pathlib.PurePosixPath(m.name).parent for m in members
+                   if m.isfile() and pathlib.PurePosixPath(m.name).name in bins}
+        for member in members:
+            path = pathlib.PurePosixPath(member.name)
+            if member.isfile() and path.parent in parents and path.name in documents:
+                dest = documents[path.name]
+                data = tar.extractfile(member).read()
+                if dest in found and found[dest] != data:
+                    raise Refused(f"{tag}: conflicting release documents for {dest}")
+                found[dest] = data
+    docdir = root / "usr/share/doc" / package
+    docdir.mkdir(parents=True, exist_ok=True)
+    for name, data in found.items():
+        (docdir / name).write_bytes(data)
+    (docdir / "README.package").write_text(
+        f"Checksum-verified upstream release: {tag}\nArchive SHA256: {digest}\n"
+        "Binaries are repackaged unchanged; no source build is claimed.\n"
+        "Depends covers inspected ELF DT_NEEDED and version requirements only.\n"
+        "Dynamically loaded libraries, models and optional integrations require separate qualification.\n"
+        "No services, state directories, conffiles or activation scripts are installed.\n"
+        "Included upstream documents: " + (", ".join(sorted(found)) or "none") + "\n"
+        "Missing release documents are not replaced with an unverified source-tree license.\n")
+
+
 def control_text(package: str, version: str, arch: str, homepage: str, relations: dict,
                  description: str, detail: list[str]) -> str:
     lines = [f"Package: {package}", f"Version: {version}", f"Architecture: {arch}",
@@ -151,9 +261,14 @@ def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> 
         root = pathlib.Path(tmp) / "pkg"
         extract_bins(data, tool["bins"], root / "usr/bin")
         add_aliases(tool.get("aliases", {}), tool["bins"], root / "usr/bin")
+        relations = dict(tool.get("relations", {}))
+        depends = runtime_depends(root / "usr/bin", tool["bins"], arch)
+        if depends:
+            relations["Depends"] = ", ".join(filter(None, [relations.get("Depends"), depends]))
+        release_docs(data, tool["bins"], root, tool["package"], tag, got)
         pack(root, control_text(
             tool["package"], debver, arch, f"https://github.com/scbrown/{tool_id}",
-            tool.get("relations", {}), tool["description"],
+            relations, tool["description"],
             [f"Repackaged from the checksum-verified {tag} release archive.",
              f"Upstream archive sha256: {got}"]), deb)
     return deb

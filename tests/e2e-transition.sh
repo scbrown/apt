@@ -21,7 +21,20 @@ python3 scripts/index_repo.py --root "$site" --channel stable
 
 mkdir -p "$root"/var/lib/dpkg/{updates,info} \
   "$apt_dir"/{log,etc/apt/apt.conf.d,etc/apt/preferences.d,etc/apt/sources.list.d,state/lists/partial,cache/archives/partial}
-touch "$root/var/lib/dpkg/status"
+# These binaries execute outside a chroot against the runner's libraries.
+# Mirror the runner's installed-package metadata into the PRIVATE dpkg database
+# so apt checks the new Depends honestly without downloading/installing host
+# libraries into this command-ownership fixture. This is not a clean-distro
+# qualification; that requires a separate disposable target builder.
+python3 - "$root/var/lib/dpkg/status" <<'PY_STATUS'
+import json, pathlib, sys
+manifest = json.loads(pathlib.Path("tools.json").read_text())
+ours = {v["package"] for k, v in manifest.items() if not k.startswith("_")}
+ours.update(v["transitional"]["package"] for v in manifest.values() if "transitional" in v)
+paragraphs = pathlib.Path("/var/lib/dpkg/status").read_text().split("\n\n")
+kept = [p for p in paragraphs if p and p.splitlines()[0].removeprefix("Package: ") not in ours]
+pathlib.Path(sys.argv[1]).write_text("\n\n".join(kept) + "\n\n")
+PY_STATUS
 cat > "$apt_dir/apt.conf" <<CONF
 Dir::Etc "$apt_dir/etc/apt";
 Dir::State "$apt_dir/state";
