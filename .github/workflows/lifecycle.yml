@@ -1,0 +1,108 @@
+name: disposable lifecycle
+on: pull_request
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+jobs:
+  images:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.images.outputs.matrix }}
+    steps:
+      - name: Resolve and record admitted amd64 image identities
+        id: images
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          matrix, identities = [], []
+          for tag in ['debian:13', 'ubuntu:24.04']:
+              subprocess.run(['docker', 'pull', '--platform', 'linux/amd64', tag], check=True)
+              image = json.loads(subprocess.check_output(['docker', 'image', 'inspect', tag]))[0]
+              assert image['Os'] == 'linux' and image['Architecture'] == 'amd64', image
+              digest = image['RepoDigests'][0]
+              assert '@sha256:' in digest, image
+              identity = dict(tag=tag, digest=digest, image_id=image['Id'],
+                              os=image['Os'], architecture=image['Architecture'])
+              print(json.dumps(identity), flush=True)
+              identities.append(identity)
+              matrix.append(dict(image=digest, name=tag.replace(':', '-'), tag=tag))
+          pathlib.Path('image-identity.json').write_text(json.dumps(identities, indent=2) + '\n')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('matrix=' + json.dumps(dict(include=matrix)) + '\n')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lifecycle-image-identity-${{ github.run_id }}
+          path: image-identity.json
+          if-no-files-found: error
+          retention-days: 14
+  lifecycle:
+    needs: images
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.images.outputs.matrix) }}
+    container: ${{ matrix.image }}
+    steps:
+      - name: Bootstrap disposable builder only
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          set -euo pipefail
+          apt-get update
+          apt-get -y install python3 curl git ca-certificates binutils gnupg
+          cat /etc/os-release
+          dpkg --print-architecture
+          getconf GNU_LIBC_VERSION
+          test "$(dpkg --print-architecture)" = amd64
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build verified native candidates and signed private fixture
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          BUILDER_IMAGE: ${{ matrix.image }}
+          BUILDER_TAG: ${{ matrix.tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p .lifecycle-logs
+          printf '%s\n%s\n' "$BUILDER_TAG" "$BUILDER_IMAGE" | tee .lifecycle-logs/image-identity.txt
+          cat /etc/os-release >> .lifecycle-logs/image-identity.txt
+          getconf GNU_LIBC_VERSION >> .lifecycle-logs/image-identity.txt
+          python3 - <<'PY'
+          import json, pathlib
+          manifest = json.loads(pathlib.Path('tools.json').read_text())
+          for name, tool in manifest.items():
+              if not name.startswith('_'):
+                  tool['arches'] = ['amd64']
+          pathlib.Path('/tmp/native-tools.json').write_text(json.dumps(manifest))
+          PY
+          python3 scripts/build_debs.py --manifest /tmp/native-tools.json --pool /tmp/candidates --latest 1 2>&1 | tee .lifecycle-logs/build.log
+          python3 tests/prepare-lifecycle-fixture.py --pool /tmp/candidates --site /tmp/fixture 2>&1 | tee .lifecycle-logs/prepare.log
+          cp /tmp/fixture/lifecycle-pairs.json /tmp/fixture/upstream-signature.log .lifecycle-logs/
+      - name: Actual dpkg and APT lifecycle in disposable container
+        env:
+          APT_LIFECYCLE_DISPOSABLE: '1'
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' 2>&1 | tee .lifecycle-logs/lifecycle.log
+          import json, pathlib, subprocess
+          pairs = json.loads(pathlib.Path('/tmp/fixture/lifecycle-pairs.json').read_text())
+          assert len(pairs) == 6, pairs
+          for p in pairs:
+              subprocess.run(['bash', 'tests/disposable-lifecycle.sh', '/tmp/fixture',
+                              p['package'], p['old'], p['new'], p['command'], p['alias']], check=True)
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: lifecycle-logs-${{ matrix.name }}-${{ github.run_id }}
+          path: .lifecycle-logs/
+          if-no-files-found: warn
+          retention-days: 14

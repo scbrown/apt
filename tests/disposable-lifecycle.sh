@@ -14,6 +14,7 @@ site=$(realpath "$1"); package=$2; old=$3; new=$4; command=$5; alias=${6:-}
 dpkg --compare-versions "$new" gt "$old"
 # The fixture is signed with a throwaway key; never mount a publication key.
 [[ -f $site/fixture.gpg && -f $site/dists/stable/InRelease ]]
+install -d -m 0755 /etc/apt/keyrings
 install -m 0644 "$site/fixture.gpg" /etc/apt/keyrings/stack-fixture.gpg
 printf 'deb [signed-by=/etc/apt/keyrings/stack-fixture.gpg] file://%s stable main\n' "$site" > /etc/apt/sources.list.d/stack-fixture.list
 apt-get update

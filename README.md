@@ -84,8 +84,8 @@ it is not a clean target-distribution lifecycle or ONNX compatibility proof.
 admitted disposable root container. It requires a local fixture repository,
 old/new revisions and a throwaway signing key. It exercises actual APT hold,
 upgrade, downgrade, remove, reinstall and purge, with dpkg ownership, alias,
-user-state and PATH-shadow checks. It is not scheduled by CI: builder admission
-and target/architecture coverage must be recorded before execution.
+user-state and PATH-shadow checks. Its admitted CI lane uses Debian 13 and Ubuntu 24.04 amd64 containers; other
+targets and architectures require separately recorded coverage.
 
 To prepare the fixture without installing anything, build candidates into a
 private pool, then run `python3 tests/prepare-lifecycle-fixture.py --pool <pool>
@@ -93,6 +93,8 @@ private pool, then run `python3 tests/prepare-lifecycle-fixture.py --pool <pool>
 index hashes and old DEB hashes, checks that each candidate sorts above its
 baseline, rejects maintainer scripts, and signs the private fixture using a
 throwaway key. The key is deleted after signing. No production signing material
-is used. `tests/lifecycle-workflow.example.yml` is the concrete Debian 13 and
-Ubuntu 24.04 amd64 proposal, outside the scheduled workflows until builder
-scope is admitted. ARM runtime qualification remains separate.
+is used. `.github/workflows/lifecycle.yml` runs on same-repository pull requests with
+read-only permissions. It resolves and records the Debian 13 and Ubuntu 24.04
+image digests, uses those exact images on GitHub-hosted amd64 runners, and
+retains only logs and image identity as CI artifacts. It uploads no package
+archive or signing material. ARM runtime qualification remains separate.
