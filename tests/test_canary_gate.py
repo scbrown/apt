@@ -36,7 +36,7 @@ class CanaryGate(unittest.TestCase):
         self.save_policy()
         self.deb = self.package("seeds", "0.7.2", "canary")
         candidate = gate.package_identity(self.deb)
-        candidate.update(repository="scbrown/seeds", tag="seeds-ai-v0.7.2", commit="b" * 40)
+        candidate.update(repository="intigraph/seeds", tag="seeds-ai-v0.7.2", commit="b" * 40)
         self.candidate = candidate
         now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
         self.receipt = {"contract": gate.CONTRACT, "key_id": "fixture", "canary_id": "fixture-canary",
@@ -225,6 +225,17 @@ class CanaryGate(unittest.TestCase):
                 with self.assertRaises((gate.Refused, builder.Refused)):
                     builder.promote_seeds(tool, release, "amd64", self.root / "pool", self.trust)
                 self.assertFalse(self.destination.exists())
+
+    def test_release_and_promotion_use_the_canonical_seeds_repository(self):
+        with mock.patch.object(builder, "fetch", return_value=b"[]") as fetch:
+            self.assertEqual(builder.releases("intigraph/seeds", "seeds-ai-v", "stable"), [])
+            fetch.assert_called_once_with("https://api.github.com/repos/intigraph/seeds/releases?per_page=50")
+        tool = {"package": "seeds", "tag_prefix": "seeds-ai-v", "asset": "fixture.tar.gz", "sums": "sidecar"}
+        with mock.patch.object(builder, "fetch", return_value=json.dumps({"sha": "b" * 40}).encode()) as fetch, \
+                mock.patch.object(builder, "expected_sha", return_value="d" * 64):
+            builder.promote_seeds(tool, {"tag_name": "seeds-ai-v0.7.2", "assets": []},
+                                  "amd64", self.root / "pool", self.trust)
+            fetch.assert_called_once_with("https://api.github.com/repos/intigraph/seeds/commits/seeds-ai-v0.7.2")
 
     def test_malformed_policy_refuses(self):
         (self.trust / "policy.json").write_text('{"contract": "seeds-canary-v1", "keys": []}')

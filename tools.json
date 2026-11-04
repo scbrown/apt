@@ -4,6 +4,7 @@
     "table_sha256": "d517c947fb2d3312d4540d24c12f0c82e2c150e33d952b8e1ca39ee0082f6d04"
   },
   "seeds": {
+    "repository": "intigraph/seeds",
     "package": "seeds",
     "bins": [
       "sd"

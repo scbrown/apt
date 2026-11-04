@@ -1,0 +1,10 @@
+Script started on 2026-11-04 05:47:12-05:00 [COMMAND="env PYTHONDONTWRITEBYTECODE=1 python3 demos/stable-retention/run.py" <not executed on terminal>]
+Target: synthetic source fixtures; no install, network or production key
+Before: original gate commit 00727f4372bf773e730610260b33ecfe58f9a98d
+After source SHA256 index_repo.py: d5f327a2b6bc8f43c61ce577547d77f69546aa494173980c569d5ddac454f346
+After source SHA256 canary_gate.py: d94b031a92d2bd319183b1d0fc055fd35bfd414d9842a939043a099223d73b70
+BEFORE empty enrollment: exit=3; published Seeds 0.7.2=False; new Seeds 0.7.1=False; other tool=True
+AFTER explicit retention: exit=3; published Seeds 0.7.2=True; new Seeds 0.7.1=False; other tool=True
+CONTROL changed published bytes: exit=2; all metadata unchanged=True
+
+Script done on 2026-11-04 05:47:12-05:00 [COMMAND_EXIT_CODE="0"]

@@ -21,7 +21,7 @@ import tempfile
 
 import canary_gate
 
-API = "https://api.github.com/repos/scbrown/{repo}/releases?per_page=50"
+API = "https://api.github.com/repos/{repo}/releases?per_page=50"
 TRIPLES = {"amd64": "x86_64-unknown-linux-gnu", "arm64": "aarch64-unknown-linux-gnu"}
 
 
@@ -51,7 +51,8 @@ def fetch(url: str) -> bytes:
 def releases(repo: str, prefix: str, channel: str) -> list[dict]:
     """Published releases for one tag family, newest first."""
     wanted = []
-    for rel in json.loads(fetch(API.format(repo=repo))):
+    repository = repo if "/" in repo else "scbrown/" + repo
+    for rel in json.loads(fetch(API.format(repo=repository))):
         if rel.get("draft") or not rel["tag_name"].startswith(prefix):
             continue
         if rel.get("prerelease") != (channel == "nightly"):
@@ -154,7 +155,7 @@ def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> 
         extract_bins(data, tool["bins"], root / "usr/bin")
         add_aliases(tool.get("aliases", {}), tool["bins"], root / "usr/bin")
         pack(root, control_text(
-            tool["package"], debver, arch, f"https://github.com/scbrown/{tool_id}",
+            tool["package"], debver, arch, "https://github.com/" + tool.get("repository", "scbrown/" + tool_id),
             tool.get("relations", {}), tool["description"],
             [f"Repackaged from the checksum-verified {tag} release archive.",
              f"Upstream archive sha256: {got}"]), deb)
@@ -170,8 +171,9 @@ def promote_seeds(tool, rel, arch, pool, trust):
         raise Refused("seeds candidate missing from canary")
     candidate = canary_gate.package_identity(canary)
     # Resolve the actual tag, not target_commitish (which may be a moving branch).
-    commit = json.loads(fetch("https://api.github.com/repos/scbrown/seeds/commits/" + rel["tag_name"]))["sha"]
-    candidate.update(repository="scbrown/seeds", tag=rel["tag_name"], commit=commit)
+    repository = tool.get("repository", canary_gate.REPOSITORY)
+    commit = json.loads(fetch("https://api.github.com/repos/" + repository + "/commits/" + rel["tag_name"]))["sha"]
+    candidate.update(repository=repository, tag=rel["tag_name"], commit=commit)
     if candidate["version"] != deb_version(tool, version) or candidate["architecture"] != arch:
         raise Refused("seeds canary package differs from release")
     name = asset_name(tool, rel["tag_name"], version, arch)
@@ -239,7 +241,7 @@ def main() -> int:
         if args.channel == "canary" and tool_id != "seeds":
             continue
         try:
-            rels = releases(tool_id, tool["tag_prefix"], args.channel)[: args.latest]
+            rels = releases(tool.get("repository", tool_id), tool["tag_prefix"], args.channel)[: args.latest]
         except Exception as error:  # an unreadable API is UNKNOWN, not "no release"
             print(f"UNKNOWN {tool_id}: {error}", file=sys.stderr)
             failures += 1

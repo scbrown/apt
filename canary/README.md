@@ -4,7 +4,8 @@ New **seeds stable** packages are copies of canary bytes, admitted only by an
 Ops-signed receipt. Other tools and the nightly channel retain their behavior.
 The scheduled, manual and repository-dispatch publisher share the same path:
 build canary → verify/promote stable → independently verify the stable index.
-An unapproved seeds deb already in `pool/stable` is excluded from `Packages`.
+An unapproved seeds deb is excluded from `Packages`, except for the explicit
+pre-enrollment preservation described below.
 Index exit 3 means a safe index was written with exclusions; the publisher can
 sign that index for other tools and reports a failed run. Other index errors
 stop signing/publication, including when an old index exists.
@@ -14,21 +15,33 @@ stop signing/publication, including when an old index exists.
 `policy.json` deliberately enrolls **no keys or canaries**. No test key is
 trusted by production. A dedicated Ops-owned Ed25519 attestation trust anchor
 requires its own approval and reviewed public-key enrollment. Until then no
-seeds version is stable-admitted by this source, including older versions.
-There is no blanket grandfathering of existing pool contents. This is a source
-PR, not authorization to activate the publisher, remove host holds, create a
-key, run a canary, or publish a package.
+new Seeds version can be promoted to stable.
 
-Activation must account for already-published packages and keep a known-good
-local rollback package. Existing unsafe seeds entries will be excluded at the
-first gated index; that does not downgrade hosts which already installed them.
-If a known-good older version must remain available in stable, Ops must attest
-its exact bytes through this same gate before activation. Do not revert to an
-ungated index as an automatic error fallback.
+The explicit `retain_published_seeds: true` setting preserves availability of
+**exact previously published bytes**, using the existing apt public key in
+`key.gpg`. The indexer verifies the prior stable `InRelease` signature in an
+isolated keyring, suite and validity dates, the signed SHA256/size of both
+architecture indexes, and every retained Seeds package's path, size and SHA256.
+It refuses missing, expired, tampered or changed baseline data **before writing
+any index**. An arbitrary file in the pool is not a published baseline, and
+retention never authorizes copying a new package into stable.
+
+Retention is allowed only while both enrollment maps are empty. Activation
+must explicitly set `retain_published_seeds` to false (or remove it), enroll
+approved public keys and canaries, and provide receipts for the exact versions
+that should remain available. Clearing or revoking enrollment after that does
+not reactivate retention. Keep a known-good local rollback package; do not use
+an ungated index as an automatic error fallback.
+
+This source change does not authorize creating a key, running a canary,
+removing host holds or publishing a new Seeds version. Runtime activation needs
+the separate trust decision, named Ops owner, representative canary and rollback
+packet. Other tools retain their publication path during that preparation.
 
 ## Trust policy and receipts
 
-The public policy has exactly these keys:
+The enrolled public policy has these keys (the optional boolean
+`retain_published_seeds` must be false when enrollment is present):
 
 ```json
 {
@@ -56,7 +69,7 @@ digests; do not commit internal hostnames, topology, credentials or board data.
 
 For each candidate the builder emits `pool/canary/seeds/*.candidate.json`, with
 actual package/version/architecture, deb SHA256, upstream archive SHA256,
-repository (`scbrown/seeds`), tag and resolved full commit. The upstream archive
+repository (`intigraph/seeds`), tag and resolved full commit. The upstream archive
 digest is checked against the release checksum again before promotion. The
 tag is resolved through the commits API, not its potentially moving
 `target_commitish` label. Promotion never rebuilds the tested deb.
@@ -76,7 +89,7 @@ newline. Unknown/duplicate JSON fields or keys are refused. The receipt is:
   "expires_at": "2026-10-24T13:00:00Z",
   "candidate": {"package": "seeds", "version": "<candidate>",
     "architecture": "amd64", "deb_sha256": "<digest>",
-    "archive_sha256": "<digest>", "repository": "scbrown/seeds",
+    "archive_sha256": "<digest>", "repository": "intigraph/seeds",
     "tag": "seeds-ai-v<candidate>", "commit": "<full 40 hex>"},
   "checks": {"version": true, "show": true, "identity": true,
     "st_comment": true, "author_actor_readback": true,
@@ -127,14 +140,15 @@ is an incident. An uncertain write result requires read-back before any retry;
 do not replay it blindly or delete evidence. Retain raw evidence privately,
 publish only sanitized result digests, and keep all writes within the one item.
 
-Runtime acceptance requires the real 0.7.1 negative and released 0.7.2 positive
+Runtime acceptance requires the real 0.7.1 negative and the released compatible
+version (0.8.0 superseded the proposed 0.7.2) positive
 under this same smoke, plus one observed scheduled publisher run enforcing
 admission. Synthetic fixtures below establish source behavior only. No host
 runner, service restart, key creation or live smoke is performed by this PR.
 
 ## Reproduce the source demonstration
 
-Run `python3 tests/test_canary_gate.py`. It creates private real Debian packages
+Run `python3 -m unittest discover -s tests -p 'test_*.py' -v`. It creates private real Debian packages
 and throwaway Ed25519 keys, without network, installation, signing-key access or
 board writes. The tests named
 `test_071_preexisting_pool_bypass_excluded_other_tool_retained` and
@@ -146,3 +160,11 @@ Before this change, the same unsigned synthetic 0.7.1 package is indexed by
 0.7.2 is copied byte-identically and indexed. The version labels are fixtures,
 not a claim that either real canary execution has passed. A signature attests
 Ops' smoke: the publisher cannot independently reconstruct the board result.
+
+The retention controls in `tests/test_retained_stable.py` use a real throwaway
+GPG signing key and tiny Debian packages. With the same empty enrollment, the
+original gate removes the signed existing Seeds version; the repaired gate
+retains those exact bytes, excludes a new unsigned version and keeps an
+unrelated tool. Wrong keys, altered indexes, missing/changed package bytes,
+expired baselines and attempted promotion are independent negative controls.
+These are synthetic source fixtures, not installed canary acceptance.

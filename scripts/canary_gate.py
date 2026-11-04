@@ -19,6 +19,7 @@ CHECKS = {"version", "show", "identity", "st_comment", "author_actor_readback",
           "rollback_ready", "hold_restored"}
 HEX = re.compile(r"[0-9a-f]{64}")
 NAME = re.compile(r"[a-z0-9][a-z0-9-]{0,63}")
+REPOSITORY = "intigraph/seeds"
 
 
 class Refused(Exception):
@@ -43,6 +44,23 @@ def _json(data):
 
 def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def policy(trust):
+    """Retention is an explicit pre-enrollment phase, never revocation fallback."""
+    try:
+        value = _json((trust / "policy.json").read_bytes())
+    except OSError as error:
+        raise Refused("unavailable-canary-policy") from error
+    required = {"contract", "keys", "canaries"}
+    if (not isinstance(value, dict) or set(value) not in (required, required | {"retain_published_seeds"})
+            or value["contract"] != CONTRACT or not isinstance(value["keys"], dict)
+            or not isinstance(value["canaries"], dict)
+            or type(value.get("retain_published_seeds", False)) is not bool):
+        raise Refused("invalid-policy")
+    if value.get("retain_published_seeds") and (value["keys"] or value["canaries"]):
+        raise Refused("end-published-retention-before-enrollment")
+    return value
 
 
 def package_identity(deb):
@@ -83,11 +101,7 @@ def verify(deb, trust=DEFAULT_TRUST, *, candidate=None, promotion=False, now=Non
     if identity["package"] != "seeds":
         return identity
     try:
-        policy = _json((trust / "policy.json").read_bytes())
-        if set(policy) != {"contract", "keys", "canaries"} or policy["contract"] != CONTRACT:
-            raise Refused("invalid-policy")
-        if not isinstance(policy["keys"], dict) or not isinstance(policy["canaries"], dict):
-            raise Refused("invalid-policy")
+        enrollment = policy(trust)
         stem = trust / "receipts" / identity["deb_sha256"]
         raw = stem.with_suffix(".json").read_bytes()
         signature = stem.with_suffix(".sig").read_bytes()
@@ -103,8 +117,8 @@ def verify(deb, trust=DEFAULT_TRUST, *, candidate=None, promotion=False, now=Non
             raise Refused("invalid-key-id")
         if not isinstance(canary_id, str) or not NAME.fullmatch(canary_id):
             raise Refused("invalid-canary-id")
-        key = policy["keys"].get(key_id)
-        host = policy["canaries"].get(canary_id)
+        key = enrollment["keys"].get(key_id)
+        host = enrollment["canaries"].get(canary_id)
         if not isinstance(key, dict) or set(key) != {"public_key_sha256"}:
             raise Refused("unenrolled-key")
         if not isinstance(host, dict) or set(host) != {"key_id", "architecture", "topology_sha256", "st_version"}:
@@ -149,7 +163,7 @@ def verify(deb, trust=DEFAULT_TRUST, *, candidate=None, promotion=False, now=Non
             raise Refused("package-identity-mismatch")
         if host["architecture"] != identity["architecture"]:
             raise Refused("canary-architecture-mismatch")
-        if supplied["repository"] != "scbrown/seeds" or supplied["tag"] != "seeds-ai-v" + identity["version"]:
+        if supplied["repository"] != REPOSITORY or supplied["tag"] != "seeds-ai-v" + identity["version"]:
             raise Refused("release-identity-mismatch")
         if not isinstance(supplied["commit"], str) or not re.fullmatch(r"[0-9a-f]{40}", supplied["commit"]):
             raise Refused("invalid-release-commit")
