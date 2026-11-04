@@ -18,9 +18,10 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - name: Compile
         run: |
-          python3 -m py_compile scripts/build_debs.py scripts/index_repo.py
+          python3 -m py_compile scripts/build_debs.py scripts/index_repo.py scripts/canary_gate.py
           bash -n tests/e2e-transition.sh
           python3 tests/test_transitional_gate.py
+          python3 tests/test_canary_gate.py
       - name: Published key matches FINGERPRINT
         run: |
           export GNUPGHOME="$(mktemp -d)"

@@ -18,6 +18,8 @@ import pathlib
 import subprocess
 import sys
 
+import canary_gate
+
 ARCHES = ["amd64", "arm64"]
 # A signed Release expires so a stale copy cannot be replayed to clients; it is
 # re-signed well before expiry even when no package changed.
@@ -47,11 +49,20 @@ def main() -> int:
     parser.add_argument("--root", type=pathlib.Path, required=True)
     parser.add_argument("--channel", required=True)
     parser.add_argument("--date", help="RFC 2822 date for Release (default: newest .deb mtime)")
+    parser.add_argument("--canary-trust", type=pathlib.Path, default=canary_gate.DEFAULT_TRUST)
     args = parser.parse_args()
     root = args.root
     debs = sorted((root / "pool" / args.channel).rglob("*.deb"))
     by_arch = {a: [] for a in ARCHES}
+    refused = 0
     for deb in debs:
+        if args.channel == "stable":
+            try:
+                canary_gate.verify(deb, args.canary_trust)
+            except canary_gate.Refused as error:
+                print(f"REFUSED stable {deb.name}: {error}", file=sys.stderr)
+                refused += 1
+                continue
         arch, text = stanza(deb, root)
         by_arch.setdefault(arch, []).append(text)
     dist = root / "dists" / args.channel
@@ -96,10 +107,10 @@ def main() -> int:
                           if l.startswith("Valid-Until:")), None)
         if old_until and email.utils.parsedate_to_datetime(old_until) - now > datetime.timedelta(days=REFRESH_DAYS):
             print(f"{args.channel}: {len(debs)} packages, Release unchanged")
-            return 0
+            return 3 if refused else 0
     release.write_text(text)
     print(f"{args.channel}: {len(debs)} packages, Release written")
-    return 0
+    return 3 if refused else 0
 
 
 if __name__ == "__main__":
