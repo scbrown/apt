@@ -15,7 +15,8 @@
       "amd64",
       "arm64"
     ],
-    "description": "Seeds: a work-item board on a Quipu knowledge graph"
+    "description": "Seeds: a work-item board on a Quipu knowledge graph",
+    "debian_revision": "1"
   },
   "desire-path": {
     "package": "desire-path",
@@ -29,7 +30,8 @@
       "amd64",
       "arm64"
     ],
-    "description": "Desire Path: learn the paths agents actually take"
+    "description": "Desire Path: learn the paths agents actually take",
+    "debian_revision": "1"
   },
   "tambo": {
     "package": "tambo",
@@ -52,7 +54,8 @@
       "package": "caboodle",
       "version": "0.3.5-1",
       "depends": "tambo (>= 0.3.4)"
-    }
+    },
+    "debian_revision": "1"
   },
   "bobbin": {
     "package": "bobbin",
@@ -66,7 +69,8 @@
       "amd64",
       "arm64"
     ],
-    "description": "Bobbin: semantic code and knowledge search"
+    "description": "Bobbin: semantic code and knowledge search",
+    "debian_revision": "1"
   },
   "yupana": {
     "package": "yupana",
@@ -86,7 +90,7 @@
     "aliases": {
       "hank": "yupana"
     },
-    "debian_revision": "1"
+    "debian_revision": "2"
   },
   "quipu": {
     "package": "quipu",
@@ -105,6 +109,6 @@
     "aliases": {
       "qp": "quipu"
     },
-    "debian_revision": "1"
+    "debian_revision": "2"
   }
 }

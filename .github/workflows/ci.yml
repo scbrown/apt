@@ -21,6 +21,7 @@ jobs:
           python3 -m py_compile scripts/build_debs.py scripts/index_repo.py
           bash -n tests/e2e-transition.sh
           python3 tests/test_transitional_gate.py
+          python3 tests/test_runtime_depends.py
       - name: Published key matches FINGERPRINT
         run: |
           export GNUPGHOME="$(mktemp -d)"
