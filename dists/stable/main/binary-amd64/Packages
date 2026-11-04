@@ -89,6 +89,22 @@ MD5sum: 414e2c04e2ec37e4ebac4b531f52387e
 SHA256: a4ea91537f3eef46e0686247a972c48dfa6455780314fb9e7adf3f7df0beb1fa
 
 Package: bobbin
+Version: 0.32.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.32.0 release archive.
+ Upstream archive sha256: 031c323c4b518c498034be719816fd21a952750777601d910d4c0e721de6a253
+Filename: pool/stable/bobbin/bobbin_0.32.0-1_amd64.deb
+Size: 30084072
+MD5sum: 18a6476cd50cd232e315258a89969713
+SHA256: f3d410a26befa09b7c39a18db38c9ef8aaa17fa8eda13cfe108b4601b25daad2
+
+Package: bobbin
 Version: 0.32.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -104,6 +120,22 @@ MD5sum: c552c3f62b4d81671e4410b8b8faba6c
 SHA256: c4be27a2ad20c39d57347f5d04d12e0c7b4020ed7055c738cb12a8aea11c9aa3
 
 Package: bobbin
+Version: 0.33.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.33.0 release archive.
+ Upstream archive sha256: d751b86b7a66e3c0c4f2b3a314a20413ee45a97dce672f0264f6fd4f58218a68
+Filename: pool/stable/bobbin/bobbin_0.33.0-1_amd64.deb
+Size: 30085356
+MD5sum: 35e29e9da7ef3394883f58179bced81c
+SHA256: 09e6e0612ecdafd72fb3ba57ddd07c59dd3e632460596ba73ac8d51d4241f055
+
+Package: bobbin
 Version: 0.33.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -117,6 +149,22 @@ Filename: pool/stable/bobbin/bobbin_0.33.0_amd64.deb
 Size: 30086336
 MD5sum: faaeff31ba316eaaae2eb7323e42558a
 SHA256: 80217f9caa6c32f6581f5b48aa9032d8c6198f97223f81645fa37a0279a2ee45
+
+Package: bobbin
+Version: 0.34.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.34.0 release archive.
+ Upstream archive sha256: 72df2c40391c9a85907d7d42d05ea5bbcb21fd30504b72cfceacc919b8bbbe0b
+Filename: pool/stable/bobbin/bobbin_0.34.0-1_amd64.deb
+Size: 30099280
+MD5sum: ba1cc1cfc91b7841b3c5929fbf8f4991
+SHA256: 64cc675693c3c9c3355f0e1429cd4f2eb0bec0eddf45b6f0d249ef1871c2f634
 
 Package: bobbin
 Version: 0.34.0
@@ -376,6 +424,21 @@ MD5sum: 1ae32118409eed6e7208663284892380
 SHA256: 284ffc25eed33f0f53ed20ba51fcaad9b7b79587dfaacc880d691cf46219f309
 
 Package: desire-path
+Version: 0.11.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.11.0 release archive.
+ Upstream archive sha256: d164ebb5e49bcea788fa7e962302f20b322f3f9775b53433c1ff73d0822c03b7
+Filename: pool/stable/desire-path/desire-path_0.11.0-1_amd64.deb
+Size: 4086988
+MD5sum: bec06e0c59a7f70b2869164d0970f7f2
+SHA256: 1f76392ed9489618efee245b3c192c1ce2bde16101ee26114dff17f0908de19b
+
+Package: desire-path
 Version: 0.11.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -391,6 +454,21 @@ MD5sum: c50a3c9ea6827d6f032dd6cc48593a47
 SHA256: a0bded29ab989afa3adba76d80384cfd0e5fe6ebb6f08d8957fda7aa43ac5d7c
 
 Package: desire-path
+Version: 0.11.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.11.1 release archive.
+ Upstream archive sha256: 46483a949baf6c20e9c8fc7632bcca8032782a1a79a0c65bdf06112dbb251afc
+Filename: pool/stable/desire-path/desire-path_0.11.1-1_amd64.deb
+Size: 4086920
+MD5sum: ceb607feea68e10eba4c764ee8790e7d
+SHA256: e5f02e9f0dac9a4319ee7e747c52ef924b0fd515816c9bcc36f50a68fea460eb
+
+Package: desire-path
 Version: 0.11.1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -404,6 +482,21 @@ Filename: pool/stable/desire-path/desire-path_0.11.1_amd64.deb
 Size: 4078208
 MD5sum: be2281e9b9646a3f6a155cabc91c12ce
 SHA256: fb69617beccf2cdabd90e9a2fb89a6917b9af25b16da83a35a034524d0b1ef45
+
+Package: desire-path
+Version: 0.12.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.12.0 release archive.
+ Upstream archive sha256: 1bad12757d8f96373a022aeb6b4ad46279f397069a213a1af9bf34103cfcfde2
+Filename: pool/stable/desire-path/desire-path_0.12.0-1_amd64.deb
+Size: 4087676
+MD5sum: f964b2b9b2c099c56b83df4ffac5504e
+SHA256: 3dca1b1dda4df2c969e88519e8bf90cef78705e136529b08902673a4e90ac171
 
 Package: desire-path
 Version: 0.12.0
@@ -706,6 +799,22 @@ MD5sum: 211c8e73278dd6f418ff5902e9fa6ba0
 SHA256: 7507d6b3832bae01810621639d195037504fd1380f4b570ba4afad78cb738424
 
 Package: quipu
+Version: 0.16.4-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2), libstdc++6 (>= 4.1.1)
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.16.4 release archive.
+ Upstream archive sha256: 579f4927714d091961c3f3f9245c7374ada6265e88067b92d404b5bc1da6e022
+Filename: pool/stable/quipu/quipu_0.16.4-2_amd64.deb
+Size: 19107376
+MD5sum: 61cb505cb8dcb28ff979457797d13c28
+SHA256: 836307e7f1f930460560da11f9fd65b3cd54f513e777cd332a20269bed34f9ce
+
+Package: quipu
 Version: 0.16.5-1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -721,6 +830,22 @@ MD5sum: 44d9f74cbeb73918e99bc7bd429941d4
 SHA256: a2724d172a933623b86a2cdddf088a34ac2a82f3d5f47e8c742adc71c5533401
 
 Package: quipu
+Version: 0.16.5-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2), libstdc++6 (>= 4.1.1)
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.16.5 release archive.
+ Upstream archive sha256: 6846ee3bf212964618108737f818a32a00d97d5d5d3a0c4bcb97f65bb9f3ac26
+Filename: pool/stable/quipu/quipu_0.16.5-2_amd64.deb
+Size: 19543560
+MD5sum: cbf5f49e409c33db70eb80e0afc7eb2f
+SHA256: b4157a073181e86238a305b85217d6bcd02ea1642b51f560dbc542e457b25894
+
+Package: quipu
 Version: 0.16.6-1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -734,6 +859,22 @@ Filename: pool/stable/quipu/quipu_0.16.6-1_amd64.deb
 Size: 20020348
 MD5sum: 40bcde26df67ac39099401c68861305d
 SHA256: 36b011601aa3ac9fc8c58140a0241e64feaf223dc6363aceb431a47a0946cfab
+
+Package: quipu
+Version: 0.16.6-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2), libstdc++6 (>= 4.1.1)
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.16.6 release archive.
+ Upstream archive sha256: 18c31265c540b4db9434484e58ea91ac64afb68bb1dcceb244e1e79623377d24
+Filename: pool/stable/quipu/quipu_0.16.6-2_amd64.deb
+Size: 20029664
+MD5sum: 35ea4ea1da4e1ae1935d9fb274ac95cb
+SHA256: 1c4f677f0a0ba481a89a7a23566dbb1bcc72fc622c811c1e2744870a9b187233
 
 Package: seeds
 Version: 0.10.0
@@ -796,6 +937,22 @@ MD5sum: 136a0c303ecb8060da6753e3b918ece9
 SHA256: f70981eb8df9ab310564d0cc5fe609e3e161de81493bd88825900807b8d3e75f
 
 Package: seeds
+Version: 0.11.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.11.1 release archive.
+ Upstream archive sha256: 414363ea397aa9f7fa4885b76f63724c6a05fafffdd00df58dc6155d45752256
+Filename: pool/stable/seeds/seeds_0.11.1-1_amd64.deb
+Size: 7491848
+MD5sum: 25e76151470c9a00c91e5e23c59717ca
+SHA256: 57b9860d23956095980646dfd40d9e8e44dfa26192c7568b4179f3f71379626e
+
+Package: seeds
 Version: 0.11.1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -811,6 +968,22 @@ MD5sum: 6880e97e6dcfa9f3b9921156a742b415
 SHA256: 5e819b3de9170142268629cb0c58d2c76514e6ed5670fa055b5ac056b1e6005a
 
 Package: seeds
+Version: 0.11.2-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.11.2 release archive.
+ Upstream archive sha256: f7b8bf8536272db6874dc5962a9ba17ef2574c7b2fc1230baf5264e4b491e4ea
+Filename: pool/stable/seeds/seeds_0.11.2-1_amd64.deb
+Size: 7488748
+MD5sum: 6d8e3c7435851e5ebc90c144ea88efa7
+SHA256: 8090442f7ca23a5ceb20d6c9db5067c975d4a4b414bac9a4dc5c5a0b66b087b8
+
+Package: seeds
 Version: 0.11.2
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -824,6 +997,22 @@ Filename: pool/stable/seeds/seeds_0.11.2_amd64.deb
 Size: 7486376
 MD5sum: edb7f84141ca04d6273d02a71d116572
 SHA256: 0e077906aafb1e92562a4ffd5a8dad291011068042404878b1c9fd07d7716059
+
+Package: seeds
+Version: 0.12.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.12.0 release archive.
+ Upstream archive sha256: 4a9d1e332d870f24169f12d56927677f446d3ea5c98b3e7ea9bece4966ccead8
+Filename: pool/stable/seeds/seeds_0.12.0-1_amd64.deb
+Size: 7528200
+MD5sum: c10d620b25d9d155ee7d02c5f4bba2d7
+SHA256: f34e18ccaa1cd3a94e3be747951d5d825e7bcdde00b89e0bc11ee7680158827c
 
 Package: seeds
 Version: 0.2.5
@@ -1375,6 +1564,24 @@ MD5sum: 17cc24b7179f4b44d252931ff4b10ce9
 SHA256: 517d80ff7e6d2cd43d3a7961485082769cb35a2a1e53a4c0e89d72a6ab584595
 
 Package: tambo
+Version: 0.7.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.5-1~)
+Replaces: caboodle (<< 0.3.5-1~)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.7.1 release archive.
+ Upstream archive sha256: 7417fa8fc9c11478280512fad29a42f8e900d7ee1995b110deddf52bd848f98d
+Filename: pool/stable/tambo/tambo_0.7.1-1_amd64.deb
+Size: 1654756
+MD5sum: 4d1a1f3b94cf7d67d1d3540780bade08
+SHA256: cb454cc054f435461ff83738e8dfb4da0b2fb3b3effca8c21fe65fc6918a2140
+
+Package: tambo
 Version: 0.7.1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -1392,6 +1599,24 @@ MD5sum: d9999d28c020b718544d4a44bc77fbc4
 SHA256: a45fb95c968124bf19caa75be37a54a6a68c3cbaf15cbbe323060426e15e9c5d
 
 Package: tambo
+Version: 0.8.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.5-1~)
+Replaces: caboodle (<< 0.3.5-1~)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.8.0 release archive.
+ Upstream archive sha256: 446c6caf53d6888a778713a357a9e8375f20db665b3f7f9d7157109b3e401f12
+Filename: pool/stable/tambo/tambo_0.8.0-1_amd64.deb
+Size: 1656500
+MD5sum: 9eac2d4d20a6615bc9587175db670ad9
+SHA256: 58b09ddf0fc4e036e4ce676f22df068ad45dbbbd871fe201b8afb754f50749c4
+
+Package: tambo
 Version: 0.8.0
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -1407,6 +1632,24 @@ Filename: pool/stable/tambo/tambo_0.8.0_amd64.deb
 Size: 1656352
 MD5sum: 03d3dd7aaa98cf8fcd6645e69a97f85b
 SHA256: 8114619ccce8e6e3f6e7eee703f1afc2d7f41dcfe160e58e6787228711e4a354
+
+Package: tambo
+Version: 0.9.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.5-1~)
+Replaces: caboodle (<< 0.3.5-1~)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.9.0 release archive.
+ Upstream archive sha256: 5a5bf5a8a3b2646e1686a86e63e28cf02fcafd1ff9cb56ea48428e42e757f9d9
+Filename: pool/stable/tambo/tambo_0.9.0-1_amd64.deb
+Size: 1642228
+MD5sum: 9565f9d8845331170165958933522302
+SHA256: e2355a6a5f04be89344929f3c5b1221e7a1192ed3f8285507d3042ab8dc2a7b9
 
 Package: yupana
 Version: 0.12.5
@@ -1664,6 +1907,22 @@ MD5sum: d7b1fde92d7cab46bd3bc89402c957fc
 SHA256: 18009e31c2f3edd4bbad423a5db0ce85e975a0f8cbbe0c8e2983f56b2241a4ab
 
 Package: yupana
+Version: 0.16.3-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.16.3 release archive.
+ Upstream archive sha256: c29428390cc744e30768e4000347bb7739a16c420991ed84d181f139e408a7a6
+Filename: pool/stable/yupana/yupana_0.16.3-2_amd64.deb
+Size: 5975896
+MD5sum: 3554f9a3f95dcf5cf26fad0aa2b79165
+SHA256: f129dd9fbc9fb2e7ea27fbeddba3fbd7bd17e1f9b68ffae248f8e41fe2979e92
+
+Package: yupana
 Version: 0.16.4-1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -1679,6 +1938,22 @@ MD5sum: 841e85de4cebb0c24dd403a025703c74
 SHA256: d1119698927d438250da2d75021469630b4514c97e2e88a73472e2cb0ffe7061
 
 Package: yupana
+Version: 0.16.4-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.16.4 release archive.
+ Upstream archive sha256: 13197a4e7dc7a8beea9c1d435bae10cee25d7e2a33cb3fb224b855210c9df433
+Filename: pool/stable/yupana/yupana_0.16.4-2_amd64.deb
+Size: 5975976
+MD5sum: cbb9b6a2178a353ed366694e2a0c34d4
+SHA256: 10bc0f6b7ded70398df2882d34523283e41416281daace1568ac129d52b1d37b
+
+Package: yupana
 Version: 0.16.5-1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -1692,3 +1967,19 @@ Filename: pool/stable/yupana/yupana_0.16.5-1_amd64.deb
 Size: 5976872
 MD5sum: 70020bc9d02ea28151b1abc31f2848dd
 SHA256: 59e3c55a8ba54a2db06e0d6238fc5aa8d9a03f04ac419abd7307130d939733b8
+
+Package: yupana
+Version: 0.16.5-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.16.5 release archive.
+ Upstream archive sha256: 50369418b9c6cad68212d10e0ef6f7c0e53636c39bcd5ee3a7064fb7d39083bf
+Filename: pool/stable/yupana/yupana_0.16.5-2_amd64.deb
+Size: 5978200
+MD5sum: 458aa19e431f35af5b9948719921adcd
+SHA256: d8c4bb280fd3f17dea8edbc085b249a5afb542fbd2aa30ee1c4820c7c8c7401e
