@@ -5,20 +5,20 @@ Origin: scbrown
 Label: scbrown stack
 Suite: stable
 Codename: stable
-Date: Wed, 04 Nov 2026 08:41:56 GMT
-Valid-Until: Sat, 14 Nov 2026 08:41:56 GMT
+Date: Wed, 04 Nov 2026 10:42:20 GMT
+Valid-Until: Sat, 14 Nov 2026 10:42:20 GMT
 Architectures: amd64 arm64
 Components: main
 Description: Quipu tool stack, repackaged from checksum-verified releases
 SHA256:
- 2d0a9743c10a398c2a7f74663328d49de5f2c5b5744417fb222a723855d0310d            64789 main/binary-amd64/Packages
- 63ae199505ca8d2fb81c8336df8b8508ec581b8762888a2c68aba05a18e43f2d            13570 main/binary-amd64/Packages.gz
- caed66d20303bb18ab5f93897ada7fff82bead52275f894fba1bdfd33f5dbf9b            36200 main/binary-arm64/Packages
- 213ae922d7f40889df82574482b434202a39067f272a2f6554313ece40edebc3             7794 main/binary-arm64/Packages.gz
+ 003d2ffc53c0550b65be54b6ad34c11e97a9faf5d3516e373cd996175b640774            65994 main/binary-amd64/Packages
+ 4b5878f3eac2abd14c1d005b004f74dc3b3b7e67d8a24bcb9e5bbe2f34041755            13854 main/binary-amd64/Packages.gz
+ 2e52db2b6ea8676cc3e0c0754cad962596324830f94fd735ca51005f1ef0c5a1            37405 main/binary-arm64/Packages
+ 3a250c7f0c2bf9ded8f8e8b646a5eeff5301078cbfb3933a7aec5b6541bda779             8032 main/binary-arm64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSrViXFYS9kO/dkZN8NyZkkmU7JWQUCaurv1AAKCRANyZkkmU7J
-WbRZAQDsWkeldE590zL2TfzRLZn3HKKGJPHOdlaBpTEKFQVVwwEAh77NRAuvPzsH
-PRax+tmef9d2DwqlR+mUjdh6mH2DSgY=
-=w5Dk
+iHUEARYKAB0WIQSrViXFYS9kO/dkZN8NyZkkmU7JWQUCausMDAAKCRANyZkkmU7J
+Wa9EAPsHWYF2KINVMWdcLk8Kkz36GN7YDt8PGKNCok6mQ8aS/QEA/AqRmlnfA3ai
+D/dx31fj8hGWZvjYRcdQwXvRY5dvxAU=
+=ih3Q
 -----END PGP SIGNATURE-----
