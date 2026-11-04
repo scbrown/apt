@@ -40,6 +40,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   lifecycle:
+    name: lifecycle (${{ matrix.name }})
     needs: images
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
@@ -70,10 +71,10 @@ jobs:
           BUILDER_TAG: ${{ matrix.tag }}
         run: |
           set -euo pipefail
-          mkdir -p .lifecycle-logs
-          printf '%s\n%s\n' "$BUILDER_TAG" "$BUILDER_IMAGE" | tee .lifecycle-logs/image-identity.txt
-          cat /etc/os-release >> .lifecycle-logs/image-identity.txt
-          getconf GNU_LIBC_VERSION >> .lifecycle-logs/image-identity.txt
+          mkdir -p lifecycle-logs
+          printf '%s\n%s\n' "$BUILDER_TAG" "$BUILDER_IMAGE" | tee lifecycle-logs/image-identity.txt
+          cat /etc/os-release >> lifecycle-logs/image-identity.txt
+          getconf GNU_LIBC_VERSION >> lifecycle-logs/image-identity.txt
           python3 - <<'PY'
           import json, pathlib
           manifest = json.loads(pathlib.Path('tools.json').read_text())
@@ -82,16 +83,16 @@ jobs:
                   tool['arches'] = ['amd64']
           pathlib.Path('/tmp/native-tools.json').write_text(json.dumps(manifest))
           PY
-          python3 scripts/build_debs.py --manifest /tmp/native-tools.json --pool /tmp/candidates --latest 1 2>&1 | tee .lifecycle-logs/build.log
-          python3 tests/prepare-lifecycle-fixture.py --pool /tmp/candidates --site /tmp/fixture 2>&1 | tee .lifecycle-logs/prepare.log
-          cp /tmp/fixture/lifecycle-pairs.json /tmp/fixture/upstream-signature.log .lifecycle-logs/
+          python3 scripts/build_debs.py --manifest /tmp/native-tools.json --pool /tmp/candidates --latest 1 2>&1 | tee lifecycle-logs/build.log
+          python3 tests/prepare-lifecycle-fixture.py --pool /tmp/candidates --site /tmp/fixture 2>&1 | tee lifecycle-logs/prepare.log
+          cp /tmp/fixture/lifecycle-pairs.json /tmp/fixture/upstream-signature.log lifecycle-logs/
       - name: Actual dpkg and APT lifecycle in disposable container
         env:
           APT_LIFECYCLE_DISPOSABLE: '1'
           DEBIAN_FRONTEND: noninteractive
         run: |
           set -euo pipefail
-          python3 - <<'PY' 2>&1 | tee .lifecycle-logs/lifecycle.log
+          python3 - <<'PY' 2>&1 | tee lifecycle-logs/lifecycle.log
           import json, pathlib, subprocess
           pairs = json.loads(pathlib.Path('/tmp/fixture/lifecycle-pairs.json').read_text())
           assert len(pairs) == 6, pairs
@@ -103,6 +104,6 @@ jobs:
         if: always()
         with:
           name: lifecycle-logs-${{ matrix.name }}-${{ github.run_id }}
-          path: .lifecycle-logs/
-          if-no-files-found: warn
+          path: lifecycle-logs/
+          if-no-files-found: error
           retention-days: 14
