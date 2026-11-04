@@ -103,6 +103,21 @@ Size: 35175852
 MD5sum: 5e54d9de5b38beabdd361f3228ec34f2
 SHA256: cfa1d084ffa25c9f265349e053ebcbf9d6f0016cd778f8bf11f4782b918375e1
 
+Package: bobbin
+Version: 0.33.0
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.33.0 release archive.
+ Upstream archive sha256: 50a99e5458669062b77c6a7a549ae29f47047ffe88a0a88e006c5dac5ab52e71
+Filename: pool/stable/bobbin/bobbin_0.33.0_arm64.deb
+Size: 35180884
+MD5sum: 878dff1f5da60ac852f02ee8f0da548f
+SHA256: 857f0171adc432798998f3c0c9ec20ef2686c43a35d77f77f7af69eedc4ac8e6
+
 Package: desire-path
 Version: 0.10.0
 Architecture: arm64
