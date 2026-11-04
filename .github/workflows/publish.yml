@@ -32,7 +32,7 @@ jobs:
           # One tool's refused or unreadable release must not block the others:
           # record it, publish what verified, and fail the run at the end.
           status=0
-          for channel in stable nightly; do
+          for channel in canary stable nightly; do
             python3 scripts/build_debs.py --manifest tools.json --pool site/pool --channel "$channel" --latest 3 || status=1
           done
           echo "BUILD_STATUS=$status" >> "$GITHUB_ENV"
@@ -48,10 +48,19 @@ jobs:
           fpr="$(cat "$FINGERPRINT_FILE")"
           # Refuse to sign with anything but the published repository key.
           gpg --batch --with-colons --list-secret-keys | grep -qx "fpr:::::::::$fpr:"
-          for channel in stable nightly; do
+          status="$BUILD_STATUS"
+          for channel in canary stable nightly; do
             rel="site/dists/$channel/Release"
             before="$(sha256sum "$rel" 2>/dev/null || true)"
-            python3 scripts/index_repo.py --root site --channel "$channel"
+            # The index independently excludes existing, unapproved seeds bytes.
+            # It still writes a safe index for other tools; report refusal below.
+            index_status=0
+            python3 scripts/index_repo.py --root site --channel "$channel" || index_status=$?
+            case "$index_status" in
+              0) ;;
+              3) status=1 ;;  # safe index written; one or more seeds packages excluded
+              *) exit "$index_status" ;;  # no signing/publishing after an unknown index failure
+            esac
             signer="$(gpg --batch --status-fd 1 --verify "site/dists/$channel/InRelease" 2>/dev/null | awk '/VALIDSIG/{print $3; exit}' || true)"
             if [ "$before" = "$(sha256sum "$rel")" ] && [ "$signer" = "$fpr" ]; then
               continue  # unchanged index already signed by the current key
@@ -59,6 +68,7 @@ jobs:
             gpg --batch --yes --local-user "$fpr" --clearsign -o "site/dists/$channel/InRelease" "$rel"
             gpg --batch --yes --local-user "$fpr" -abs -o "site/dists/$channel/Release.gpg" "$rel"
           done
+          echo "BUILD_STATUS=$status" >> "$GITHUB_ENV"
           cp key.gpg key.asc site/
           touch site/.nojekyll
       - name: Publish

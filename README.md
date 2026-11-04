@@ -24,7 +24,7 @@ Check the key fingerprint before trusting it:
 
 | Want | Command |
 |---|---|
-| Every release (default) | the `stable` line above |
+| Releases admitted to stable (default) | the `stable` line above |
 | Prereleases, where a tool publishes them | replace `stable` with `nightly` |
 | Stay on one version | `sudo apt install <tool>=<version>` then `sudo apt-mark hold <tool>` |
 | Roll back | `sudo apt install <tool>=<previous version>` |
@@ -41,3 +41,12 @@ arm64 release (Quipu, Bobbin, Seeds, Desire Path).
 new releases listed in `tools.json`, verifies and repackages them, regenerates
 the indexes and signs `InRelease` and `Release.gpg` with the repository key. A
 refused checksum fails the run and publishes nothing for that tool.
+
+Seeds stable releases additionally require an Ops-signed canary write-smoke
+receipt for the exact package bytes. Unapproved seeds packages are excluded
+even if already present in the stable pool; other tools retain their existing
+release path. The separate `canary` channel stages seeds candidates for the
+approved canary host, not general installation. See [the admission contract](canary/README.md)
+for enrollment, receipt format, rollback requirements and source-only controls.
+No production canary trust key is enrolled in this change; activation remains
+blocked pending approved enrollment and a real smoke.
