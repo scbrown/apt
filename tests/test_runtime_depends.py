@@ -38,6 +38,18 @@ class RuntimeDepends(unittest.TestCase):
         with self.assertRaisesRegex(b.Refused, 'architecture'):
             b.runtime_depends(self.bin, ['fixture'], 'arm64' if ARCH == 'amd64' else 'amd64')
 
+    def test_relocatable_object_is_not_a_command(self):
+        self.compile('-c', self.source, '-o', self.bin / 'object')
+        with self.assertRaisesRegex(b.Refused, 'not an executable'):
+            b.runtime_depends(self.bin, ['object'], ARCH)
+
+    def test_unknown_interpreter_path_refuses_even_with_known_basename(self):
+        loader = {'amd64': 'ld-linux-x86-64.so.2', 'arm64': 'ld-linux-aarch64.so.1'}[ARCH]
+        self.compile(self.source, '-Wl,--dynamic-linker=/unqualified/' + loader,
+                     '-o', self.bin / 'fixture')
+        with self.assertRaisesRegex(b.Refused, 'unqualified ELF interpreter'):
+            b.runtime_depends(self.bin, ['fixture'], ARCH)
+
     def test_static_elf_has_no_runtime_depends(self):
         source = self.root / 'static.c'
         source.write_text('void _start(void) { for (;;) {} }\n')

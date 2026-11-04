@@ -19,10 +19,17 @@ printf 'deb [signed-by=/etc/apt/keyrings/stack-fixture.gpg] file://%s stable mai
 apt-get update
 version() { dpkg-query -W -f='${Version}' "$package"; }
 owned() {
+  [[ -z $(dpkg-query -W -f='${Conffiles}' "$package") ]]
+  if [[ $command == dp ]]; then /usr/bin/dp version; else "/usr/bin/$command" --version; fi
   [[ $(dpkg-query -S "/usr/bin/$command" | cut -d: -f1) == "$package" ]]
   if [[ -n $alias ]]; then
     [[ $(dpkg-query -S "/usr/bin/$alias" | cut -d: -f1) == "$package" ]]
-    [[ $(readlink -f "/usr/bin/$alias") == "/usr/bin/$command" ]]
+    "/usr/bin/$alias" --version
+    if [[ -L /usr/bin/$alias ]]; then
+      [[ $(readlink -f "/usr/bin/$alias") == "/usr/bin/$command" ]]
+    else
+      [[ $package == tambo && $alias == caboodle && -x /usr/bin/caboodle ]]
+    fi
   fi
 }
 apt-get -y install "$package=$old"

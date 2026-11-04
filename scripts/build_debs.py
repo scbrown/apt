@@ -134,9 +134,18 @@ def runtime_depends(bindir: pathlib.Path, bins: list[str], arch: str) -> str:
         if (not machine or machine[1].strip() != machines[arch] or "ELF64" not in header
                 or "little endian" not in header):
             raise Refused(f"{name}: ELF architecture does not match {arch}")
+        elf_type = re.search(r"^\s*Type:\s*(\S+)", header, re.M)
+        if not elf_type or elf_type[1] not in {"EXEC", "DYN"}:
+            raise Refused(f"{name}: ELF is not an executable or PIE")
         program = readelf("--program-headers")
+        if not re.search(r"^\s*LOAD\s", program, re.M):
+            raise Refused(f"{name}: ELF has no loadable segments")
         interpreter = re.search(r"Requesting program interpreter: ([^]]+)", program)
-        if interpreter and pathlib.PurePosixPath(interpreter[1]).name != loaders[arch]:
+        interp_paths = {"amd64": {"/lib64/ld-linux-x86-64.so.2",
+                                  "/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"},
+                        "arm64": {"/lib/ld-linux-aarch64.so.1",
+                                  "/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"}}
+        if interpreter and interpreter[1] not in interp_paths[arch]:
             raise Refused(f"{name}: unqualified ELF interpreter {interpreter[1]}")
         dynamic = readelf("--dynamic")
         sonames = re.findall(r"\(NEEDED\).*?\[([^]]+)\]", dynamic)

@@ -1,6 +1,6 @@
-Script started on 2026-11-04 07:20:07-05:00 [COMMAND="python3 tests/demo_runtime_depends.py" <not executed on terminal>]
+Script started on 2026-11-04 07:31:44-05:00 [COMMAND="python3 tests/demo_runtime_depends.py" <not executed on terminal>]
 Same locally compiled ELF, verified synthetic archive; no release executable run.
 BASE cc6d711c: Depends=ABSENT; executable bytes unchanged
 CANDIDATE working source: Depends=libc6 (>= 2.34); executable bytes unchanged
 
-Script done on 2026-11-04 07:20:07-05:00 [COMMAND_EXIT_CODE="0"]
+Script done on 2026-11-04 07:31:44-05:00 [COMMAND_EXIT_CODE="0"]

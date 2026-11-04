@@ -86,3 +86,13 @@ old/new revisions and a throwaway signing key. It exercises actual APT hold,
 upgrade, downgrade, remove, reinstall and purge, with dpkg ownership, alias,
 user-state and PATH-shadow checks. It is not scheduled by CI: builder admission
 and target/architecture coverage must be recorded before execution.
+
+To prepare the fixture without installing anything, build candidates into a
+private pool, then run `python3 tests/prepare-lifecycle-fixture.py --pool <pool>
+--site <new-directory>`. It verifies the published InRelease signature, signed
+index hashes and old DEB hashes, checks that each candidate sorts above its
+baseline, rejects maintainer scripts, and signs the private fixture using a
+throwaway key. The key is deleted after signing. No production signing material
+is used. `tests/lifecycle-workflow.example.yml` is the concrete Debian 13 and
+Ubuntu 24.04 amd64 proposal, outside the scheduled workflows until builder
+scope is admitted. ARM runtime qualification remains separate.

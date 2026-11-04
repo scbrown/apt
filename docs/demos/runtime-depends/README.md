@@ -18,5 +18,5 @@ scriptreplay --log-out docs/demos/runtime-depends/output.log \
 
 The small output/timing pair is retained here with the change. It is a terminal
 recording, with a readable transcript in `output.log`; no inline video player is
-claimed. The candidate builder's contents are unchanged since the recording.
+claimed. The recording is refreshed when the candidate builder changes.
 This shows source packaging behavior, not deployment or clean-distro acceptance.

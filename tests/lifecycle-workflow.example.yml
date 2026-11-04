@@ -1,0 +1,53 @@
+# PROPOSAL ONLY. Not in .github/workflows and therefore not scheduled.
+# Move only after named builder/target admission; then normal PR CI/review.
+name: disposable lifecycle
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  lifecycle:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ['debian:13', 'ubuntu:24.04']
+    container: ${{ matrix.image }}
+    steps:
+      - name: Bootstrap disposable builder only
+        run: |
+          apt-get update
+          apt-get -y install python3 curl git ca-certificates binutils gnupg
+          cat /etc/os-release
+          dpkg --print-architecture
+          getconf GNU_LIBC_VERSION
+          test "$(dpkg --print-architecture)" = amd64
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build verified native candidates
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          manifest = json.loads(pathlib.Path('tools.json').read_text())
+          for name, tool in manifest.items():
+              if not name.startswith('_'):
+                  tool['arches'] = ['amd64']
+          pathlib.Path('/tmp/native-tools.json').write_text(json.dumps(manifest))
+          PY
+          python3 scripts/build_debs.py --manifest /tmp/native-tools.json --pool /tmp/candidates --latest 1
+          python3 tests/prepare-lifecycle-fixture.py --pool /tmp/candidates --site /tmp/fixture
+      - name: Actual dpkg/APT lifecycle in admitted container
+        env:
+          APT_LIFECYCLE_DISPOSABLE: '1'
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, subprocess
+          pairs = json.loads(pathlib.Path('/tmp/fixture/lifecycle-pairs.json').read_text())
+          assert len(pairs) == 6, pairs
+          for p in pairs:
+              subprocess.run(['bash', 'tests/disposable-lifecycle.sh', '/tmp/fixture',
+                              p['package'], p['old'], p['new'], p['command'], p['alias']], check=True)
+          PY
