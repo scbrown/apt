@@ -1157,6 +1157,22 @@ MD5sum: 33dbc8b595bc3c6e288e6f09c430abdb
 SHA256: bc3ff121211dbb9b2509b4c184d7426f34d847dfff186f9abcf6760a057ea628
 
 Package: seeds
+Version: 0.16.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.16.0 release archive.
+ Upstream archive sha256: ab46671feb43dd7489dd23cc93e349a275281c034ec05ade6038fcbe4784c661
+Filename: pool/stable/seeds/seeds_0.16.0-1_amd64.deb
+Size: 7615528
+MD5sum: 7ff959430260feeaf5983536d49af2ad
+SHA256: c1055e95a97181de4323a3a61c9afcfc275ab2c3496f906a69bc059afaba32b5
+
+Package: seeds
 Version: 0.2.5
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -1572,6 +1588,24 @@ Filename: pool/stable/tambo/tambo_0.11.1-1_amd64.deb
 Size: 1713640
 MD5sum: 851cf331b0a17f7cfbf9de517b50d9e9
 SHA256: 2c2ee33e064386181bc6b5a877d93265ed4cf739b592be8d7d95bd7a259f155e
+
+Package: tambo
+Version: 0.11.2-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.5-1~)
+Replaces: caboodle (<< 0.3.5-1~)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.11.2 release archive.
+ Upstream archive sha256: 3f07ca408752a3431f669f85de7d075313a58d82832df3446fabb4ca6f394a55
+Filename: pool/stable/tambo/tambo_0.11.2-1_amd64.deb
+Size: 1687208
+MD5sum: dc5a2f310a8fb206d114d7a66c5fab50
+SHA256: ffb028ee550df309ee851e0e354977b9982c4b8036c4dfa4b2c10338b636b66f
 
 Package: tambo
 Version: 0.3.4
@@ -2261,3 +2295,19 @@ Filename: pool/stable/yupana/yupana_0.17.2-2_amd64.deb
 Size: 5978596
 MD5sum: 113c97318bd27c41303e48e87acfc9f6
 SHA256: 80791d48c3add20a7a8fc52dfd5050a752384a81b1c3b986c1db3961dadf11ba
+
+Package: yupana
+Version: 0.17.3-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.17.3 release archive.
+ Upstream archive sha256: d92da9e715eaa82a89e440cdf9b1f33ee2986d4dc6eb90384c4debf8b6a3cb08
+Filename: pool/stable/yupana/yupana_0.17.3-2_amd64.deb
+Size: 6219460
+MD5sum: e1d3726d37d3c8e81ceff4a082396df0
+SHA256: 119858628e0794af4a0cc51b8c85e40f13be1b9ac60796da73cb179bf5916ae9
