@@ -213,6 +213,22 @@ Size: 30108052
 MD5sum: 283a56cb03a51e876b87e79bfd566c24
 SHA256: 3ffcfa574bf93dcf4e83e21e07aa983bb3e09e7475ef031917e40b7a1e142733
 
+Package: bobbin
+Version: 0.35.2-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.35.2 release archive.
+ Upstream archive sha256: 3baf0d2b0838ab6014eb5beacac68576db5e229e7e6ba89aea8378f399d1cfaa
+Filename: pool/stable/bobbin/bobbin_0.35.2-1_amd64.deb
+Size: 30093180
+MD5sum: f575465334e314c4513a2ee2bad27b58
+SHA256: 4eff52651f51219d0de2faffe28080cd14de7f00c428fbdef9285571ac07961a
+
 Package: caboodle
 Version: 0.2.18
 Architecture: amd64
