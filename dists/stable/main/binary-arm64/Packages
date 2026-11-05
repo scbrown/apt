@@ -197,6 +197,22 @@ Size: 35217700
 MD5sum: 17ea836a4be81af0289d27881e403529
 SHA256: e17d65756cd926c98709853a84fad49c38460a4f37c153afa4f3dc0d5ebd07af
 
+Package: bobbin
+Version: 0.35.1-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.35.1 release archive.
+ Upstream archive sha256: 0e3f1db1ad68bce61fd54e4bdf9d507e4fcb39560b56e59748c5b8585c96399d
+Filename: pool/stable/bobbin/bobbin_0.35.1-1_arm64.deb
+Size: 35221588
+MD5sum: 37a642f5baafedb5e494430a29f3c0e5
+SHA256: e2d36d3c280813390b1262e624594bfdfbdabf8f0f3c9a3bf7929c692c399bc9
+
 Package: desire-path
 Version: 0.10.0
 Architecture: arm64
@@ -880,6 +896,22 @@ Filename: pool/stable/seeds/seeds_0.14.0-1_arm64.deb
 Size: 6550660
 MD5sum: f7e2f2751f3f3bc4d0cd4f2cd15a3e48
 SHA256: b175fe6b9ed9977b34834fe55adea70a103c6bdb417e446989771e10b95e68c5
+
+Package: seeds
+Version: 0.15.0-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.15.0 release archive.
+ Upstream archive sha256: b313dbe8801d9a7fec1fb79dfd3fcb610cd3c721834cc778269f4651ce54d7de
+Filename: pool/stable/seeds/seeds_0.15.0-1_arm64.deb
+Size: 6622708
+MD5sum: ccb8a7ad8ebb9787bb9f7df06044b83c
+SHA256: edd951a395fc38bbdc428398ce4868107a8c315e891b226af874c798ef0448ce
 
 Package: seeds
 Version: 0.2.5
