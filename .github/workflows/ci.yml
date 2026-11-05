@@ -18,9 +18,10 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - name: Compile
         run: |
-          python3 -m py_compile scripts/build_debs.py scripts/index_repo.py scripts/canary_gate.py
-          bash -n tests/e2e-transition.sh
+          python3 -m py_compile scripts/build_debs.py scripts/index_repo.py scripts/canary_gate.py tests/prepare-lifecycle-fixture.py
+          bash -n tests/e2e-transition.sh tests/disposable-lifecycle.sh
           python3 tests/test_transitional_gate.py
+          python3 tests/test_runtime_depends.py
           python3 tests/test_canary_gate.py
           python3 tests/test_retained_stable.py
       - name: Published key matches FINGERPRINT
@@ -53,7 +54,7 @@ jobs:
           src "$RUNNER_TEMP/test.gpg"
           apt-get update
           test "$(apt-cache madison desire-path | wc -l)" -ge 2
-          (cd "$RUNNER_TEMP" && apt-get download desire-path && dpkg-deb -c desire-path_*_amd64.deb | grep -q './usr/bin/dp$')
+          (cd "$RUNNER_TEMP" && apt-get download desire-path && dpkg-deb -c desire-path_*_amd64.deb | grep './usr/bin/dp$' >/dev/null)
           # Wrong key: apt must refuse the repository.
           src "$PWD/key.gpg"
           apt-get update > "$RUNNER_TEMP/wrongkey.log" 2>&1 || true
@@ -74,6 +75,6 @@ jobs:
           set -euo pipefail
           site="$RUNNER_TEMP/transition"
           python3 scripts/build_debs.py --manifest tools.json --pool "$site/pool" --only tambo quipu yupana --latest 1
-          for deb in "$site"/pool/stable/quipu/*_amd64.deb; do dpkg-deb -c "$deb" | grep -q './usr/bin/qp -> quipu$'; done
-          for deb in "$site"/pool/stable/yupana/*_amd64.deb; do dpkg-deb -c "$deb" | grep -q './usr/bin/hank -> yupana$'; done
+          for deb in "$site"/pool/stable/quipu/*_amd64.deb; do dpkg-deb -c "$deb" | grep './usr/bin/qp -> quipu$' >/dev/null; done
+          for deb in "$site"/pool/stable/yupana/*_amd64.deb; do dpkg-deb -c "$deb" | grep './usr/bin/hank -> yupana$' >/dev/null; done
           tests/e2e-transition.sh "$site"
