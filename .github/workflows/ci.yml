@@ -24,6 +24,7 @@ jobs:
           python3 tests/test_runtime_depends.py
           python3 tests/test_canary_gate.py
           python3 tests/test_retained_stable.py
+          python3 tests/test_prepare_lifecycle_fixture.py
       - name: Published key matches FINGERPRINT
         run: |
           export GNUPGHOME="$(mktemp -d)"

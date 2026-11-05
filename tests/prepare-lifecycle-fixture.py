@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from build_debs import fetch, Refused
 
 URL = 'https://scbrown.github.io/apt'
+FIXTURE_SUITE = 'canary'
 
 
 def run(*args, **kwargs):
@@ -65,7 +66,10 @@ def main():
     tool_by_package = {t['package']: t for name, t in manifest.items() if not name.startswith('_')}
     old_rows = {}
     pairs = []
-    for candidate in sorted(args.pool.glob('stable/*/*.deb')):
+    if any(args.pool.glob('stable/seeds/*.deb')):
+        raise Refused('Seeds lifecycle candidates must come from canary')
+    candidates = [*args.pool.glob('stable/*/*.deb'), *args.pool.glob('canary/seeds/*.deb')]
+    for candidate in sorted(candidates):
         info = fields(run('dpkg-deb', '-f', candidate, capture_output=True, text=True).stdout)
         package, arch = info['Package'], info['Architecture']
         # Transitional caboodle is covered by the separate transition fixture.
@@ -89,7 +93,7 @@ def main():
         payload = fetch(URL + '/' + str(filename))
         if (hashlib.sha256(payload).hexdigest(), len(payload)) != (old['SHA256'], int(old['Size'])):
             raise Refused(f'{package}/{arch}: published DEB hash/size mismatch')
-        destination = site / filename
+        destination = site / 'pool' / FIXTURE_SUITE / package / filename.name
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(payload)
         newer = destination.parent / candidate.name
@@ -108,7 +112,7 @@ def main():
                           old_sha256=old['SHA256'], new_sha256=hashlib.sha256(newer.read_bytes()).hexdigest()))
     if not pairs:
         raise Refused('no lifecycle pairs prepared')
-    run(sys.executable, ROOT / 'scripts/index_repo.py', '--root', site, '--channel', 'stable')
+    run(sys.executable, ROOT / 'scripts/index_repo.py', '--root', site, '--channel', FIXTURE_SUITE)
     try:
         run('gpg', '--homedir', keyhome, '--batch', '--pinentry-mode', 'loopback',
             '--passphrase', '', '--quick-gen-key', 'disposable lifecycle fixture', 'ed25519', 'sign', '1d',
@@ -116,7 +120,7 @@ def main():
         exported = run('gpg', '--homedir', keyhome, '--batch', '--export', capture_output=True).stdout
         (site / 'fixture.gpg').write_bytes(exported)
         run('gpg', '--homedir', keyhome, '--batch', '--yes', '--clearsign',
-            '--output', site / 'dists/stable/InRelease', site / 'dists/stable/Release')
+            '--output', site / f'dists/{FIXTURE_SUITE}/InRelease', site / f'dists/{FIXTURE_SUITE}/Release')
     finally:
         try:
             run('gpgconf', '--homedir', keyhome, '--kill', 'gpg-agent')

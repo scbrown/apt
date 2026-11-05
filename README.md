@@ -101,9 +101,11 @@ To prepare the fixture without installing anything, build candidates into a
 private pool, then run `python3 tests/prepare-lifecycle-fixture.py --pool <pool>
 --site <new-directory>`. It verifies the published InRelease signature, signed
 index hashes and old DEB hashes, checks that each candidate sorts above its
-baseline, rejects maintainer scripts, and signs the private fixture using a
-throwaway key. The key is deleted after signing. No production signing material
-is used. `.github/workflows/lifecycle.yml` runs on same-repository pull requests with
+baseline, rejects maintainer scripts, and signs a private **canary** suite using
+a throwaway key. CI uses test-only `+lifecycle<run-id>` packaging revisions and
+builds Seeds through the existing canary channel. This fixture does not admit
+Seeds to stable or create a canary smoke attestation. The key is deleted after
+signing. No production signing material is used. `.github/workflows/lifecycle.yml` runs on same-repository pull requests with
 read-only permissions. It resolves and records the Debian 13 and Ubuntu 24.04
 image digests, uses those exact images on GitHub-hosted amd64 runners, and
 retains only logs and image identity as CI artifacts. It uploads no package
