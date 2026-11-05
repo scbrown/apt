@@ -163,7 +163,12 @@ def verify(deb, trust=DEFAULT_TRUST, *, candidate=None, promotion=False, now=Non
             raise Refused("package-identity-mismatch")
         if host["architecture"] != identity["architecture"]:
             raise Refused("canary-architecture-mismatch")
-        if supplied["repository"] != REPOSITORY or supplied["tag"] != "seeds-ai-v" + identity["version"]:
+        # Debian's final hyphen separates a non-native packaging revision.
+        # The full Version remains bound above; the release tag names only the
+        # upstream component, never that packaging revision.
+        upstream, separator, _revision = identity["version"].rpartition("-")
+        upstream = upstream if separator else identity["version"]
+        if supplied["repository"] != REPOSITORY or supplied["tag"] != "seeds-ai-v" + upstream:
             raise Refused("release-identity-mismatch")
         if not isinstance(supplied["commit"], str) or not re.fullmatch(r"[0-9a-f]{40}", supplied["commit"]):
             raise Refused("invalid-release-commit")

@@ -91,6 +91,39 @@ class CanaryGate(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("Package: seeds\nVersion: 0.7.2", text)
 
+    def revised_candidate(self):
+        tool = json.loads((ROOT / "tools.json").read_text())["seeds"]
+        self.assertTrue(tool["debian_revision"])
+        self.deb = self.package("seeds", builder.deb_version(tool, "0.7.2"), "canary")
+        self.candidate = dict(gate.package_identity(self.deb), repository=tool["repository"],
+                              tag=tool["tag_prefix"] + "0.7.2", commit="b" * 40)
+        self.receipt["candidate"] = self.candidate
+        self.destination = self.root / "pool/stable/seeds" / self.deb.name
+        self.sign()
+        return tool
+
+    def test_manifest_revision_promotion_and_index(self):
+        tool = self.revised_candidate()
+        release = {"tag_name": "seeds-ai-v0.7.2", "assets": []}
+        with mock.patch.object(builder, "fetch", return_value=json.dumps({"sha": "b" * 40}).encode()), \
+                mock.patch.object(builder, "expected_sha", return_value="d" * 64):
+            builder.promote_seeds(tool, release, "amd64", self.root / "pool", self.trust)
+        self.assertEqual(self.destination.read_bytes(), self.deb.read_bytes())
+        result, text = self.index()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Version: " + builder.deb_version(tool, "0.7.2") + "\n", text)
+
+    def test_revision_cannot_be_part_of_upstream_tag(self):
+        self.revised_candidate()
+        self.candidate["tag"] = "seeds-ai-v" + self.candidate["version"]
+        self.sign()
+        self.refuses()
+        self.destination.parent.mkdir(parents=True)
+        self.destination.write_bytes(self.deb.read_bytes())
+        result, text = self.index()
+        self.assertEqual(result.returncode, 3, result.stderr)
+        self.assertNotIn("Package: seeds", text)
+
     def test_071_preexisting_pool_bypass_excluded_other_tool_retained(self):
         self.package("seeds", "0.7.1", "stable")
         self.package("desire-path", "0.1.0", "stable")
