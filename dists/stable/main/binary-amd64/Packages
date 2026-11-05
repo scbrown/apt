@@ -181,6 +181,22 @@ Size: 30094532
 MD5sum: 60509e158f7a0203f91a657ae871e78c
 SHA256: 239c3de948fa315c6aed87fab14eafa068988c6bde70ea881c3aa4c6e4c6aa7f
 
+Package: bobbin
+Version: 0.35.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.35.0 release archive.
+ Upstream archive sha256: a89ddc5d5b6ecd480629613ba4ebc7f236bdbe73212258112b531787c76c084b
+Filename: pool/stable/bobbin/bobbin_0.35.0-1_amd64.deb
+Size: 30107036
+MD5sum: 949d570a93183794b6d143fff1e124a6
+SHA256: 4760df715f74b70e4c2f691ccc6ab256427f8d87c0ff4f0e66a9202a38c8d81b
+
 Package: caboodle
 Version: 0.2.18
 Architecture: amd64
@@ -1030,6 +1046,22 @@ MD5sum: c10d620b25d9d155ee7d02c5f4bba2d7
 SHA256: f34e18ccaa1cd3a94e3be747951d5d825e7bcdde00b89e0bc11ee7680158827c
 
 Package: seeds
+Version: 0.13.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.13.0 release archive.
+ Upstream archive sha256: 44cfa8b6a466b5bab0bbd1e5475d027666eabf70f9ea37f8ec295cf6278436a2
+Filename: pool/stable/seeds/seeds_0.13.0-1_amd64.deb
+Size: 7530876
+MD5sum: 4c349f2be3043ed9cb91d8934fda63a5
+SHA256: 6498d25d3b6c20e8bf4d84c10accd1011c7cde69de99a4aaa3b0b5845625b413
+
+Package: seeds
 Version: 0.2.5
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -1391,6 +1423,24 @@ Filename: pool/stable/tambo/tambo_0.10.0-1_amd64.deb
 Size: 1692620
 MD5sum: 2cf88b3aa3a114f61275cc32e01e600b
 SHA256: 8b0891245872c444f0daae645c26d58f5de565d80b4e8c5db822c677e4cbf27d
+
+Package: tambo
+Version: 0.10.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.5-1~)
+Replaces: caboodle (<< 0.3.5-1~)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.10.1 release archive.
+ Upstream archive sha256: d06ab3950b34f8dfb6be0ae3fbd79df911b2e07940f4562a41ee9c5860d46bfd
+Filename: pool/stable/tambo/tambo_0.10.1-1_amd64.deb
+Size: 1733208
+MD5sum: 0e558cfafddc69e211a6e0b8fc130283
+SHA256: ae29dde2955cdabd5ad1fe46071b91e16017eb68c12afd9de7ad8b5f31af465c
 
 Package: tambo
 Version: 0.3.4
@@ -2032,3 +2082,19 @@ Filename: pool/stable/yupana/yupana_0.16.6-2_amd64.deb
 Size: 5976384
 MD5sum: 249efad179f930786d4b7d2458a83a8f
 SHA256: f03c073ea88c658beae8544e6fa16b2d61295a261f85c773d16894e1148b4772
+
+Package: yupana
+Version: 0.17.0-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.17.0 release archive.
+ Upstream archive sha256: 5a450eb099fffa14ee08111823f90c44408e4e1f0ba0d5d33c30d04f262a4a8f
+Filename: pool/stable/yupana/yupana_0.17.0-2_amd64.deb
+Size: 5977812
+MD5sum: 673ad8e3ee1ebba4d511b2c0b824b453
+SHA256: 9bccf6eb4d48182e958bc041deee743780fa17f9cf7245a47371425d65e8d33a
