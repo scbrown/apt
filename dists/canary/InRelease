@@ -1,0 +1,24 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Origin: scbrown
+Label: scbrown stack
+Suite: canary
+Codename: canary
+Date: Fri, 06 Nov 2026 03:44:18 GMT
+Valid-Until: Mon, 16 Nov 2026 03:44:18 GMT
+Architectures: amd64 arm64
+Components: main
+Description: Quipu tool stack, repackaged from checksum-verified releases
+SHA256:
+ 69eda4d4b2db535eb8a4a520b4f5c2dd7e879466b20bef6bf67f5c9b277ce22f             1940 main/binary-amd64/Packages
+ be988d33f436f49af0e9e87bda9156ea1a9c9a4902e9c0150dc4f7fc711cf3aa              732 main/binary-amd64/Packages.gz
+ 7c6238e8f7c6aa9ccfdd35f71f9e3a41940c7b90956fdcd38eaf20b0779ada51             1940 main/binary-arm64/Packages
+ 0bca45f9799a214aa95a6d2e0e698239768af06afb1e8a485d36a318ba9d14fe              731 main/binary-arm64/Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQSrViXFYS9kO/dkZN8NyZkkmU7JWQUCau1NEgAKCRANyZkkmU7J
+Wd2aAQCUoyI/+McyXVqtmd2vUjIwFxajKODGJkWN0Ouh6jnGRwD/Qjl6o11WM052
+BD5Crg8y4nPf8v7R3bkDInVnVWpRZws=
+=IY74
+-----END PGP SIGNATURE-----
