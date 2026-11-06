@@ -1,0 +1,6 @@
+{
+  "contract": "seeds-canary-v1",
+  "keys": {},
+  "canaries": {},
+  "retain_published_seeds": true
+}

@@ -6,12 +6,14 @@ import io
 import pathlib
 import platform
 import subprocess
+import sys
 import tarfile
 import tempfile
 import unittest
 from unittest.mock import patch
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts'))
 spec = importlib.util.spec_from_file_location('build_debs', ROOT / 'scripts/build_debs.py')
 b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)

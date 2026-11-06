@@ -76,14 +76,18 @@ jobs:
           cat /etc/os-release >> lifecycle-logs/image-identity.txt
           getconf GNU_LIBC_VERSION >> lifecycle-logs/image-identity.txt
           python3 - <<'PY'
-          import json, pathlib
+          import json, os, pathlib
           manifest = json.loads(pathlib.Path('tools.json').read_text())
           for name, tool in manifest.items():
               if not name.startswith('_'):
                   tool['arches'] = ['amd64']
+                  # Private test revisions stay above the published baseline.
+                  tool['debian_revision'] = str(tool.get('debian_revision', '0')) + '+lifecycle' + os.environ['GITHUB_RUN_ID']
           pathlib.Path('/tmp/native-tools.json').write_text(json.dumps(manifest))
           PY
-          python3 scripts/build_debs.py --manifest /tmp/native-tools.json --pool /tmp/candidates --latest 1 2>&1 | tee lifecycle-logs/build.log
+          python3 scripts/build_debs.py --manifest /tmp/native-tools.json --pool /tmp/candidates --only desire-path tambo bobbin yupana quipu --latest 1 2>&1 | tee lifecycle-logs/build.log
+          # Seeds candidates enter the normal canary path; stable still needs a receipt.
+          python3 scripts/build_debs.py --manifest /tmp/native-tools.json --pool /tmp/candidates --channel canary --only seeds --latest 1 2>&1 | tee -a lifecycle-logs/build.log
           python3 tests/prepare-lifecycle-fixture.py --pool /tmp/candidates --site /tmp/fixture 2>&1 | tee lifecycle-logs/prepare.log
           cp /tmp/fixture/lifecycle-pairs.json /tmp/fixture/upstream-signature.log lifecycle-logs/
       - name: Actual dpkg and APT lifecycle in disposable container

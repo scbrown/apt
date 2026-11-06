@@ -24,7 +24,7 @@ Check the key fingerprint before trusting it:
 
 | Want | Command |
 |---|---|
-| Every release (default) | the `stable` line above |
+| Releases admitted to stable (default) | the `stable` line above |
 | Prereleases, where a tool publishes them | replace `stable` with `nightly` |
 | Stay on one version | `sudo apt install <tool>=<version>` then `sudo apt-mark hold <tool>` |
 | Roll back | `sudo apt install <tool>=<previous version>` |
@@ -41,6 +41,16 @@ arm64 release (Quipu, Bobbin, Seeds, Desire Path).
 new releases listed in `tools.json`, verifies and repackages them, regenerates
 the indexes and signs `InRelease` and `Release.gpg` with the repository key. A
 refused checksum fails the run and publishes nothing for that tool.
+
+Seeds stable releases additionally require an Ops-signed canary write-smoke
+receipt for the exact package bytes. New unapproved Seeds packages are excluded. During explicitly empty
+enrollment, exact previously published stable bytes remain available only after
+verification against the prior signed index; other tools retain their release
+path. Retention cannot promote a new version and must end before enrollment. The separate `canary` channel stages seeds candidates for the
+approved canary host, not general installation. See [the admission contract](canary/README.md)
+for enrollment, receipt format, rollback requirements and source-only controls.
+No production canary trust key is enrolled in this change; activation remains
+blocked pending approved enrollment and a real smoke.
 
 ## Runtime requirements and package ownership
 
@@ -91,9 +101,11 @@ To prepare the fixture without installing anything, build candidates into a
 private pool, then run `python3 tests/prepare-lifecycle-fixture.py --pool <pool>
 --site <new-directory>`. It verifies the published InRelease signature, signed
 index hashes and old DEB hashes, checks that each candidate sorts above its
-baseline, rejects maintainer scripts, and signs the private fixture using a
-throwaway key. The key is deleted after signing. No production signing material
-is used. `.github/workflows/lifecycle.yml` runs on same-repository pull requests with
+baseline, rejects maintainer scripts, and signs a private **canary** suite using
+a throwaway key. CI uses test-only `+lifecycle<run-id>` packaging revisions and
+builds Seeds through the existing canary channel. This fixture does not admit
+Seeds to stable or create a canary smoke attestation. The key is deleted after
+signing. No production signing material is used. `.github/workflows/lifecycle.yml` runs on same-repository pull requests with
 read-only permissions. It resolves and records the Debian 13 and Ubuntu 24.04
 image digests, uses those exact images on GitHub-hosted amd64 runners, and
 retains only logs and image identity as CI artifacts. It uploads no package

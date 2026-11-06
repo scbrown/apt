@@ -6,12 +6,14 @@ import io
 import pathlib
 import platform
 import subprocess
+import sys
 import tarfile
 import tempfile
 from unittest.mock import patch
 
 BASE = 'cc6d711c955091d38e8eee6a9709829958017e7a'
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts'))
 arch = {'x86_64': 'amd64', 'aarch64': 'arm64'}[platform.machine()]
 with tempfile.TemporaryDirectory() as directory:
     tmp = pathlib.Path(directory)
