@@ -1662,6 +1662,24 @@ MD5sum: 28700fc37063935b6173062eec4c751e
 SHA256: 84575b2703471ce4afc8fd8c551d9d1d0740b1562c5c752a3b8c0f66f5286e8f
 
 Package: tambo
+Version: 0.13.0-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.5-1~)
+Replaces: caboodle (<< 0.3.5-1~)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.13.0 release archive.
+ Upstream archive sha256: 91336f08d79ef9ce50da1162fa4c46284639178b586d2fb9f180761c23da0cbb
+Filename: pool/stable/tambo/tambo_0.13.0-1_amd64.deb
+Size: 1726212
+MD5sum: ac771293cc451012321520f6b4418c55
+SHA256: b8f6295128a751d97bc9c0e4afc202c56b549858b9c20675b1cf8ff25ce64395
+
+Package: tambo
 Version: 0.3.4
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
