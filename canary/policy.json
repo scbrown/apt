@@ -1,6 +1,17 @@
 {
   "contract": "seeds-canary-v1",
-  "keys": {},
-  "canaries": {},
-  "retain_published_seeds": true
+  "keys": {
+    "seeds-canary-key-01": {
+      "public_key_sha256": "c3b820c77901be2040dd7eef84c4165a956b77e9902f2fc8b3381dd8ca8236df"
+    }
+  },
+  "canaries": {
+    "seeds-canary-01": {
+      "key_id": "seeds-canary-key-01",
+      "architecture": "amd64",
+      "topology_sha256": "7f8de7f10e06806b1f908e7abcd518581984aa44501366fb919e43b95beb1fb0",
+      "st_version": "st 0.15.1 (371cb4e2-dirty)"
+    }
+  },
+  "retain_published_seeds": false
 }
