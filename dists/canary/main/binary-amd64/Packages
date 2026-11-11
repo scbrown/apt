@@ -125,3 +125,19 @@ Filename: pool/canary/seeds/seeds_0.20.0-1_amd64.deb
 Size: 7676916
 MD5sum: 491e71d3f72132df5d6f2c57e744b4f6
 SHA256: 78cb9d52e4afe669c954eef5faebee3bc0c15be4a32976522b1c8ae14333f9be
+
+Package: seeds
+Version: 0.20.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.20.1 release archive.
+ Upstream archive sha256: 7e344e1d1523226302352fa648580158234fdbb57e407adffc313dd580a0d053
+Filename: pool/canary/seeds/seeds_0.20.1-1_amd64.deb
+Size: 7677668
+MD5sum: 1e1ac8792922a79f43d481e0631012c7
+SHA256: 2e4807be04e5032f629ac5ea0815ac2e34f6bbd8000175abc582cd06462152f1
