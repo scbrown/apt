@@ -5,8 +5,8 @@ Origin: scbrown
 Label: scbrown stack
 Suite: nightly
 Codename: nightly
-Date: Thu, 05 Nov 2026 01:46:15 GMT
-Valid-Until: Sun, 15 Nov 2026 01:46:15 GMT
+Date: Thu, 12 Nov 2026 02:43:16 GMT
+Valid-Until: Sun, 22 Nov 2026 02:43:16 GMT
 Architectures: amd64 arm64
 Components: main
 Description: Quipu tool stack, repackaged from checksum-verified releases
@@ -17,8 +17,8 @@ SHA256:
  9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64               20 main/binary-arm64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSrViXFYS9kO/dkZN8NyZkkmU7JWQUCauvf5wAKCRANyZkkmU7J
-WQ7WAP9SUXSubb2yl5vGPPTGSUCNZhJW86KPYtD20p9G9TNERwEAuh6VQ/73uzcR
-pg3zk6QOrDiCpFbHnGe8Hx7pkP7jPg0=
-=vcMj
+iHUEARYKAB0WIQSrViXFYS9kO/dkZN8NyZkkmU7JWQUCavUnxAAKCRANyZkkmU7J
+WdyQAP4///K6+AUnHl2/CCIqTJUTXnmyLfK6XIItNWzGsO9D+wD/RAgk9np1O8Hk
+RTn2JVEPnmPwe7LV2LnVPhmZQBXE+wE=
+=fvqM
 -----END PGP SIGNATURE-----
