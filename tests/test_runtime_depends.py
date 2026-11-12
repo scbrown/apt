@@ -130,4 +130,5 @@ class RuntimeDepends(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    from test_python_package import PythonPackage  # run stdlib and ELF package controls in this lane
     unittest.main()

@@ -18,6 +18,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import tomllib
 
 import canary_gate
 
@@ -97,6 +98,73 @@ def extract_bins(archive: bytes, bins: list[str], dest: pathlib.Path) -> None:
         path = dest / name
         path.write_bytes(data)
         path.chmod(0o755)
+
+
+def extract_python(archive: bytes, tool: dict, root: pathlib.Path, version: str) -> None:
+    """Package a reviewed stdlib-only module, without running release code.
+
+    Only the selected module's regular Python/data files are copied. No setup
+    hook, bundled executable, link, credential, or source-tree tool is installed.
+    """
+    module = tool["python_module"]
+    if not re.fullmatch(r"[a-z][a-z0-9_]*", module):
+        raise Refused("invalid Python module")
+    files = {}
+    prefix = None
+    total = 0
+    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as tar:
+        for member in tar:
+            path = pathlib.PurePosixPath(member.name)
+            if path.is_absolute() or ".." in path.parts:
+                raise Refused("unsafe Python archive path")
+            if module not in path.parts:
+                continue
+            index = path.parts.index(module)
+            parent = path.parts[:index]
+            if prefix is not None and parent != prefix:
+                raise Refused("multiple Python module roots")
+            prefix = parent
+            relative = pathlib.PurePosixPath(*path.parts[index:])
+            if member.isdir():
+                continue
+            if not member.isfile():
+                raise Refused("Python package contains a link or special file")
+            if relative.suffix not in {".py", ".json", ".md"}:
+                raise Refused(f"unqualified Python package file: {relative}")
+            if relative in files:
+                raise Refused("duplicate Python package file")
+            total += member.size
+            if total > 16 * 1024 * 1024:
+                raise Refused("Python package exceeds 16 MiB")
+            files[relative] = tar.extractfile(member).read()
+    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as tar:
+        metadata_path = str(pathlib.PurePosixPath(*prefix, "pyproject.toml")) if prefix is not None else ""
+        metadata = [m for m in tar.getmembers() if m.name == metadata_path]
+        if len(metadata) != 1 or not metadata[0].isfile() or metadata[0].size > 65536:
+            raise Refused("missing or ambiguous Python project metadata")
+        project = tomllib.loads(tar.extractfile(metadata[0]).read().decode())["project"]
+        if (project.get("name") != tool["package"] or project.get("version") != version
+                or project.get("requires-python") != ">=3.10" or project.get("dependencies") != []
+                or project.get("dynamic")
+                or project.get("scripts") != {name: f"{module}.cli:main" for name in tool["bins"]}):
+            raise Refused("Python runtime, identity or entrypoints require qualification")
+    for required in (f"{module}/__init__.py", f"{module}/cli.py"):
+        if pathlib.PurePosixPath(required) not in files:
+            raise Refused(f"archive lacks {required}")
+    lib = root / "usr/lib/python3/dist-packages"
+    for relative, data in files.items():
+        dest = lib / str(relative)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(data)
+        dest.chmod(0o644)
+    bindir = root / "usr/bin"
+    bindir.mkdir(parents=True, exist_ok=True)
+    for name in tool["bins"]:
+        if not re.fullmatch(r"[a-z][a-z0-9-]*", name):
+            raise Refused("invalid Python entrypoint")
+        dest = bindir / name
+        dest.write_text(f"#!/usr/bin/python3 -I\nfrom {module}.cli import main\nraise SystemExit(main())\n")
+        dest.chmod(0o755)
 
 
 def add_aliases(aliases: dict, bins: list[str], dest: pathlib.Path) -> None:
@@ -180,7 +248,7 @@ def runtime_depends(bindir: pathlib.Path, bins: list[str], arch: str) -> str:
 
 
 def release_docs(archive: bytes, bins: list[str], root: pathlib.Path,
-                 package: str, tag: str, digest: str) -> None:
+                 package: str, tag: str, digest: str, python_module: str | None = None) -> None:
     """Carry only documents alongside the selected release executables.
 
     Never substitute today's source-tree license for a historical release's
@@ -195,6 +263,10 @@ def release_docs(archive: bytes, bins: list[str], root: pathlib.Path,
         members = tar.getmembers()
         parents = {pathlib.PurePosixPath(m.name).parent for m in members
                    if m.isfile() and pathlib.PurePosixPath(m.name).name in bins}
+        if python_module:
+            parents = {pathlib.PurePosixPath(*pathlib.PurePosixPath(m.name).parts[:
+                       pathlib.PurePosixPath(m.name).parts.index(python_module)])
+                       for m in members if python_module in pathlib.PurePosixPath(m.name).parts}
         for member in members:
             path = pathlib.PurePosixPath(member.name)
             if member.isfile() and path.parent in parents and path.name in documents:
@@ -208,9 +280,11 @@ def release_docs(archive: bytes, bins: list[str], root: pathlib.Path,
     for name, data in found.items():
         (docdir / name).write_bytes(data)
     (docdir / "README.package").write_text(
-        f"Checksum-verified upstream release: {tag}\nArchive SHA256: {digest}\n"
-        "Binaries are repackaged unchanged; no source build is claimed.\n"
-        "Depends covers inspected ELF DT_NEEDED and version requirements only.\n"
+        f"Checksum-verified upstream release: {tag}\nArchive SHA256: {digest}\n" +
+        ("Python module/data bytes are repackaged unchanged; entrypoints are generated.\n"
+         "Depends declares the reviewed standard-library Python runtime.\n" if python_module else
+         "Binaries are repackaged unchanged; no source build is claimed.\n"
+         "Depends covers inspected ELF DT_NEEDED and version requirements only.\n") +
         "Dynamically loaded libraries, models and optional integrations require separate qualification.\n"
         "No services, state directories, conffiles or activation scripts are installed.\n"
         "Included upstream documents: " + (", ".join(sorted(found)) or "none") + "\n"
@@ -262,13 +336,20 @@ def build(tool_id: str, tool: dict, rel: dict, arch: str, out: pathlib.Path) -> 
         raise Refused(f"{name}: sha256 {got} != published {want}")
     with tempfile.TemporaryDirectory() as tmp:
         root = pathlib.Path(tmp) / "pkg"
-        extract_bins(data, tool["bins"], root / "usr/bin")
+        kind = tool.get("kind", "elf")
+        if kind == "python-stdlib":
+            extract_python(data, tool, root, version)
+            depends = "python3 (>= 3.10)"
+        elif kind == "elf":
+            extract_bins(data, tool["bins"], root / "usr/bin")
+            depends = runtime_depends(root / "usr/bin", tool["bins"], arch)
+        else:
+            raise Refused(f"unqualified package kind: {kind}")
         add_aliases(tool.get("aliases", {}), tool["bins"], root / "usr/bin")
         relations = dict(tool.get("relations", {}))
-        depends = runtime_depends(root / "usr/bin", tool["bins"], arch)
         if depends:
             relations["Depends"] = ", ".join(filter(None, [relations.get("Depends"), depends]))
-        release_docs(data, tool["bins"], root, tool["package"], tag, got)
+        release_docs(data, tool["bins"], root, tool["package"], tag, got, tool.get("python_module"))
         pack(root, control_text(
             tool["package"], debver, arch, "https://github.com/" + tool.get("repository", "scbrown/" + tool_id),
             relations, tool["description"],

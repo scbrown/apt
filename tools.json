@@ -111,5 +111,24 @@
       "qp": "quipu"
     },
     "debian_revision": "2"
+  },
+  "camayoc": {
+    "repository": "intigraph/camayoc",
+    "package": "camayoc",
+    "kind": "python-stdlib",
+    "python_module": "camayoc_cli",
+    "bins": [
+      "camayoc",
+      "cy"
+    ],
+    "tag_prefix": "v",
+    "asset": "camayoc-{tag}.tar.gz",
+    "sums": "SHA256SUMS",
+    "arches": [
+      "amd64",
+      "arm64"
+    ],
+    "description": "Camayoc: typed agent memory over Quipu",
+    "debian_revision": "1"
   }
 }
