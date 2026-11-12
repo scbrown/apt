@@ -473,6 +473,54 @@ Size: 1322196
 MD5sum: 6f3592845a10d66e49f28c2381bc77c2
 SHA256: 4dda9d1c92a683146fd3e1e0393e7ffe8c6af549cc706f5c20ab3d12e3c960b5
 
+Package: camayoc
+Version: 0.1.4-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.4 release archive.
+ Upstream archive sha256: 0cb0352fd380a8b093f870618d8d2755e5d33e3ee383d0d242fecebaefa0367e
+Filename: pool/stable/camayoc/camayoc_0.1.4-1_amd64.deb
+Size: 55472
+MD5sum: 6012c896e95c0faddf0d03f8b39ac251
+SHA256: ec264dc0d770e1bfb2ce985cd0aa6880a60c3122d85611518bcc7a8f8d9fd184
+
+Package: camayoc
+Version: 0.1.5-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.5 release archive.
+ Upstream archive sha256: c2eccee23750f32b9766b4a602220f017efc6c9f388141362b963451c65e3b33
+Filename: pool/stable/camayoc/camayoc_0.1.5-1_amd64.deb
+Size: 55572
+MD5sum: 15a9318e7d4a3074c4281c9d6827a8ff
+SHA256: 508980459b49a2c16f1dd27d1dbb139df985955eb9e26de0ca57a1eab24afbfe
+
+Package: camayoc
+Version: 0.1.6-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.6 release archive.
+ Upstream archive sha256: 59128dc3e23a5631caad18066e4b1610983d00c7733498198b69f5c2be484909
+Filename: pool/stable/camayoc/camayoc_0.1.6-1_amd64.deb
+Size: 56840
+MD5sum: f77918ca0c26f416405341e94d86da98
+SHA256: b12b73a96224f5f2ebc005d8d734160828190cad0277c96a6a9abd95b9aca93e
+
 Package: desire-path
 Version: 0.10.0
 Architecture: amd64

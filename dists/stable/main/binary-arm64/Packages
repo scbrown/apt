@@ -261,6 +261,54 @@ Size: 35208444
 MD5sum: 9551127c7390359e29997a521aa22e3e
 SHA256: 099d984478cd479d4f07ab0108a55f66efca95da6183af700ae8d62a7362238e
 
+Package: camayoc
+Version: 0.1.4-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.4 release archive.
+ Upstream archive sha256: 0cb0352fd380a8b093f870618d8d2755e5d33e3ee383d0d242fecebaefa0367e
+Filename: pool/stable/camayoc/camayoc_0.1.4-1_arm64.deb
+Size: 55468
+MD5sum: 6a0f3110faab06ebe8bcad4e463631f5
+SHA256: 6bfab827e5bf8c2c2b33f811043ad72927041188c56bd7956f689d5181903793
+
+Package: camayoc
+Version: 0.1.5-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.5 release archive.
+ Upstream archive sha256: c2eccee23750f32b9766b4a602220f017efc6c9f388141362b963451c65e3b33
+Filename: pool/stable/camayoc/camayoc_0.1.5-1_arm64.deb
+Size: 55572
+MD5sum: 0021b50ca36343f3d51cb48d37b7b679
+SHA256: 32c0c44426c984cf17637c9a25b187a46d2b12a9f6f3823427fc6109cba8cdcf
+
+Package: camayoc
+Version: 0.1.6-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.6 release archive.
+ Upstream archive sha256: 59128dc3e23a5631caad18066e4b1610983d00c7733498198b69f5c2be484909
+Filename: pool/stable/camayoc/camayoc_0.1.6-1_arm64.deb
+Size: 56820
+MD5sum: 6a14e9c8ac76804738320a691f60282a
+SHA256: 07ecb6e7955f1af9c91a5e603cea08a0793f4f51872ce01c6b527bc9e00b2cf6
+
 Package: desire-path
 Version: 0.10.0
 Architecture: arm64
