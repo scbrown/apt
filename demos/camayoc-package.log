@@ -1,0 +1,11 @@
+Script started on 2026-11-12 14:14:45-05:00 [COMMAND="bash demos/record-camayoc-package.sh" <not executed on terminal>]
+Same synthetic stdlib release, base builder b5ae75fa2cb22e6d04559017e6511017489ac594
+REFUSED: archive lacks ['camayoc', 'cy']
+
+Candidate builder SHA256 3d5e2e00b53465003a6e0b94e77f78796e59131317b010cbc084ec509251c2a5
+BUILT: camayoc_0.1.6-1_amd64.deb
+Depends: python3 (>= 3.10)
+cy: #!/usr/bin/python3 -I
+camayoc: #!/usr/bin/python3 -I
+
+Script done on 2026-11-12 14:14:46-05:00 [COMMAND_EXIT_CODE="0"]

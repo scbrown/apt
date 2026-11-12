@@ -1,7 +1,7 @@
 # scbrown apt repository
 
 Signed Debian packages for the Quipu tool stack: CABOODLE, Quipu, Bobbin,
-Yupana, Seeds and Desire Path. Each package repackages the exact binaries a
+Yupana, Seeds, Desire Path and Camayoc. Each package repackages the release payload a
 tool's GitHub release published, after verifying them against that release's
 own checksums. Nothing is rebuilt from source here.
 
@@ -110,3 +110,9 @@ read-only permissions. It resolves and records the Debian 13 and Ubuntu 24.04
 image digests, uses those exact images on GitHub-hosted amd64 runners, and
 retains only logs and image identity as CI artifacts. It uploads no package
 archive or signing material. ARM runtime qualification remains separate.
+
+Camayoc is packaged from its checksum-verified source release: the reviewed
+standard-library-only `camayoc_cli` module and bundled definitions/primer are
+installed as Python package data, with isolated `/usr/bin/python3 -I` entrypoints
+for `cy` and `camayoc`. No setup hooks run and no service, enrollment or graph
+write occurs during package installation. Python 3.10 or later is required.
