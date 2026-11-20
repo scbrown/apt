@@ -1,0 +1,10 @@
+{
+  "architecture": "amd64",
+  "archive_sha256": "0bb9c8f1dced8fc47fd629d98e18a5b50eb89aa0e0da8c743e4ac85c70b60c8d",
+  "commit": "3d08a138bc318836b03041014dcb3c50703c1d9a",
+  "deb_sha256": "3df24de3f13f95ca920ebc9c2b87f12ce40c480a0863f53a01d332c39e069b08",
+  "package": "seeds",
+  "repository": "intigraph/seeds",
+  "tag": "seeds-ai-v0.23.3",
+  "version": "0.23.3-1"
+}
