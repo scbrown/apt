@@ -474,6 +474,22 @@ MD5sum: 6f3592845a10d66e49f28c2381bc77c2
 SHA256: 4dda9d1c92a683146fd3e1e0393e7ffe8c6af549cc706f5c20ab3d12e3c960b5
 
 Package: camayoc
+Version: 0.1.10-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.10 release archive.
+ Upstream archive sha256: 1ec65726cc7648c1a131c4439cbf8bf3c91c69132bf92513271f3cdd2a0770b0
+Filename: pool/stable/camayoc/camayoc_0.1.10-1_amd64.deb
+Size: 57156
+MD5sum: 018336b7c567f8891bc9cd416d3bab8f
+SHA256: 91cfd8b2da0130821bf3aac304e3af3a9c84eddb9455d5941b568dd2aaf50659
+
+Package: camayoc
 Version: 0.1.4-1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -552,6 +568,22 @@ Filename: pool/stable/camayoc/camayoc_0.1.8-1_amd64.deb
 Size: 56860
 MD5sum: b4e37c2c392049ea6957b49d5c2a44db
 SHA256: b2b3bc1c178f6b7b3f0b86815f17667aaa740243e74be99687810293cdaa8b71
+
+Package: camayoc
+Version: 0.1.9-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/camayoc
+Section: utils
+Priority: optional
+Depends: python3 (>= 3.10)
+Description: Camayoc: typed agent memory over Quipu
+ Repackaged from the checksum-verified v0.1.9 release archive.
+ Upstream archive sha256: 8a03fc54644fbf5c5baf50f47016a73f92d8639ba85f3af5f64bc473e5e1f8cb
+Filename: pool/stable/camayoc/camayoc_0.1.9-1_amd64.deb
+Size: 56848
+MD5sum: 8117751d1140ffd03ff56ecee272ef16
+SHA256: 4f3f823c0a0f8f00c49d1abce7c4b0ab08f1bc3159aeb5e26582149dd18e71bf
 
 Package: desire-path
 Version: 0.10.0
