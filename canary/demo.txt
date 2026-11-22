@@ -6,3 +6,13 @@ Ran 2 tests in 0.222s
 
 OK
 DEMO unapproved seeds 0.7.1 -> excluded; unrelated tool -> retained
+
+Real 0.25.0-1 amd64 package and own signed receipt, private fixture, 2026-11-22:
+Base policy: 32953fe7e3629af0a163cc9e7071606bc0a0b56d
+Receipt SHA256: 9d5f10da178cfa9c399c1f47e92e3b7d612d76ed1365159c916b1147d8981354
+PRIVATE FIXTURE before: REFUSED canary-policy-mismatch; no stable copy
+PRIVATE FIXTURE after: PASS; byte-identical 0.25.0-1 amd64 copy
+
+This is a transcript fallback (no terminal recorder available), not publication
+or installation. Repeat with demos/seeds025-profile.py and the exact candidate
+Debian artifact; its receipt freshness boundary remains enforced.
