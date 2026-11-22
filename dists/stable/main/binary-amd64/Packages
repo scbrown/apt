@@ -2316,3 +2316,19 @@ Filename: pool/stable/yupana/yupana_0.19.2-2_amd64.deb
 Size: 6245724
 MD5sum: e870f94da15ec324919dd46b8cfd2718
 SHA256: e89685e20f136211e939f454135cfe4b4f1834ff4bade4595343a6659ccddd36
+
+Package: yupana
+Version: 0.19.3-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/yupana
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Yupana: live structural code intelligence
+ Repackaged from the checksum-verified v0.19.3 release archive.
+ Upstream archive sha256: de48bb27e10b0e9e8582fc71759338dc303e4d8543d6cef4c73fd209b47a7c2d
+Filename: pool/stable/yupana/yupana_0.19.3-2_amd64.deb
+Size: 6260380
+MD5sum: 7c3818507764b098a129d86a50c9e7a7
+SHA256: e2fe83def026baa89eb727ea2dd706944a9d6625e804c8dbcc95d3cc54259aa7
