@@ -9,8 +9,8 @@
     "seeds-canary-01": {
       "key_id": "seeds-canary-key-01",
       "architecture": "amd64",
-      "topology_sha256": "7f8de7f10e06806b1f908e7abcd518581984aa44501366fb919e43b95beb1fb0",
-      "st_version": "st 0.15.1 (371cb4e2-dirty)"
+      "topology_sha256": "7d841903b421ed6451efd2f15c6b61c32ae89449ffc76ec8608ac8527072d90a",
+      "st_version": "st 0.20.0 (f5aae92e-dirty)"
     }
   },
   "retain_published_seeds": false

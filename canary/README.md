@@ -10,12 +10,28 @@ Index exit 3 means a safe index was written with exclusions; the publisher can
 sign that index for other tools and reports a failed run. Other index errors
 stop signing/publication, including when an old index exists.
 
-## Enrollment is not complete
+## Enrollment and the pre-enrollment phase
 
-`policy.json` deliberately enrolls **no keys or canaries**. No test key is
-trusted by production. A dedicated Ops-owned Ed25519 attestation trust anchor
-requires its own approval and reviewed public-key enrollment. Until then no
-new Seeds version can be promoted to stable.
+The current `policy.json` enrolls a dedicated Ops-owned Ed25519 key and an
+amd64 canary. Its public-key hash remains pinned there. An empty, pre-enrollment
+policy trusts no test keys; introducing a new attestation trust anchor requires
+separate approval and reviewed public-key enrollment.
+
+The 0.25.0-1 packet supplies the exact native PASS receipt and signature
+for the existing key and canary. It refreshes only that canary's topology and
+`st_version` pins to the measured values; key, architecture and retention policy
+stay unchanged. A profile refresh invalidates receipts matching the old profile,
+including previously published stable bytes. It therefore remains subject to
+reviewed trust-policy admission, not merely receipt signature verification.
+
+The [recorded transcript](demo.txt) includes the real 0.25 package and signed
+receipt in an isolated pool: the old profile refuses before copying, while the
+matching profile admits byte-identical package bytes. It does not publish or
+install anything. Reproduce with
+`python3 demos/seeds025-profile.py --deb /path/to/seeds_0.25.0-1_amd64.deb`.
+The input must match the receipt's exact Debian SHA256. Freshness is enforced;
+after this receipt expires at `2026-11-23T01:46:30Z`, the positive side correctly
+refuses a new promotion rather than replaying the recorded result.
 
 The explicit `retain_published_seeds: true` setting preserves availability of
 **exact previously published bytes**, using the existing apt public key in
