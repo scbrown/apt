@@ -1077,3 +1077,19 @@ Filename: pool/stable/quipu/quipu_0.19.4-2_arm64.deb
 Size: 19919292
 MD5sum: fc6622c25ce7f70c58eed4ab16f06bbd
 SHA256: c690ea0103d3a7ba6dea4a0a04c96d6bc61b3089dbdf87d417c3442897b2bce2
+
+Package: quipu
+Version: 0.19.5-2
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2), libstdc++6 (>= 4.1.1)
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.19.5 release archive.
+ Upstream archive sha256: 929dccdfd8b09167669a2236d19761ec9a365a4419ed7c9185130eb98f52790c
+Filename: pool/stable/quipu/quipu_0.19.5-2_arm64.deb
+Size: 19937864
+MD5sum: cc9cd31a2fe609cea422813cfdc30929
+SHA256: ee6f15f91b88b0d38840841989b76bbc975074c03f5c7feefdafb1b784942d38
