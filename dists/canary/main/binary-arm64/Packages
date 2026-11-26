@@ -15,22 +15,6 @@ MD5sum: a7a276083ca8fdf6f29d9d53cf13c0ee
 SHA256: 37571c3b262db5a4bcb5e46177c69ad9a3d24a9ebb8dbafde996413189434cdd
 
 Package: seeds
-Version: 0.28.1-1
-Architecture: arm64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/intigraph/seeds
-Section: utils
-Priority: optional
-Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
-Description: Seeds: a work-item board on a Quipu knowledge graph
- Repackaged from the checksum-verified seeds-ai-v0.28.1 release archive.
- Upstream archive sha256: fba660b8bb1d6a2ff15e55e805f2b4a1a7d23284cfa85add6be1abd075dc1a85
-Filename: pool/canary/seeds/seeds_0.28.1-1_arm64.deb
-Size: 7027220
-MD5sum: 2bd20d4ff9ff9b027daf31310685639b
-SHA256: 19ae0a377e7bc0a34545f84e36f111df8758ded042aad3cb0898718d6e898014
-
-Package: seeds
 Version: 0.28.2-1
 Architecture: arm64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -77,3 +61,19 @@ Filename: pool/canary/seeds/seeds_0.29.0-1_arm64.deb
 Size: 7065112
 MD5sum: 6b5bdceb63c665414c3f448bcfca8fa3
 SHA256: 24f103f29db0715b3bf034dec8659434053c1861f522e5629fbcf908799c3e87
+
+Package: seeds
+Version: 0.29.1-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/intigraph/seeds
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Seeds: a work-item board on a Quipu knowledge graph
+ Repackaged from the checksum-verified seeds-ai-v0.29.1 release archive.
+ Upstream archive sha256: 4b68d1406c6349cf471f1353db0611fb381c83533ad170e4b6ffa624bfa92709
+Filename: pool/canary/seeds/seeds_0.29.1-1_arm64.deb
+Size: 7061664
+MD5sum: b2553d1ea1d4da825373a2de4af3c64d
+SHA256: 7e3f52c0a2489213499cfc0d9e9461ed6969b6a813de221a1969bfff852e6e7b
