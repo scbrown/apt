@@ -5,20 +5,20 @@ Origin: scbrown
 Label: scbrown stack
 Suite: canary
 Codename: canary
-Date: Thu, 26 Nov 2026 16:44:39 GMT
-Valid-Until: Sun, 06 Dec 2026 16:44:39 GMT
+Date: Thu, 26 Nov 2026 17:31:08 GMT
+Valid-Until: Sun, 06 Dec 2026 17:31:08 GMT
 Architectures: amd64 arm64
 Components: main
 Description: Quipu tool stack, repackaged from checksum-verified releases
 SHA256:
- 07069411319917c2e71d988a0115ed0cc1b2e5f5a7eee93e49bd22cd2c3c4f98            18762 main/binary-amd64/Packages
- 892e14ae0514690b317a456df25828f0afdda76fa2fa0407d6c2eb7fc296a90e             3903 main/binary-amd64/Packages.gz
- e36e8e5979c6a5cdbd8971879d53f959c60e55c7b94ea84e89bcb8c5c18cedeb            18762 main/binary-arm64/Packages
- 97ca30b956d766ea3ecc0ad6522f42ead4ce001764d2d1030b67faa52bc5ccb6             3909 main/binary-arm64/Packages.gz
+ f4695ddd59885e3f9b7b23c91fd766018be7ca9d1b6eaf287fcdf5c50c477162             3234 main/binary-amd64/Packages
+ c2cccec74b648327a0555a0b7a83483f55c015287c1fb420ff2d50a8098810bd              989 main/binary-amd64/Packages.gz
+ e13b3c3aff3cb2ebb445b005c6f54095150f95d62756c3059b0cdd62927f6b1d             3234 main/binary-arm64/Packages
+ 2d909179aa43d57d3dabac4b09723b1b14a6561f217ab1b8bd9a72522573dd49              985 main/binary-arm64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSrViXFYS9kO/dkZN8NyZkkmU7JWQUCawhh9wAKCRANyZkkmU7J
-WY+ZAQDly3AT48MMp0H0jJjsT6cHqXxgO+xrXsgB388rM+y7XAEAgZzOXUmovq63
-jgJZ1RfMG52noRDEXr1bIL883Mn3OgA=
-=La0o
+iHUEARYKAB0WIQSrViXFYS9kO/dkZN8NyZkkmU7JWQUCawhs3AAKCRANyZkkmU7J
+Wfh+AP9gN911EqUHmfToW7Jt6XFBlLHFxaFBPo6nVbOEIFhxIgD/Zw1d5Clxkzja
+xHuuTCgLmOOrkCI4rGFYUGTsGhAA/wE=
+=wvAK
 -----END PGP SIGNATURE-----
