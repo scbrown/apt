@@ -1,0 +1,13 @@
+{
+  "_note": "Served-pool retention (aegis-g68w.19). GitHub Pages refuses a site over 1 GB. Keep the newest `keep` versions of each pool/<channel>/<package>, plus declared rollback targets below. Removed versions stay in gh-pages history. Add a pin before a host config starts depending on an older version.",
+  "keep": 4,
+  "protect": {
+    "canary/seeds": [
+      {"version": "0.27.0-1", "reason": "goldblum stack_apt_seeds_rollback_version: fetched by URL from pool/canary/seeds"},
+      {"version": "0.28.3-1", "reason": "az3d.2 rollback target for the seeds 0.29.0-1 install"}
+    ],
+    "stable/yupana": [
+      {"version": "0.19.2-2", "reason": "goldblum stack_apt_yupana_rollback_version 0.19.2"}
+    ]
+  }
+}
