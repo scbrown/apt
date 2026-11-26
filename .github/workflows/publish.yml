@@ -36,6 +36,10 @@ jobs:
             python3 scripts/build_debs.py --manifest tools.json --pool site/pool --channel "$channel" --latest 3 || status=1
           done
           echo "BUILD_STATUS=$status" >> "$GITHUB_ENV"
+      - name: Bound the served pool
+        # GitHub Pages refuses a site over 1 GB (aegis-g68w.19). Keep the newest
+        # versions plus declared rollback targets; removed bytes stay in history.
+        run: python3 scripts/prune_pool.py --root site --retention retention.json
       - name: Index and sign
         env:
           APT_SIGNING_KEY: ${{ secrets.APT_SIGNING_KEY }}
@@ -73,6 +77,11 @@ jobs:
           touch site/.nojekyll
       - name: Publish
         run: |
+          # Refuse to push a tree Pages cannot deploy: a failed deploy leaves the
+          # old index served silently, which is worse than a red publish run.
+          bytes="$(find site -path site/.git -prune -o -type f -printf '%s\n' | awk '{s+=$1} END{print s+0}')"
+          echo "site tree: $bytes bytes"
+          if [ "$bytes" -gt 950000000 ]; then echo "REFUSED: site tree $bytes bytes exceeds the 950 MB Pages budget"; exit 1; fi
           cd site
           git add -A
           if git diff --cached --quiet; then
