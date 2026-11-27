@@ -1,20 +1,4 @@
 Package: bobbin
-Version: 0.36.1-1
-Architecture: arm64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/scbrown/bobbin
-Section: utils
-Priority: optional
-Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
-Description: Bobbin: semantic code and knowledge search
- Repackaged from the checksum-verified v0.36.1 release archive.
- Upstream archive sha256: d0a710c2703e7e78a2f25e31cbdad5d55029577a665d7f71d46aec2c059f78df
-Filename: pool/stable/bobbin/bobbin_0.36.1-1_arm64.deb
-Size: 35208444
-MD5sum: 9551127c7390359e29997a521aa22e3e
-SHA256: 099d984478cd479d4f07ab0108a55f66efca95da6183af700ae8d62a7362238e
-
-Package: bobbin
 Version: 0.37.1-1
 Architecture: arm64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -61,6 +45,22 @@ Filename: pool/stable/bobbin/bobbin_0.37.3-1_arm64.deb
 Size: 35206072
 MD5sum: 2c4512c9a647a59d9161fb439f76b1a7
 SHA256: 5527773487f80d27a5ea018296bd61eb39028d8d4ff059a28ebee94ddc9897c9
+
+Package: bobbin
+Version: 0.38.0-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.38.0 release archive.
+ Upstream archive sha256: f40866c74f31ea098dcddf29ff64f69e232aeedf5329579351858e008b62f85a
+Filename: pool/stable/bobbin/bobbin_0.38.0-1_arm64.deb
+Size: 35374792
+MD5sum: 54555628a749706fe1c8fac99edc4f44
+SHA256: 680d8f8a541e88e9e232261cfcd488aed3ce11970ac9aa50bc2cd244b2d8ca1e
 
 Package: camayoc
 Version: 0.1.10-1
