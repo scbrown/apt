@@ -2,13 +2,13 @@ Origin: scbrown
 Label: scbrown stack
 Suite: stable
 Codename: stable
-Date: Fri, 27 Nov 2026 10:45:03 GMT
-Valid-Until: Mon, 07 Dec 2026 10:45:03 GMT
+Date: Fri, 27 Nov 2026 11:45:26 GMT
+Valid-Until: Mon, 07 Dec 2026 11:45:26 GMT
 Architectures: amd64 arm64
 Components: main
 Description: Quipu tool stack, repackaged from checksum-verified releases
 SHA256:
- a7b2eaaeec5f54acdbcaebcc701c0841d3c543837760b965aaab0b2b75c7c5ec            18362 main/binary-amd64/Packages
- 6265b99417f4d5ac2acd1d9ca9884dc408b1a50e7dcc9d877672072592fd9903             4292 main/binary-amd64/Packages.gz
+ 4a7c1a0e1aad6a4248281d32fe08d0e952bbaa0b7bf584613f3ee609318657b0            18362 main/binary-amd64/Packages
+ 9c581a4ad79d97bd2384affed33add4e512bf0cf811dc6b79a90e77e5cf3ab7d             4286 main/binary-amd64/Packages.gz
  1a79a630916e2c7c8de52dc240de2463c87228380ba3f193bebea8631a105b1b            10061 main/binary-arm64/Packages
  b23e0632be182c0b352542e00ad3aa9492fed46a95c0098f672a5ba90fe91612             2465 main/binary-arm64/Packages.gz
