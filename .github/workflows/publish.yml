@@ -31,9 +31,19 @@ jobs:
         run: |
           # One tool's refused or unreadable release must not block the others:
           # record it, publish what verified, and fail the run at the end.
+          # Each command's output and exit status are kept for the final gate, which
+          # tells the one expected state (seeds promotion pending) from a real failure.
+          gate="$RUNNER_TEMP/gate"
+          mkdir -p "$gate"
+          echo "GATE_DIR=$gate" >> "$GITHUB_ENV"
           status=0
           for channel in canary stable nightly; do
-            python3 scripts/build_debs.py --manifest tools.json --pool site/pool --channel "$channel" --latest 3 || status=1
+            rc=0
+            python3 scripts/build_debs.py --manifest tools.json --pool site/pool --channel "$channel" --latest 3 \
+              > "$gate/build-$channel.log" 2>&1 || rc=$?
+            cat "$gate/build-$channel.log"
+            echo "$rc" > "$gate/build-$channel.rc"
+            [ "$rc" = 0 ] || status=1
           done
           echo "BUILD_STATUS=$status" >> "$GITHUB_ENV"
       - name: Bound the served pool
@@ -59,7 +69,10 @@ jobs:
             # The index independently excludes existing, unapproved seeds bytes.
             # It still writes a safe index for other tools; report refusal below.
             index_status=0
-            python3 scripts/index_repo.py --root site --channel "$channel" || index_status=$?
+            python3 scripts/index_repo.py --root site --channel "$channel" \
+              > "$GATE_DIR/index-$channel.log" 2>&1 || index_status=$?
+            cat "$GATE_DIR/index-$channel.log"
+            echo "$index_status" > "$GATE_DIR/index-$channel.rc"
             case "$index_status" in
               0) ;;
               3) status=1 ;;  # safe index written; one or more seeds packages excluded
@@ -93,6 +106,6 @@ jobs:
           git push origin HEAD:gh-pages
       - name: Fail on any refused or unknown release
         if: env.BUILD_STATUS != '0'
-        run: |
-          echo "at least one release was refused or unreadable; see the build step"
-          exit 1
+        # Only the exact pending-seeds state is a warning (scripts/publish_gate.py);
+        # any other refusal, UNKNOWN or unreadable result still fails the run.
+        run: python3 scripts/publish_gate.py --gate-dir "$GATE_DIR" --policy canary/policy.json --receipts canary/receipts
