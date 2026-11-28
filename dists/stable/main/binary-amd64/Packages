@@ -249,22 +249,6 @@ MD5sum: 7827d393e02acc109a0ad34c4f586c3a
 SHA256: f4dae603cc1289e33fc54135976d9c8badb377d20ed4f94699a34b8de9f94661
 
 Package: quipu
-Version: 0.19.2-2
-Architecture: amd64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/scbrown/quipu
-Section: utils
-Priority: optional
-Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2), libstdc++6 (>= 4.1.1)
-Description: Quipu: a governed temporal knowledge graph
- Repackaged from the checksum-verified quipu-ai-v0.19.2 release archive.
- Upstream archive sha256: 4b95f9623dcc11231d34ee4b1266bd2213b8895f11a5179c77ce8e73c90a4b7f
-Filename: pool/stable/quipu/quipu_0.19.2-2_amd64.deb
-Size: 22546724
-MD5sum: f74d1d13727ce851319fc27176a9f3e1
-SHA256: 9dc2ab19754674c26972855c4692e2b3541ac1ccf94013907c757df05497a21d
-
-Package: quipu
 Version: 0.19.3-2
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -312,6 +296,22 @@ Size: 22514180
 MD5sum: 4d939d6d5041573778e4bc61ff030ca3
 SHA256: baf006e8335ed5fac978aca1652d15cfdc52f0e5e8e940ed1df34afe785cb84e
 
+Package: quipu
+Version: 0.19.6-2
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/quipu
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2), libstdc++6 (>= 4.1.1)
+Description: Quipu: a governed temporal knowledge graph
+ Repackaged from the checksum-verified quipu-ai-v0.19.6 release archive.
+ Upstream archive sha256: 2fd54d0c9e8d8e49f581773640d33327d9ff332d3a976bc212b39e0fccbe232b
+Filename: pool/stable/quipu/quipu_0.19.6-2_amd64.deb
+Size: 23090904
+MD5sum: 032af7c91cfc635c7f9c98ba524304c3
+SHA256: acb9a0ca14d60cc716b98cd407cd3979021b2ceccb9c323d2d9ecf78ca062b86
+
 Package: seeds
 Version: 0.19.2-1
 Architecture: amd64
@@ -327,24 +327,6 @@ Filename: pool/stable/seeds/seeds_0.19.2-1_amd64.deb
 Size: 7660628
 MD5sum: 89cf7d9081bb243c5ef2e9e8022dc4e4
 SHA256: 6633243d12338b2a8d5cab4efce439e0fe44ab545ad846e4244e0034e7731329
-
-Package: tambo
-Version: 0.17.0-1
-Architecture: amd64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/scbrown/tambo
-Section: utils
-Priority: optional
-Breaks: caboodle (<< 0.3.5-1~)
-Replaces: caboodle (<< 0.3.5-1~)
-Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
-Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
- Repackaged from the checksum-verified v0.17.0 release archive.
- Upstream archive sha256: 29e8632692e4ab300b5995865fed4a2ce02071d46ae81aec3ae8203b7d56817f
-Filename: pool/stable/tambo/tambo_0.17.0-1_amd64.deb
-Size: 1804768
-MD5sum: 5b1f5546b6494186c079cb3fe1fa78c4
-SHA256: 33a6846ab0c8d6923a184fd78dbac96c34a9aa7b8fa18fe14a5edacbb2a8a6d3
 
 Package: tambo
 Version: 0.17.1-1
@@ -399,6 +381,24 @@ Filename: pool/stable/tambo/tambo_0.18.0-1_amd64.deb
 Size: 1891584
 MD5sum: f9fa72a312161fbeef660b80c5dc4a8a
 SHA256: ea32c9cea66aec6c74db06e0500afcd69989661d1b30af2bd47b0604607cef8d
+
+Package: tambo
+Version: 0.18.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/tambo
+Section: utils
+Priority: optional
+Breaks: caboodle (<< 0.3.5-1~)
+Replaces: caboodle (<< 0.3.5-1~)
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2)
+Description: Tambo: install and prove the Quipu tool stack (formerly CABOODLE)
+ Repackaged from the checksum-verified v0.18.1 release archive.
+ Upstream archive sha256: 1acfac3413bad5ff343ecfe5707f0f80c950d65506c655a765328a316c3f9ce1
+Filename: pool/stable/tambo/tambo_0.18.1-1_amd64.deb
+Size: 1869448
+MD5sum: 33c3e261b2d08d578e9b27976ccd0a93
+SHA256: 7f1f64ff3b5c7b0f1d59e3c6d01650a74a7f919cb63ceb1e075300d9b22de9b7
 
 Package: yupana
 Version: 0.19.2-2
