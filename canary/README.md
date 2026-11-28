@@ -7,15 +7,26 @@ build canary → verify/promote stable → independently verify the stable index
 An unapproved seeds deb is excluded from `Packages`, except for the explicit
 pre-enrollment preservation described below.
 Index exit 3 means a safe index was written with exclusions; the publisher can
-sign that index for other tools and reports a failed run. Other index errors
+sign that index for other tools. It fails the run unless every exclusion is the
+expected pending-promotion state described below. Other index errors
 stop signing/publication, including when an old index exists.
 
-## Enrollment is not complete
+## Enrollment state and pending promotions
 
-`policy.json` deliberately enrolls **no keys or canaries**. No test key is
-trusted by production. A dedicated Ops-owned Ed25519 attestation trust anchor
-requires its own approval and reviewed public-key enrollment. Until then no
-new Seeds version can be promoted to stable.
+`policy.json` enrolls the Ops attestation key and the amd64 canary (see its
+`keys` and `canaries`), and `retain_published_seeds` is false. A new seeds
+version still reaches stable only with a **signed receipt for that exact
+release and deb**; receipts are valid for at most 24 hours and live in
+`receipts/`. A release with no receipt is refused with
+`unavailable-canary-evidence`, so stable seeds stays at its last admitted
+version until Ops runs the canary and signs one.
+
+The publish workflow reports exactly that state, and only that, as a
+**warning** (`seeds promotion pending`) instead of a failed run
+(`scripts/publish_gate.py`). It stays a failure for anything else: another
+tool, another refusal reason, an unknown result, a refusal for a version that
+*does* have a receipt (an expired or invalid receipt is not "pending"), or a
+refusal outside the stable channel.
 
 The explicit `retain_published_seeds: true` setting preserves availability of
 **exact previously published bytes**, using the existing apt public key in
