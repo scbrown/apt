@@ -4,7 +4,7 @@
   "protect": {
     "canary/seeds": [
       {"version": "0.27.0-1", "reason": "goldblum stack_apt_seeds_rollback_version: fetched by URL from pool/canary/seeds"},
-      {"version": "0.28.3-1", "reason": "az3d.2 rollback target for the seeds 0.29.0-1 install"}
+      {"version": "0.28.3-1", "reason": "rollback target for the seeds 0.29.0-1 install; also the exact seeds client a downstream write-smoke test fetches from pool/canary/seeds with a pinned sha256 (a 404 here turns that test red). Re-check both consumers before moving or removing this pin"}
     ],
     "stable/yupana": [
       {"version": "0.19.2-2", "reason": "goldblum stack_apt_yupana_rollback_version 0.19.2"}

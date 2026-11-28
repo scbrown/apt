@@ -48,6 +48,20 @@ class PrunePool(unittest.TestCase):
         self.assertTrue((self.root / "pool/canary/seeds/seeds_0.27.0-1_amd64.deb").exists())
         self.assertFalse((self.root / "pool/canary/seeds/seeds_0.28.0-1_amd64.deb").exists())
 
+    def test_shipped_policy_keeps_the_seeds_client_a_downstream_smoke_test_fetches(self):
+        # A pruned pin is a 404 for a pinned-sha256 fetch, so the shipped policy must keep it
+        # and must say why, so nobody drops it as "just a rollback target" when that moves.
+        policy = json.loads((ROOT / "retention.json").read_text())
+        entries = {e["version"]: e["reason"] for e in policy["protect"]["canary/seeds"]}
+        self.assertIn("0.28.3-1", entries)
+        self.assertIn("write-smoke", entries["0.28.3-1"])
+        for v in ("0.27.0-1", "0.28.0-1", "0.28.3-1", "0.29.0-1", "0.29.1-1", "0.29.2-1"):
+            self.deb("canary", "seeds", v)
+        r = self.run_prune(keep=policy["keep"],
+                           protect={"canary/seeds": [{"version": v} for v in entries]})
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertTrue((self.root / "pool/canary/seeds/seeds_0.28.3-1_amd64.deb").exists())
+
     def test_indexed_stable_seeds_survive(self):
         old = self.deb("stable", "seeds", "0.19.2-1")
         for v in ("0.20.0-1", "0.21.0-1", "0.22.0-1"):
