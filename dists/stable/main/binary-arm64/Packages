@@ -1,20 +1,4 @@
 Package: bobbin
-Version: 0.37.1-1
-Architecture: arm64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/scbrown/bobbin
-Section: utils
-Priority: optional
-Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
-Description: Bobbin: semantic code and knowledge search
- Repackaged from the checksum-verified v0.37.1 release archive.
- Upstream archive sha256: f8c814d028d4136d5067da8fe44879e512596119997a10211a1d68aa6228ac91
-Filename: pool/stable/bobbin/bobbin_0.37.1-1_arm64.deb
-Size: 35170584
-MD5sum: ab53b975199308af83de37c28d03fe49
-SHA256: 38efe3a45aa3178ab58f53b6e6a2d219e0a064e3731a87c60319cbb72ea3caeb
-
-Package: bobbin
 Version: 0.37.2-1
 Architecture: arm64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -61,6 +45,22 @@ Filename: pool/stable/bobbin/bobbin_0.38.0-1_arm64.deb
 Size: 35374792
 MD5sum: 54555628a749706fe1c8fac99edc4f44
 SHA256: 680d8f8a541e88e9e232261cfcd488aed3ce11970ac9aa50bc2cd244b2d8ca1e
+
+Package: bobbin
+Version: 0.38.1-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.38.1 release archive.
+ Upstream archive sha256: b2f606bb3b6e4b6833ac9a4bcdbb1dbaecc01a3246b20235093ab00e79f0112c
+Filename: pool/stable/bobbin/bobbin_0.38.1-1_arm64.deb
+Size: 35366660
+MD5sum: 6146db6991602b2032b4a511aa2e913b
+SHA256: af3262f642d291df533ebabe834acd3d5f68d0ff6ef5f93e8f1b70e379c24e3a
 
 Package: camayoc
 Version: 0.1.10-1
@@ -142,21 +142,6 @@ MD5sum: 5a47753709dbbd95e6dfa3bc7e5bfdaa
 SHA256: 4703e3ef480244d0b71a1d7340c1ea5cbf0a267140beb7ee38cf4ec3f024d176
 
 Package: desire-path
-Version: 0.12.0
-Architecture: arm64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/scbrown/desire-path
-Section: utils
-Priority: optional
-Description: Desire Path: learn the paths agents actually take
- Repackaged from the checksum-verified v0.12.0 release archive.
- Upstream archive sha256: bc1fd9a2bae361de1831f763f39548ce1df70f66cb5d116c2de2780cf8672bfa
-Filename: pool/stable/desire-path/desire-path_0.12.0_arm64.deb
-Size: 3523852
-MD5sum: 8aeb0a703520467590052d6fcdf980e3
-SHA256: 09bf5e87127b93e9bd9e9ca41ef275b7b503fc26d8d362fe6884388aa1988a60
-
-Package: desire-path
 Version: 0.12.1-1
 Architecture: arm64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -185,6 +170,21 @@ Filename: pool/stable/desire-path/desire-path_0.12.2-1_arm64.deb
 Size: 3533404
 MD5sum: bddf37163f7ddba042e16903b9c4fe99
 SHA256: 8951aa34af5cd493db2d2c831b81edd05803d95e4d802759dfaea4de098f3829
+
+Package: desire-path
+Version: 0.12.3-1
+Architecture: arm64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.12.3 release archive.
+ Upstream archive sha256: f2c8fdf277bc713fde2e8406cc60ae4571a4f61ec5dfea758edf41194672b04b
+Filename: pool/stable/desire-path/desire-path_0.12.3-1_arm64.deb
+Size: 3532936
+MD5sum: b422009b9b5c44118f8aa898d8ded4ef
+SHA256: a0f2de556b4dda4130ad1721e9689fbff6f94e013b4bc11d23600f733aeb5055
 
 Package: quipu
 Version: 0.19.3-2

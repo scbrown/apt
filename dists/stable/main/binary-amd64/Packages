@@ -1,20 +1,4 @@
 Package: bobbin
-Version: 0.37.1-1
-Architecture: amd64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/scbrown/bobbin
-Section: utils
-Priority: optional
-Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
-Description: Bobbin: semantic code and knowledge search
- Repackaged from the checksum-verified v0.37.1 release archive.
- Upstream archive sha256: e53215d19b8f27e3f2dcd6f97484587dccfa18a2716f1bf18e379c9c0bef15cd
-Filename: pool/stable/bobbin/bobbin_0.37.1-1_amd64.deb
-Size: 30132200
-MD5sum: b9ff0e1cc45c211122d6e2f4e066ac75
-SHA256: 3f55e533736f2bbbeab7e7daf845dfbb929a55945cd032486a20a16f11bede6e
-
-Package: bobbin
 Version: 0.37.2-1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -61,6 +45,22 @@ Filename: pool/stable/bobbin/bobbin_0.38.0-1_amd64.deb
 Size: 30148036
 MD5sum: d1d0ea1850300972a39efe67ef6479af
 SHA256: 5e8946c9113e73ee72de957fbae920b8ec648b136ce01d02497b219bb21d1e09
+
+Package: bobbin
+Version: 0.38.1-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/bobbin
+Section: utils
+Priority: optional
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 4.2)
+Description: Bobbin: semantic code and knowledge search
+ Repackaged from the checksum-verified v0.38.1 release archive.
+ Upstream archive sha256: 7b090534fea791c70871c7cfd92c6f0ae1e448417393a8445ef7b9057b3c0f64
+Filename: pool/stable/bobbin/bobbin_0.38.1-1_amd64.deb
+Size: 30148336
+MD5sum: 43682f0dfd33abfb242bd2346534a4a3
+SHA256: ce26d326be9ca2707f45c8c446350de8dad443d54e630ae0a312674aaa556d72
 
 Package: caboodle
 Version: 0.3.4-1
@@ -204,21 +204,6 @@ MD5sum: f964b2b9b2c099c56b83df4ffac5504e
 SHA256: 3dca1b1dda4df2c969e88519e8bf90cef78705e136529b08902673a4e90ac171
 
 Package: desire-path
-Version: 0.12.0
-Architecture: amd64
-Maintainer: Steve Brown <scbrown@users.noreply.github.com>
-Homepage: https://github.com/scbrown/desire-path
-Section: utils
-Priority: optional
-Description: Desire Path: learn the paths agents actually take
- Repackaged from the checksum-verified v0.12.0 release archive.
- Upstream archive sha256: 1bad12757d8f96373a022aeb6b4ad46279f397069a213a1af9bf34103cfcfde2
-Filename: pool/stable/desire-path/desire-path_0.12.0_amd64.deb
-Size: 4078092
-MD5sum: 6771d21c9b2235988419fa94bc85d6e0
-SHA256: 39c339c0fd39940a40a7ef74a9b672daa5d9c7c56ece773aa84bf54763905bda
-
-Package: desire-path
 Version: 0.12.1-1
 Architecture: amd64
 Maintainer: Steve Brown <scbrown@users.noreply.github.com>
@@ -247,6 +232,21 @@ Filename: pool/stable/desire-path/desire-path_0.12.2-1_amd64.deb
 Size: 4087500
 MD5sum: 7827d393e02acc109a0ad34c4f586c3a
 SHA256: f4dae603cc1289e33fc54135976d9c8badb377d20ed4f94699a34b8de9f94661
+
+Package: desire-path
+Version: 0.12.3-1
+Architecture: amd64
+Maintainer: Steve Brown <scbrown@users.noreply.github.com>
+Homepage: https://github.com/scbrown/desire-path
+Section: utils
+Priority: optional
+Description: Desire Path: learn the paths agents actually take
+ Repackaged from the checksum-verified v0.12.3 release archive.
+ Upstream archive sha256: e7080a7cf5e5591424a372b41e4b013126e34c00b228d86be3e401e6f8a403e9
+Filename: pool/stable/desire-path/desire-path_0.12.3-1_amd64.deb
+Size: 4087796
+MD5sum: 51d550768df644779b7baf16282c9fa0
+SHA256: 3ba80d8092774dbea0c5d6d8968464e0192d1c3d759d3ab4052ebe0c55a04ce7
 
 Package: quipu
 Version: 0.19.3-2
